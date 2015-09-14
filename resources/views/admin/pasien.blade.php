@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('extraStyle')
-	<title>ELGEKA - Admin</title>
+	<title>ELGEKA - Kelola pasien</title>
 @stop
 
 @section('headerExtraScript')
@@ -9,29 +9,29 @@
 @stop
 
 @section('pageTitle')
-Admin
+Pasien
 @stop
 
 @section('pageSubtitle')
-Halaman admin
+Kelola pasien
 @stop
 
 @section('body')
 <div class="breadcrumb-line">
 	<ul class="breadcrumb">
 		<li><a href="{{ URL('/') }}">Home</a></li>
-		<li class="active">Admin</li>
+		<li class="active">Pasien</li>
 	</ul>
 </div>
 <ul class="info-blocks" style="text-align: left;">
 	<li class="bg-primary">
-		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">New Admin</a><small>create new admin</small></div>
-		<a data-toggle="modal" role="button" href="#iconified_modal"><i class="icon-user-plus2"></i></a><span class="bottom-info bg-danger"></span>
+		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">New Pasien</a><small>create new pasien</small></div>
+		<a data-toggle="modal" role="button" href="#iconified_modal"><i class="icon-user2"></i></a><span class="bottom-info bg-danger"></span>
 	</li>
 </ul>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h6 class="panel-title"><i class="icon-paragraph-justify"></i> Admin</h6>
+		<h6 class="panel-title"><i class="icon-paragraph-justify"></i> Pasien</h6>
 	</div>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">
@@ -60,7 +60,7 @@ Halaman admin
 					<td>{{ $key->username }}</td>
 					<td>{{ $key->email }}</td>
 					<td style="text-transform: uppercase;">{{ $key->jk }}</td>
-					<td>{{ $key->ttl_t }}, {{ $key->ttl_tl }}</td>
+					<td>{{ $key->ttl }}</td>
 					<td>{{ $key->alamat }}</td>
 					<td>{{ $key->hp1 }}</td>
 					<td>{{ $key->hp2 }}</td>
@@ -139,19 +139,11 @@ Halaman admin
 						</div>
 					</div>
 					&nbsp;
-					<div class="form-group @if ($errors->has('ttl_t')) has-error @endif">
-						<label class="col-sm-2 control-label">Tempat lahir: </label>
+					<div class="form-group @if ($errors->has('ttl')) has-error @endif">
+						<label class="col-sm-2 control-label">Tempat tanggal lahir: </label>
 						<div class="col-sm-10">
-							<textarea class="form-control" name="ttl_t"></textarea>
-							@if ($errors->has('ttl_t')) <p class="help-block">{{ $errors->first('ttl_t') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
-					<div class="form-group @if ($errors->has('ttl_tl')) has-error @endif">
-						<label class="col-sm-2 control-label">Tanggal lahir: </label>
-						<div class="col-sm-10">
-							<input class="form-control" name="ttl_tl" data-mask="99/99/9999" type="text" placeholder="ex: 31/12/1995">
-							@if ($errors->has('ttl_tl')) <p class="help-block">{{ $errors->first('ttl_tl') }}</p> @endif
+							<textarea class="form-control" name="ttl"></textarea>
+							@if ($errors->has('ttl')) <p class="help-block">{{ $errors->first('ttl') }}</p> @endif
 						</div>
 					</div>
 					&nbsp;
@@ -245,19 +237,11 @@ Halaman admin
 						</div>
 					</div>
 					&nbsp;
-					<div class="form-group @if ($errors->has('edit_ttl_t')) has-error @endif">
-						<label class="col-sm-2 control-label">Tempat lahir: </label>
+					<div class="form-group @if ($errors->has('edit_ttl')) has-error @endif">
+						<label class="col-sm-2 control-label">Tempat tanggal lahir: </label>
 						<div class="col-sm-10">
-							<textarea class="form-control" name="edit_ttl_t"></textarea>
-							@if ($errors->has('edit_ttl_t')) <p class="help-block">{{ $errors->first('edit_ttl_t') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
-					<div class="form-group @if ($errors->has('edit_ttl_tl')) has-error @endif">
-						<label class="col-sm-2 control-label">Tanggal lahir: </label>
-						<div class="col-sm-10">
-							<input class="form-control" name="edit_ttl_tl" data-mask="99/99/9999" type="text" placeholder="ex: 31/12/1995">
-							@if ($errors->has('edit_ttl_tl')) <p class="help-block">{{ $errors->first('edit_ttl_tl') }}</p> @endif
+							<textarea class="form-control" name="edit_ttl" id="edit_ttl"></textarea>
+							@if ($errors->has('edit_ttl')) <p class="help-block">{{ $errors->first('edit_ttl') }}</p> @endif
 						</div>
 					</div>
 					&nbsp;
@@ -354,12 +338,10 @@ Halaman admin
 				elem.value = data['username'];
 				elem = document.getElementById("edit_email");
 				elem.value = data['email'];
-				elem = document.getElementById("edit_ttl_t");
-				elem.value = data['ttl_t'];
-				elem = document.getElementById("edit_ttl_tl");
-				elem.value = data['ttl_tl'];
+				elem = document.getElementById("edit_ttl");
+				elem.value = data['ttl'];
 				elem = document.getElementById("edit_alamat");
-				elem.value = data['alamat'];
+				elem.value = "asdasd";
 				elem = document.getElementById("edit_hp1");
 				elem.value = data['hp1'];
 				elem = document.getElementById("edit_hp2");

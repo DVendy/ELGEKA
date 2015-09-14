@@ -5,46 +5,19 @@ use App\User;
 use Hash;
 use Validator;
 use Input;
-use DateTime;
 
-class AdminController extends Controller {
+class PasienController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
 	public function __construct()
 	{
 		//$this->middleware('auth');
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
-	public function dashboard()
-	{
-		return view('admin.dashboard');
-	}
-
 	public function main()
 	{
-		$users = User::where('role', '=', 'admin')->paginate(25);
+		$users = User::where('role', '=', 'pasien')->paginate(25);
 		$users->setPath('');
-		return view('admin.main')->with('users', $users);
+		return view('admin.pasien')->with('users', $users);
 	}
 
 	public function create()
@@ -79,15 +52,10 @@ class AdminController extends Controller {
 			$user->email = Input::get('email');
 			$user->jk = Input::get('jk');
 
-			if (Input::has('ttl_t'))
-				$user->ttl_t = Input::get('ttl_t');
+			if (Input::has('ttl'))
+				$user->ttl = Input::get('ttl');
 			else				
-				$user->ttl_t = '';
-
-			if (Input::has('ttl_tl'))
-				$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('ttl_tl'));
-			else				
-				$user->ttl_tl = '';
+				$user->ttl = '';
 
 			if (Input::has('alamat'))
 				$user->alamat = Input::get('alamat');

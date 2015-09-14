@@ -45,7 +45,7 @@
 				?>
 				<li><a href="#" class="expand" @if($master) id="second-level" @endif ><span>Olah Master</span> <i class="icon-grid3"></i></a>
 				<ul style="display: none;">
-					<li @if(Request::is('pasien*')) class="active" @endif ><a href="#"><span>Pasien</span> <i class="icon-user2"></i></a></li>  
+					<li @if(Request::is('pasien*')) class="active" @endif ><a href="{{ URL('pasien') }}"><span>Pasien</span> <i class="icon-user2"></i></a></li>  
 					<li @if(Request::is('obat*')) class="active" @endif ><a href="#"><span>Obat</span> <i class="icon-inject"></i></a></li>
 					<li @if(Request::is('asuransi*')) class="active" @endif ><a href="#"><span>Asuransi</span> <i class="icon-file4"></i></a></li>
 					<li @if(Request::is('dokter*')) class="active" @endif ><a href="#"><span>Dokter</span> <i class="icon-glasses3"></i></a></li>
