@@ -113,6 +113,8 @@ class AdminController extends Controller {
 
 	public function getAjax($id){
 		$user = User::find($id);
+		//dd($user);
+		$user->ttl_tl = date_format(DateTime::createFromFormat('Y-m-d H:i:s', $user->ttl_tl),"d/m/Y");
 		return $user;
 	}
 
@@ -141,10 +143,15 @@ class AdminController extends Controller {
 			$user->email = Input::get('edit_email');
 			$user->jk = Input::get('edit_jk');
 
-			if (Input::has('edit_ttl'))
-				$user->ttl = Input::get('edit_ttl');
+			if (Input::has('edit_ttl_t'))
+				$user->ttl_t = Input::get('edit_ttl_t');
 			else				
-				$user->ttl = '';
+				$user->ttl_t = '';
+
+			if (Input::has('edit_ttl_tl'))
+				$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('edit_ttl_tl'));
+			else				
+				$user->ttl_tl = '';
 
 			if (Input::has('edit_alamat'))
 				$user->alamat = Input::get('edit_alamat');

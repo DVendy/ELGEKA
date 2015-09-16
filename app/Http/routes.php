@@ -35,3 +35,17 @@ Route::post('pasien/create', 'PasienController@create');
 Route::post('pasien/update', 'PasienController@update');
 Route::get('pasien/delete-{id}', 'PasienController@delete');
 Route::get('pasien/getAjax/{id}', 'PasienController@getAjax');
+
+//OBAT
+Route::get('obat', 'ObatController@main');
+Route::post('obat/create', 'ObatController@create');
+Route::post('obat/update', 'ObatController@update');
+Route::get('obat/delete-{id}', 'ObatController@delete');
+Route::get('obat/getAjax/{id}', 'ObatController@getAjax');
+
+//OBAT
+Route::get('asuransi', 'AsuransiController@main');
+Route::post('asuransi/create', 'AsuransiController@create');
+Route::post('asuransi/update', 'AsuransiController@update');
+Route::get('asuransi/delete-{id}', 'AsuransiController@delete');
+Route::get('asuransi/getAjax/{id}', 'AsuransiController@getAjax');

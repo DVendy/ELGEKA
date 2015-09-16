@@ -60,7 +60,7 @@ Halaman admin
 					<td>{{ $key->username }}</td>
 					<td>{{ $key->email }}</td>
 					<td style="text-transform: uppercase;">{{ $key->jk }}</td>
-					<td>{{ $key->ttl_t }}, {{ $key->ttl_tl }}</td>
+					<td>{{ $key->ttl_t }}, {{ date_format(DateTime::createFromFormat('Y-m-d H:i:s', $key->ttl_tl),"d/m/Y") }}</td>
 					<td>{{ $key->alamat }}</td>
 					<td>{{ $key->hp1 }}</td>
 					<td>{{ $key->hp2 }}</td>
@@ -248,7 +248,7 @@ Halaman admin
 					<div class="form-group @if ($errors->has('edit_ttl_t')) has-error @endif">
 						<label class="col-sm-2 control-label">Tempat lahir: </label>
 						<div class="col-sm-10">
-							<textarea class="form-control" name="edit_ttl_t"></textarea>
+							<textarea class="form-control" name="edit_ttl_t" id="edit_ttl_t"></textarea>
 							@if ($errors->has('edit_ttl_t')) <p class="help-block">{{ $errors->first('edit_ttl_t') }}</p> @endif
 						</div>
 					</div>
@@ -256,7 +256,7 @@ Halaman admin
 					<div class="form-group @if ($errors->has('edit_ttl_tl')) has-error @endif">
 						<label class="col-sm-2 control-label">Tanggal lahir: </label>
 						<div class="col-sm-10">
-							<input class="form-control" name="edit_ttl_tl" data-mask="99/99/9999" type="text" placeholder="ex: 31/12/1995">
+							<input class="form-control" name="edit_ttl_tl" data-mask="99/99/9999" type="text" placeholder="ex: 31/12/1995" id="edit_ttl_tl">
 							@if ($errors->has('edit_ttl_tl')) <p class="help-block">{{ $errors->first('edit_ttl_tl') }}</p> @endif
 						</div>
 					</div>

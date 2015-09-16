@@ -46,8 +46,8 @@
 				<li><a href="#" class="expand" @if($master) id="second-level" @endif ><span>Olah Master</span> <i class="icon-grid3"></i></a>
 				<ul style="display: none;">
 					<li @if(Request::is('pasien*')) class="active" @endif ><a href="{{ URL('pasien') }}"><span>Pasien</span> <i class="icon-user2"></i></a></li>  
-					<li @if(Request::is('obat*')) class="active" @endif ><a href="#"><span>Obat</span> <i class="icon-inject"></i></a></li>
-					<li @if(Request::is('asuransi*')) class="active" @endif ><a href="#"><span>Asuransi</span> <i class="icon-file4"></i></a></li>
+					<li @if(Request::is('obat*')) class="active" @endif ><a href="{{ URL('obat') }}"><span>Obat</span> <i class="icon-inject"></i></a></li>
+					<li @if(Request::is('asuransi*')) class="active" @endif ><a href="{{ URL('asuransi') }}"><span>Asuransi</span> <i class="icon-file4"></i></a></li>
 					<li @if(Request::is('dokter*')) class="active" @endif ><a href="#"><span>Dokter</span> <i class="icon-glasses3"></i></a></li>
 					<li @if(Request::is('indikasi*')) class="active" @endif ><a href="#"><span>Indikasi</span> <i class="icon-heart6"></i></a></li>
 					<li @if(Request::is('rs*')) class="active" @endif ><a href="#"><span>Rumah Sakit</span> <i class="icon-home5"></i></a></li>
