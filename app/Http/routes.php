@@ -49,3 +49,38 @@ Route::post('asuransi/create', 'AsuransiController@create');
 Route::post('asuransi/update', 'AsuransiController@update');
 Route::get('asuransi/delete-{id}', 'AsuransiController@delete');
 Route::get('asuransi/getAjax/{id}', 'AsuransiController@getAjax');
+
+//DOKTER
+Route::get('dokter', 'DokterController@main');
+Route::post('dokter/create', 'DokterController@create');
+Route::post('dokter/update', 'DokterController@update');
+Route::get('dokter/delete-{id}', 'DokterController@delete');
+Route::get('dokter/getAjax/{id}', 'DokterController@getAjax');
+
+//INDIKASI
+Route::get('indikasi', 'IndikasiController@main');
+Route::post('indikasi/create', 'IndikasiController@create');
+Route::post('indikasi/update', 'IndikasiController@update');
+Route::get('indikasi/delete-{id}', 'IndikasiController@delete');
+Route::get('indikasi/getAjax/{id}', 'IndikasiController@getAjax');
+
+//RUMAH_SAKIT
+Route::get('rs', 'RsController@main');
+Route::post('rs/create', 'RsController@create');
+Route::post('rs/update', 'RsController@update');
+Route::get('rs/delete-{id}', 'RsController@delete');
+Route::get('rs/getAjax/{id}', 'RsController@getAjax');
+
+//PROVINSI
+Route::get('provinsi', 'ProvinsiController@main');
+Route::post('provinsi/create', 'ProvinsiController@create');
+Route::post('provinsi/update', 'ProvinsiController@update');
+Route::get('provinsi/delete-{id}', 'ProvinsiController@delete');
+Route::get('provinsi/getAjax/{id}', 'ProvinsiController@getAjax');
+
+//KOTAKAB
+Route::get('kotakab', 'KotakabController@main');
+Route::post('kotakab/create', 'KotakabController@create');
+Route::post('kotakab/update', 'KotakabController@update');
+Route::get('kotakab/delete-{id}', 'KotakabController@delete');
+Route::get('kotakab/getAjax/{id}', 'KotakabController@getAjax');

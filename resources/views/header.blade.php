@@ -1,6 +1,6 @@
 	<div class="navbar navbar-inverse" role="navigation">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#"><h4><i>ELGEKA</i></h4></a>
+			<a class="navbar-brand" href="#"><h4>Elgeka</h4></a>
 			<a class="sidebar-toggle"><i class="icon-paragraph-justify2"></i></a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar"><span class="sr-only">Toggle navigation</span><i class="icon-paragraph-justify2"></i></button>
 		</div>
@@ -14,6 +14,7 @@
 			<!-- User dropdown -->
 				<div class="user-menu dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<img src="images/demo/users/face3.png" alt="">
 						<div class="user-info">Nama<span>Role</span></div>
 					</a>
 					<div class="popup dropdown-menu dropdown-menu-right">
@@ -48,11 +49,11 @@
 					<li @if(Request::is('pasien*')) class="active" @endif ><a href="{{ URL('pasien') }}"><span>Pasien</span> <i class="icon-user2"></i></a></li>  
 					<li @if(Request::is('obat*')) class="active" @endif ><a href="{{ URL('obat') }}"><span>Obat</span> <i class="icon-inject"></i></a></li>
 					<li @if(Request::is('asuransi*')) class="active" @endif ><a href="{{ URL('asuransi') }}"><span>Asuransi</span> <i class="icon-file4"></i></a></li>
-					<li @if(Request::is('dokter*')) class="active" @endif ><a href="#"><span>Dokter</span> <i class="icon-glasses3"></i></a></li>
-					<li @if(Request::is('indikasi*')) class="active" @endif ><a href="#"><span>Indikasi</span> <i class="icon-heart6"></i></a></li>
-					<li @if(Request::is('rs*')) class="active" @endif ><a href="#"><span>Rumah Sakit</span> <i class="icon-home5"></i></a></li>
-					<li @if(Request::is('provinsi*')) class="active" @endif ><a href="#"><span>Provinsi</span> <i class="icon-home7"></i></a></li>
-					<li @if(Request::is('kotakab*')) class="active" @endif ><a href="#"><span>Kota / kabupaten</span> <i class="icon-home6"></i></a></li>
+					<li @if(Request::is('dokter*')) class="active" @endif ><a href="{{ URL('dokter') }}"><span>Dokter</span> <i class="icon-glasses3"></i></a></li>
+					<li @if(Request::is('indikasi*')) class="active" @endif ><a href="{{ URL('indikasi') }}"><span>Indikasi</span> <i class="icon-heart6"></i></a></li>
+					<li @if(Request::is('rs*')) class="active" @endif ><a href="{{ URL('rs') }}"><span>Rumah Sakit</span> <i class="icon-home5"></i></a></li>
+					<li @if(Request::is('provinsi*')) class="active" @endif ><a href="{{ URL('provinsi') }}"><span>Provinsi</span> <i class="icon-home7"></i></a></li>
+					<li @if(Request::is('kotakab*')) class="active" @endif ><a href="{{ URL('kotakab') }}"><span>Kota / kabupaten</span> <i class="icon-home6"></i></a></li>
 					<li @if(Request::is('kecamatan*')) class="active" @endif ><a href="#"><span>Kecamatan</span> <i class="icon-home2"></i></a></li>
 					<li @if(Request::is('kelurahan*')) class="active" @endif ><a href="#"><span>Kelurahan</span> <i class="icon-home"></i></a></li>
 				</ul>
