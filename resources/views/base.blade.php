@@ -4,7 +4,6 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Londinium - premium responsive admin template by Eugene Kopyov</title>
 	<link href="{{ URL::asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{ URL::asset('css/londinium-theme.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{ URL::asset('css/styles.min.css')}}" rel="stylesheet" type="text/css">
@@ -48,6 +47,8 @@
 			position: absolute;
 		}
 	</style>  
+
+	@yield('extraStyle')
 </head>
 <body  class="sidebar-wide">
 	@include('header')

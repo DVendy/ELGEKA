@@ -54,8 +54,8 @@
 					<li @if(Request::is('rs*')) class="active" @endif ><a href="{{ URL('rs') }}"><span>Rumah Sakit</span> <i class="icon-home5"></i></a></li>
 					<li @if(Request::is('provinsi*')) class="active" @endif ><a href="{{ URL('provinsi') }}"><span>Provinsi</span> <i class="icon-home7"></i></a></li>
 					<li @if(Request::is('kotakab*')) class="active" @endif ><a href="{{ URL('kotakab') }}"><span>Kota / kabupaten</span> <i class="icon-home6"></i></a></li>
-					<li @if(Request::is('kecamatan*')) class="active" @endif ><a href="#"><span>Kecamatan</span> <i class="icon-home2"></i></a></li>
-					<li @if(Request::is('kelurahan*')) class="active" @endif ><a href="#"><span>Kelurahan</span> <i class="icon-home"></i></a></li>
+					<li @if(Request::is('kecamatan*')) class="active" @endif ><a href="{{ URL('kecamatan') }}"><span>Kecamatan</span> <i class="icon-home2"></i></a></li>
+					<li @if(Request::is('kelurahan*')) class="active" @endif ><a href="{{ URL('kelurahan') }}"><span>Kelurahan</span> <i class="icon-home"></i></a></li>
 				</ul>
 				</li>
 
