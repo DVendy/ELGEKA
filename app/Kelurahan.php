@@ -13,4 +13,12 @@ class Kelurahan extends Model {
 	 */
 	protected $fillable = ['nama_kelurahan'];
 
+    public function rss() {
+        return $this->hasMany('Rs');
+    }
+
+	public function kecamatan() {
+        return $this->belongsTo('Kecamatan');
+    }
+
 }

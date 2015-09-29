@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Kotakab;
+use App\Provinsi;
 
 use Hash;
 use Validator;
@@ -43,7 +44,9 @@ class KotakabController extends Controller {
 	{
 		$kotakabs = Kotakab::paginate(25);
 		$kotakabs->setPath('');
-		return view('admin.kotakab')->with('kotakabs', $kotakabs);
+
+		$provinsis = Provinsi::all();
+		return view('admin.kotakab')->with('kotakabs', $kotakabs)->with('provinsis', $provinsis);
 	}
 
 	public function create()

@@ -13,4 +13,8 @@ class Rs extends Model {
 	 */
 	protected $fillable = ['nama_rs'];
 
+	public function kelurahan() {
+        return $this->belongsTo('Kelurahan');
+    }
+
 }

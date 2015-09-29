@@ -13,4 +13,7 @@ class Provinsi extends Model {
 	 */
 	protected $fillable = ['nama_provinsi'];
 
+    public function kotakabs() {
+        return $this->hasMany('Kotakab');
+    }
 }

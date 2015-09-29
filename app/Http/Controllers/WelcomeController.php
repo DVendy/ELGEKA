@@ -33,4 +33,14 @@ class WelcomeController extends Controller {
 		return view('front.main');
 	}
 
+	public function login()
+	{
+		return view('front.login');
+	}
+
+	public function doLogin()
+	{
+		
+	}
+
 }

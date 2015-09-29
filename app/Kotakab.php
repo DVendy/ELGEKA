@@ -13,4 +13,11 @@ class Kotakab extends Model {
 	 */
 	protected $fillable = ['nama_kotakab'];
 
+    public function kecamatans() {
+        return $this->hasMany('Kecamatan');
+    }
+
+	public function provinsi() {
+        return $this->belongsTo('Provinsi');
+    }
 }

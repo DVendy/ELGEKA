@@ -95,6 +95,22 @@ Manage kota / kabupaten
 							@if ($errors->has('nama_kotakab')) <p class="help-block">{{ $errors->first('nama_kotakab') }}</p> @endif
 						</div>
 					</div>
+					&nbsp;
+					<div class="form-group">
+			            <label class="col-md-3 control-label">Provinsi </label>
+			            <div class="col-md-9">
+			              <select name="select" class="form-control">
+			                <option value="opt1">Usual select box</option>
+			                <option value="opt2">Option 2</option>
+			                <option value="opt3">Option 3</option>
+			                <option value="opt4">Option 4</option>
+			                <option value="opt5">Option 5</option>
+			                <option value="opt6">Option 6</option>
+			                <option value="opt7">Option 7</option>
+			                <option value="opt8">Option 8</option>
+			              </select>
+			            </div>
+			        </div>
 				</div>
 			</div>
 			<div class="modal-footer">
