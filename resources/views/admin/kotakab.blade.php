@@ -40,7 +40,8 @@ Manage kota / kabupaten
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Nama Kota / kabupaten</th>
+							<th>Kota / kabupaten</th>
+							<th>Provinsi</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -52,6 +53,7 @@ Manage kota / kabupaten
 						<tr>
 							<td>{{ $i}}</td>
 							<td>{{ $key->nama_kotakab }}</td>
+							<td>{{ $key->provinsi->nama_provinsi }}</td>
 							<td> 
 								<div class="pull-right">
 									<a href="#" data-toggle="modal" data-target="#edit_modal" title="Delete"><i class="icon-pencil text-success edit_user" id="{{ $key->id }}"></i></a>
@@ -96,19 +98,16 @@ Manage kota / kabupaten
 						</div>
 					</div>
 					&nbsp;
-					<div class="form-group">
+					<div class="form-group @if ($errors->has('s_provinsi')) has-error @endif">
 			            <label class="col-md-3 control-label">Provinsi </label>
 			            <div class="col-md-9">
-			              <select name="select" class="form-control">
-			                <option value="opt1">Usual select box</option>
-			                <option value="opt2">Option 2</option>
-			                <option value="opt3">Option 3</option>
-			                <option value="opt4">Option 4</option>
-			                <option value="opt5">Option 5</option>
-			                <option value="opt6">Option 6</option>
-			                <option value="opt7">Option 7</option>
-			                <option value="opt8">Option 8</option>
+			              <select name="s_provinsi" class="form-control">
+			                	<option value="">- Pilih provinsi -</option>
+			                @foreach($provinsis as $value)
+			                	<option value="{{ $value->id }}">{{ $value->nama_provinsi }}</option>
+			               	@endforeach
 			              </select>
+			              @if ($errors->has('s_provinsi')) <p class="help-block">{{ $errors->first('s_provinsi') }}</p> @endif
 			            </div>
 			        </div>
 				</div>
@@ -141,6 +140,19 @@ Manage kota / kabupaten
 							@if ($errors->has('edit_nama_kotakab')) <p class="help-block">{{ $errors->first('edit_nama_kotakab') }}</p> @endif
 						</div>
 					</div>
+					&nbsp;
+					<div class="form-group @if ($errors->has('edit_s_provinsi')) has-error @endif">
+			            <label class="col-md-3 control-label">Provinsi </label>
+			            <div class="col-md-9">
+			              <select name="edit_s_provinsi" class="form-control">
+			                	<option value="">- Pilih provinsi -</option>
+			                @foreach($provinsis as $value)
+			                	<option value="{{ $value->id }}">{{ $value->nama_provinsi }}</option>
+			               	@endforeach
+			              </select>
+			              @if ($errors->has('edit_s_provinsi')) <p class="help-block">{{ $errors->first('edit_s_provinsi') }}</p> @endif
+			            </div>
+			        </div>
 				</div>
 			</div>
 			<div class="modal-footer">

@@ -74,6 +74,12 @@ class ProvinsiController extends Controller {
 		return $provinsi;
 	}
 
+	public function getChild($id){
+		$provinsi = Provinsi::find($id);
+		//dd($user);
+		return $provinsi->kotakabs;
+	}
+
 	public function update()
 	{
 		$validate = Validator::make(Input::all(), array(

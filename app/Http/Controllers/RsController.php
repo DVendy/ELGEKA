@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Rs;
+use App\Provinsi;
 
 use Hash;
 use Validator;
@@ -43,18 +44,23 @@ class RsController extends Controller {
 	{
 		$rss = Rs::paginate(25);
 		$rss->setPath('');
-		return view('admin.rs')->with('rss', $rss);
+
+		$provinsis = Provinsi::all();
+
+		return view('admin.rs')->with('rss', $rss)->with('provinsis', $provinsis);
 	}
 
 	public function create()
 	{
 		$validate = Validator::make(Input::all(), array(
 			'nama_rs' 	=> 'required||unique:rumah_sakit',
+			's_kelurahan' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'nama_rs' 	=> 'required||unique:rumah_sakit',
+				's_kelurahan' 	=> 'required',
 				'create' => 'required',
 				));
 			return redirect('rs')->withErrors($validate)->withInput();
@@ -63,6 +69,7 @@ class RsController extends Controller {
 	    //
 			$rs = new Rs();
 			$rs->nama_rs = Input::get('nama_rs');
+			$rs->kelurahan_id = Input::get('s_kelurahan');
 			$rs->save();
 			return redirect('rs');
 		}
@@ -78,11 +85,13 @@ class RsController extends Controller {
 	{
 		$validate = Validator::make(Input::all(), array(
 			'edit_nama_rs' 	=> 'required||min:3',
+			'edit_s_kelurahan' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'edit_nama_rs' 	=> 'required||min:3',
+				'edit_s_kelurahan' 	=> 'required',
 				'update' => 'required',
 				));
 			return redirect('rs')->withErrors($validate)->withInput();
@@ -90,6 +99,7 @@ class RsController extends Controller {
 		else{	
 			$rs = Rs::find(Input::get('edit_id'));
 			$rs->nama_rs = Input::get('edit_nama_rs');
+			$rs->kelurahan_id = Input::get('edit_s_kelurahan');
 
 			$rs->save();
 			return redirect('rs');

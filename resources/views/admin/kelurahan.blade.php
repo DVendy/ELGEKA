@@ -40,7 +40,10 @@ Manage kelurahan
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Nama Kelurahan</th>
+							<th>Kelurahan</th>
+							<th>Kecamatan</th>
+							<th>Kota / kabupaten</th>
+							<th>Provinsi</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -52,6 +55,9 @@ Manage kelurahan
 						<tr>
 							<td>{{ $i}}</td>
 							<td>{{ $key->nama_kelurahan }}</td>
+							<td>{{ $key->kecamatan->nama_kecamatan }}</td>
+							<td>{{ $key->kecamatan->kotakab->nama_kotakab }}</td>
+							<td>{{ $key->kecamatan->kotakab->provinsi->nama_provinsi }}</td>
 							<td> 
 								<div class="pull-right">
 									<a href="#" data-toggle="modal" data-target="#edit_modal" title="Delete"><i class="icon-pencil text-success edit_user" id="{{ $key->id }}"></i></a>
@@ -95,6 +101,39 @@ Manage kelurahan
 							@if ($errors->has('nama_kelurahan')) <p class="help-block">{{ $errors->first('nama_kelurahan') }}</p> @endif
 						</div>
 					</div>
+					&nbsp;
+					<div class="form-group @if ($errors->has('s_provinsi')) has-error @endif">
+			            <label class="col-md-3 control-label">Provinsi </label>
+			            <div class="col-md-9">
+			              <select name="s_provinsi" class="form-control" onchange="onProvinsiChange(this.value)" id="s_provinsi">
+			                	<option value="">- Pilih provinsi -</option>
+			                @foreach($provinsis as $value)
+			                	<option value="{{ $value->id }}">{{ $value->nama_provinsi }}</option>
+			               	@endforeach
+			              </select>
+			              @if ($errors->has('s_provinsi')) <p class="help-block">{{ $errors->first('s_provinsi') }}</p> @endif
+			            </div>
+			        </div>
+					&nbsp;
+					<div class="form-group @if ($errors->has('s_kotakab')) has-error @endif">
+			            <label class="col-md-3 control-label">Kota / Kabupaten </label>
+			            <div class="col-md-9">
+			              <select name="s_kotakab" class="form-control" onchange="onKotakabChange(this.value)" id="s_kotakab">
+			                	<option value="">- Pilih provinsi terlebih dahulu -</option>
+			              </select>
+			              @if ($errors->has('s_kotakab')) <p class="help-block">{{ $errors->first('s_kotakab') }}</p> @endif
+			            </div>
+			        </div>
+					&nbsp;
+					<div class="form-group @if ($errors->has('s_kecamatan')) has-error @endif">
+			            <label class="col-md-3 control-label">Kecamatan</label>
+			            <div class="col-md-9">
+			              <select name="s_kecamatan" class="form-control" id="s_kecamatan">
+			                	<option value="">- Pilih kota / kabupaten terlebih dahulu -</option>
+			              </select>
+			              @if ($errors->has('s_kecamatan')) <p class="help-block">{{ $errors->first('s_kecamatan') }}</p> @endif
+			            </div>
+			        </div>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -125,6 +164,39 @@ Manage kelurahan
 							@if ($errors->has('edit_nama_kelurahan')) <p class="help-block">{{ $errors->first('edit_nama_kelurahan') }}</p> @endif
 						</div>
 					</div>
+					&nbsp;
+					<div class="form-group @if ($errors->has('edit_s_provinsi')) has-error @endif">
+			            <label class="col-md-3 control-label">Provinsi </label>
+			            <div class="col-md-9">
+			              <select name="edit_s_provinsi" class="form-control" onchange="onEdProvinsiChange(this.value)" id="edit_s_provinsi">
+			                	<option value="">- Pilih provinsi -</option>
+			                @foreach($provinsis as $value)
+			                	<option value="{{ $value->id }}">{{ $value->nama_provinsi }}</option>
+			               	@endforeach
+			              </select>
+			              @if ($errors->has('edit_s_provinsi')) <p class="help-block">{{ $errors->first('edit_s_provinsi') }}</p> @endif
+			            </div>
+			        </div>
+					&nbsp;
+					<div class="form-group @if ($errors->has('edit_s_kotakab')) has-error @endif">
+			            <label class="col-md-3 control-label">Kota / Kabupaten </label>
+			            <div class="col-md-9">
+			              <select name="edit_s_kotakab" class="form-control" onchange="onEdKotakabChange(this.value)" id="edit_s_kotakab">
+			                	<option value="">- Pilih provinsi terlebih dahulu -</option>
+			              </select>
+			              @if ($errors->has('edit_s_kotakab')) <p class="help-block">{{ $errors->first('edit_s_kotakab') }}</p> @endif
+			            </div>
+			        </div>
+					&nbsp;
+					<div class="form-group @if ($errors->has('edit_s_kecamatan')) has-error @endif">
+			            <label class="col-md-3 control-label">Kecamatan</label>
+			            <div class="col-md-9">
+			              <select name="edit_s_kecamatan" class="form-control" id="edit_s_kecamatan">
+			                	<option value="">- Pilih kota / kabupaten terlebih dahulu -</option>
+			              </select>
+			              @if ($errors->has('edit_s_kecamatan')) <p class="help-block">{{ $errors->first('edit_s_kecamatan') }}</p> @endif
+			            </div>
+			        </div>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -182,5 +254,95 @@ Manage kelurahan
 			});
 		});
 	});
+	function onProvinsiChange(id) {
+	    var s_kotakab = document.getElementById("s_kotakab");
+	    s_kotakab.options.length = 0;
+	    s_kotakab.options.add(new Option("- Pilih provinsi terlebih dahulu -", ""));
+
+	    var s_kecamatan = document.getElementById("s_kecamatan");
+	    s_kecamatan.options.length = 0;
+	    s_kecamatan.options.add(new Option("- Pilih kota / kabupaten terlebih dahulu -", ""));
+
+		if (id != ""){
+			$.get('provinsi/getChild/' + id, function( data ) {
+				s_kotakab.options.length = 0;
+			    if (data.length == 0){
+			    	s_kotakab.options.add(new Option("- Tidak ada kota / kabupaten untuk provinsi ini -", ""));
+			    }else{
+			    	s_kotakab.options.add(new Option("- Pilih kota / kabupaten -", ""));
+			    }
+
+				for (index = 0; index < data.length; ++index) {
+					option = data[index];
+					s_kotakab.options.add(new Option(option.nama_kotakab, option.id));
+				}
+			});
+		}
+	}
+	function onEdProvinsiChange(id) {
+	    var s_kotakab = document.getElementById("edit_s_kotakab");
+	    s_kotakab.options.length = 0;
+	    s_kotakab.options.add(new Option("- Pilih provinsi terlebih dahulu -", ""));
+
+	    var s_kecamatan = document.getElementById("edit_s_kecamatan");
+	    s_kecamatan.options.length = 0;
+	    s_kecamatan.options.add(new Option("- Pilih kota / kabupaten terlebih dahulu -", ""));
+	    
+		if (id != ""){
+			$.get('provinsi/getChild/' + id, function( data ) {
+				s_kotakab.options.length = 0;
+			    if (data.length == 0){
+			    	s_kotakab.options.add(new Option("- Tidak ada kota / kabupaten untuk provinsi ini -", ""));
+			    }else{
+			    	s_kotakab.options.add(new Option("- Pilih kota / kabupaten -", ""));
+			    }
+
+				for (index = 0; index < data.length; ++index) {
+					option = data[index];
+					s_kotakab.options.add(new Option(option.nama_kotakab, option.id));
+				}
+			});
+		}
+	}
+	function onKotakabChange(id) {
+	    var s_kecamatan = document.getElementById("s_kecamatan");
+	    s_kecamatan.options.length = 0;
+	    s_kecamatan.options.add(new Option("- Pilih kota / kabupaten terlebih dahulu -", ""));
+		if (id != ""){
+			$.get('kotakab/getChild/' + id, function( data ) {
+				s_kecamatan.options.length = 0;
+			    if (data.length == 0){
+			    	s_kecamatan.options.add(new Option("- Tidak ada kecamatan untuk kota / kabupaten ini -", ""));
+			    }else{
+			    	s_kecamatan.options.add(new Option("- Pilih kecamatan -", ""));
+			    }
+
+				for (index = 0; index < data.length; ++index) {
+					option = data[index];
+					s_kecamatan.options.add(new Option(option.nama_kecamatan, option.id));
+				}
+			});
+		}
+	}
+	function onEdKotakabChange(id) {
+	    var s_kecamatan = document.getElementById("edit_s_kecamatan");
+	    s_kecamatan.options.length = 0;
+	    s_kecamatan.options.add(new Option("- Pilih kota / kabupaten terlebih dahulu -", ""));
+		if (id != ""){
+			$.get('kotakab/getChild/' + id, function( data ) {
+				s_kecamatan.options.length = 0;
+			    if (data.length == 0){
+			    	s_kecamatan.options.add(new Option("- Tidak ada kecamatan untuk kota / kabupaten ini -", ""));
+			    }else{
+			    	s_kecamatan.options.add(new Option("- Pilih kecamatan -", ""));
+			    }
+
+				for (index = 0; index < data.length; ++index) {
+					option = data[index];
+					s_kecamatan.options.add(new Option(option.nama_kecamatan, option.id));
+				}
+			});
+		}
+	}
 </script>
 @stop

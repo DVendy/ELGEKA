@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Kecamatan;
+use App\Provinsi;
 
 use Hash;
 use Validator;
@@ -43,18 +44,23 @@ class KecamatanController extends Controller {
 	{
 		$kecamatans = Kecamatan::paginate(25);
 		$kecamatans->setPath('');
-		return view('admin.kecamatan')->with('kecamatans', $kecamatans);
+
+		$provinsis = Provinsi::all();
+
+		return view('admin.kecamatan')->with('kecamatans', $kecamatans)->with('provinsis', $provinsis);
 	}
 
 	public function create()
 	{
 		$validate = Validator::make(Input::all(), array(
 			'nama_kecamatan' 	=> 'required||unique:kecamatan',
+			's_kotakab' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'nama_kecamatan' 	=> 'required||unique:kecamatan',
+				's_kotakab' 	=> 'required',
 				'create' => 'required',
 				));
 			return redirect('kecamatan')->withErrors($validate)->withInput();
@@ -63,6 +69,7 @@ class KecamatanController extends Controller {
 	    //
 			$kecamatan = new Kecamatan();
 			$kecamatan->nama_kecamatan = Input::get('nama_kecamatan');
+			$kecamatan->kotakab_id = Input::get('s_kotakab');
 			$kecamatan->save();
 			return redirect('kecamatan');
 		}
@@ -74,15 +81,23 @@ class KecamatanController extends Controller {
 		return $kecamatan;
 	}
 
+	public function getChild($id){
+		$kecamatan = Kecamatan::find($id);
+		//dd($user);
+		return $kecamatan->kelurahans;
+	}
+
 	public function update()
 	{
 		$validate = Validator::make(Input::all(), array(
 			'edit_nama_kecamatan' 	=> 'required||min:3',
+			'edit_s_kotakab' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'edit_nama_kecamatan' 	=> 'required||min:3',
+				'edit_s_kotakab' 	=> 'required',
 				'update' => 'required',
 				));
 			return redirect('kecamatan')->withErrors($validate)->withInput();
@@ -90,6 +105,7 @@ class KecamatanController extends Controller {
 		else{	
 			$kecamatan = Kecamatan::find(Input::get('edit_id'));
 			$kecamatan->nama_kecamatan = Input::get('edit_nama_kecamatan');
+			$kecamatan->kotakab_id = Input::get('edit_s_kotakab');
 
 			$kecamatan->save();
 			return redirect('kecamatan');

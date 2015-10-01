@@ -46,18 +46,22 @@ class KotakabController extends Controller {
 		$kotakabs->setPath('');
 
 		$provinsis = Provinsi::all();
+
 		return view('admin.kotakab')->with('kotakabs', $kotakabs)->with('provinsis', $provinsis);
 	}
 
 	public function create()
 	{
+		//dd(Input::all());
 		$validate = Validator::make(Input::all(), array(
 			'nama_kotakab' 	=> 'required||unique:kotakab',
+			's_provinsi' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'nama_kotakab' 	=> 'required||unique:kotakab',
+				's_provinsi' 	=> 'required',
 				'create' => 'required',
 				));
 			return redirect('kotakab')->withErrors($validate)->withInput();
@@ -66,6 +70,7 @@ class KotakabController extends Controller {
 	    //
 			$kotakab = new Kotakab();
 			$kotakab->nama_kotakab = Input::get('nama_kotakab');
+			$kotakab->provinsi_id = Input::get('s_provinsi');
 			$kotakab->save();
 			return redirect('kotakab');
 		}
@@ -77,15 +82,23 @@ class KotakabController extends Controller {
 		return $kotakab;
 	}
 
+	public function getChild($id){
+		$kotakab = Kotakab::find($id);
+		//dd($user);
+		return $kotakab->kecamatans;
+	}
+
 	public function update()
 	{
 		$validate = Validator::make(Input::all(), array(
 			'edit_nama_kotakab' 	=> 'required||min:3',
+			'edit_s_provinsi' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'edit_nama_kotakab' 	=> 'required||min:3',
+				'edit_s_provinsi' 	=> 'required',
 				'update' => 'required',
 				));
 			return redirect('kotakab')->withErrors($validate)->withInput();
@@ -93,6 +106,7 @@ class KotakabController extends Controller {
 		else{	
 			$kotakab = Kotakab::find(Input::get('edit_id'));
 			$kotakab->nama_kotakab = Input::get('edit_nama_kotakab');
+			$kotakab->provinsi_id = Input::get('edit_s_provinsi');
 
 			$kotakab->save();
 			return redirect('kotakab');

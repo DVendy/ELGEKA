@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Kelurahan;
+use App\Provinsi;
 
 use Hash;
 use Validator;
@@ -43,18 +44,23 @@ class KelurahanController extends Controller {
 	{
 		$kelurahans = Kelurahan::paginate(25);
 		$kelurahans->setPath('');
-		return view('admin.kelurahan')->with('kelurahans', $kelurahans);
+
+		$provinsis = Provinsi::all();
+
+		return view('admin.kelurahan')->with('kelurahans', $kelurahans)->with('provinsis', $provinsis);
 	}
 
 	public function create()
 	{
 		$validate = Validator::make(Input::all(), array(
 			'nama_kelurahan' 	=> 'required||unique:kelurahan',
+			's_kecamatan' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'nama_kelurahan' 	=> 'required||unique:kelurahan',
+			's_kecamatan' 	=> 'required',
 				'create' => 'required',
 				));
 			return redirect('kelurahan')->withErrors($validate)->withInput();
@@ -63,6 +69,7 @@ class KelurahanController extends Controller {
 	    //
 			$kelurahan = new Kelurahan();
 			$kelurahan->nama_kelurahan = Input::get('nama_kelurahan');
+			$kelurahan->kecamatan_id = Input::get('s_kecamatan');
 			$kelurahan->save();
 			return redirect('kelurahan');
 		}
@@ -74,15 +81,23 @@ class KelurahanController extends Controller {
 		return $kelurahan;
 	}
 
+	public function getChild($id){
+		$kelurahan = Kelurahan::find($id);
+		//dd($user);
+		return $kelurahan->rss;
+	}
+
 	public function update()
 	{
 		$validate = Validator::make(Input::all(), array(
 			'edit_nama_kelurahan' 	=> 'required||min:3',
+			'edit_s_kecamatan' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
 				'edit_nama_kelurahan' 	=> 'required||min:3',
+				'edit_s_kecamatan' 	=> 'required',
 				'update' => 'required',
 				));
 			return redirect('kelurahan')->withErrors($validate)->withInput();
@@ -90,6 +105,7 @@ class KelurahanController extends Controller {
 		else{	
 			$kelurahan = Kelurahan::find(Input::get('edit_id'));
 			$kelurahan->nama_kelurahan = Input::get('edit_nama_kelurahan');
+			$kelurahan->kecamatan_id = Input::get('edit_s_kecamatan');
 
 			$kelurahan->save();
 			return redirect('kelurahan');

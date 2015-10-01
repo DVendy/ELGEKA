@@ -79,6 +79,7 @@ Route::post('provinsi/create', 'ProvinsiController@create');
 Route::post('provinsi/update', 'ProvinsiController@update');
 Route::get('provinsi/delete-{id}', 'ProvinsiController@delete');
 Route::get('provinsi/getAjax/{id}', 'ProvinsiController@getAjax');
+Route::get('provinsi/getChild/{id}', 'ProvinsiController@getChild');
 
 //KOTAKAB
 Route::get('kotakab', 'KotakabController@main');
@@ -86,6 +87,7 @@ Route::post('kotakab/create', 'KotakabController@create');
 Route::post('kotakab/update', 'KotakabController@update');
 Route::get('kotakab/delete-{id}', 'KotakabController@delete');
 Route::get('kotakab/getAjax/{id}', 'KotakabController@getAjax');
+Route::get('kotakab/getChild/{id}', 'KotakabController@getChild');
 
 //KECAMATAN
 Route::get('kecamatan', 'KecamatanController@main');
@@ -93,6 +95,7 @@ Route::post('kecamatan/create', 'KecamatanController@create');
 Route::post('kecamatan/update', 'KecamatanController@update');
 Route::get('kecamatan/delete-{id}', 'KecamatanController@delete');
 Route::get('kecamatan/getAjax/{id}', 'KecamatanController@getAjax');
+Route::get('kecamatan/getChild/{id}', 'KecamatanController@getChild');
 
 //KELURAHAN
 Route::get('kelurahan', 'KelurahanController@main');
@@ -100,3 +103,4 @@ Route::post('kelurahan/create', 'KelurahanController@create');
 Route::post('kelurahan/update', 'KelurahanController@update');
 Route::get('kelurahan/delete-{id}', 'KelurahanController@delete');
 Route::get('kelurahan/getAjax/{id}', 'KelurahanController@getAjax');
+Route::get('kelurahan/getChild/{id}', 'KelurahanController@getChild');

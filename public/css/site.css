@@ -7,17 +7,25 @@ body{
 }
 
 .header{
-  background-color: #D52222;
+  background-color: #C32B2B;
+  background-image: linear-gradient(to bottom, #C32B2B 0px, #E54D4D 100%);
+  background-repeat: repeat-x;
   font-family: times;
   color: white;
-  border-bottom: 3px solid #2F2F2F;
-  border-top: 3px solid #2F2F2F;
+  border-bottom: 2px solid #2F2F2F;
   padding-bottom: 10px;
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
 }
 
 .header h1{
   text-shadow: 3px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.header img{
+  width: 100%;
+  padding: 20px;
+  max-width: 200px;
 }
 
 .recent-post{
@@ -43,4 +51,19 @@ body{
 
 .login-panel .form-horizontal .control-label {
     text-align: left;
+}
+
+.navbar-elgeka{
+  background-color: white;
+  margin-bottom: 0;
+  border: 0px solid transparent;
+}
+
+.navbar-elgeka a{
+  color: #810000;
+}
+
+.navbar-elgeka .navbar-nav > .active > a{
+  color: #FFF;
+  background-color: #C32B2B;
 }
