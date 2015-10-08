@@ -8,7 +8,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link href="{{ URL::asset('css/site.css')}}" rel="stylesheet" type="text/css">
 
-  <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+  <script type="text/javascript" src="{{ URL::asset('/') }}js/tinymce/tinymce.min.js"></script>
   <script type="text/javascript">
     tinymce.init({
       selector: "textarea",
@@ -66,7 +66,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-2" style="text-align: center;">
-          <img src="images/logo.png">
+          <img src="{{ URL::asset('/') }}images/logo.png">
         </div>
         <div class="col-md-10">
           <h3>Selamat Datang di Website</h3>
@@ -93,13 +93,13 @@
       <div class="row">
         <div class="login-panel">
         <h3>Artikel Baru</h3>
-          <form method="post" action="{{URL('doCreateArtikel')}}">
+          <form method="post" action="{{URL('doEditArtikel/'.$artikel->id)}}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group @if ($errors->has('judul')) has-error @endif">
-              <input type="text" class="form-control" placeholder="Title" name="judul">
+              <input type="text" class="form-control" placeholder="Title" name="judul" value="{{ $artikel->judul }}">
               @if ($errors->has('judul')) <p class="help-block">{{ $errors->first('judul') }}</p> @endif
             </div>
-            <textarea class="form-control" placeholder="Enter text ..." name="isi"></textarea>
+            <textarea class="form-control" placeholder="Enter text ..." name="isi">{!! $artikel->isi !!}</textarea>
             <div class="form-group @if ($errors->has('isi')) has-error @endif">
               @if ($errors->has('isi')) <p class="help-block">{{ $errors->first('isi') }}</p> @endif
             </div>

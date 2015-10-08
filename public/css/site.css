@@ -70,7 +70,7 @@ body{
 
 .news{
   background-color: white;
-  padding: 20px 40px;
+  padding: 5px 20px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   margin-bottom: 40px;
 }
@@ -86,8 +86,13 @@ body{
 
 .news .isi{
   margin-top: 20px;
+  padding: 0px;
 }
 
 .news .isi img{
   max-width: 100%;
+}
+
+.news .judul{
+  font-weight: bold;
 }

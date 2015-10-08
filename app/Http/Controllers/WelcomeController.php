@@ -156,13 +156,38 @@ class WelcomeController extends Controller {
 		return redirect('/')->with('logout', ['some kind of data']);
 	}
 
+	public function artikel()
+	{
+		$artikels = Auth::user()->artikels;
+		//dd($artikels);
+		return view('front.artikel')->with("artikels" ,$artikels);
+	}
+
+	public function deleteArtikel($id)
+	{
+		$artikels = Artikel::find($id);
+		$artikels->delete();
+		//dd($artikels);
+		return redirect('artikel');
+	}
+
 	public function createArtikel()
 	{
 		return view('front.artikel-create');
 	}
 
+	public function editArtikel($id)
+	{
+		$artikel = Artikel::find($id);
+		//dd($artikel);
+		return view('front.artikel-edit')->with("artikel", $artikel);
+	}
+
 	public function doCreateArtikel()
 	{
+		if (!Auth::check())
+			return redirect('/');
+
 		$validate = Validator::make(Input::all(), array(
 			'judul' 	=> 'required||min:5',
 			'isi' 		=> 'required||min:5',
@@ -174,9 +199,32 @@ class WelcomeController extends Controller {
 			$artikel = new Artikel();
 			$artikel->judul = Input::get('judul');
 			$artikel->isi = Input::get('isi');
+			$artikel->user_id = Auth::user()->id;
 			$artikel->save();
 
+			return redirect('/')->with('create', ['some kind of data']);
+    	}
+	}
+
+	public function doEditArtikel($id)
+	{
+		if (!Auth::check())
 			return redirect('/');
+
+		$validate = Validator::make(Input::all(), array(
+			'judul' 	=> 'required||min:5',
+			'isi' 		=> 'required||min:5',
+			));
+
+		if ($validate -> fails()){
+			return redirect('artikel');
+		}else{
+			$artikel = Artikel::find($id);
+			$artikel->judul = Input::get('judul');
+			$artikel->isi = Input::get('isi');
+			$artikel->save();
+
+			return redirect('artikel')->with('edit', ['some kind of data']);
     	}
 	}
 

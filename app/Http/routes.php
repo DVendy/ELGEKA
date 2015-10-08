@@ -17,8 +17,13 @@ Route::get('register', 'WelcomeController@register');
 Route::post('doLogin', 'WelcomeController@doLogin');
 Route::post('doRegister', 'WelcomeController@doRegister');
 Route::get('logout', 'WelcomeController@logout');
+
+Route::get('artikel', 'WelcomeController@artikel');
 Route::get('createArtikel', 'WelcomeController@createArtikel');
+Route::get('editArtikel/{id}', 'WelcomeController@editArtikel');
+Route::get('deleteArtikel/{id}', 'WelcomeController@deleteArtikel');
 Route::post('doCreateArtikel', 'WelcomeController@doCreateArtikel');
+Route::post('doEditArtikel/{id}', 'WelcomeController@doEditArtikel');
 
 Route::get('home', 'HomeController@index');
 

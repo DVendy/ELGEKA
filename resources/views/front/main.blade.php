@@ -30,7 +30,7 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="{{ URL('/') }}">Halaman utama</a></li>
           <li><a href="#">Transaksi</a></li>
-          <li><a href="{{ URL('createArtikel') }}">Artikel</a></li>
+          <li><a href="{{ URL('artikel') }}">Artikel</a></li>
         </ul>
         @endif
 
@@ -72,9 +72,9 @@
         <div class="col-sm-8">
             @foreach ($artikel as $key)
             <div class="news">
-              <h1 class="judul">{{ $key->judul }}</h1>
+              <h2 class="judul">{{ $key->judul }}</h2>
               <hr>
-              <h5><i class="icon-clock"></i> {{ $key->created_at }}</h5>
+              <h5>Oleh {{ $key->user->nama_pasien }} | <i class="icon-clock"></i> {{ $key->created_at }}</h5>
               <hr>
               <div class="container-fluid isi"> {!! $key->isi !!} </div>
             </div>

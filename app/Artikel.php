@@ -13,4 +13,8 @@ class Artikel extends Model {
 	 */
 	protected $fillable = ['judul', 'isi'];
 
+	public function user() {
+        return $this->belongsTo('App\User');
+    }
+
 }
