@@ -13,7 +13,12 @@
 //GUEST
 Route::get('/', 'WelcomeController@index');
 Route::get('login', 'WelcomeController@login');
+Route::get('register', 'WelcomeController@register');
 Route::post('doLogin', 'WelcomeController@doLogin');
+Route::post('doRegister', 'WelcomeController@doRegister');
+Route::get('logout', 'WelcomeController@logout');
+Route::get('createArtikel', 'WelcomeController@createArtikel');
+Route::post('doCreateArtikel', 'WelcomeController@doCreateArtikel');
 
 Route::get('home', 'HomeController@index');
 

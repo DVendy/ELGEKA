@@ -3,7 +3,7 @@ pallet id
 http://paletton.com/palette.php?uid=5001q0kqQqHgmy9lhsIsOlaywge
 */
 body{
-  background-color: #D0CFCF;
+  background-color: #F6F5F2;
 }
 
 .header{
@@ -30,7 +30,7 @@ body{
 
 .recent-post{
   background-color: white;
-  border: 2px solid #2F2F2F;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.5);
 }
 
 .side-content{
@@ -66,4 +66,28 @@ body{
 .navbar-elgeka .navbar-nav > .active > a{
   color: #FFF;
   background-color: #C32B2B;
+}
+
+.news{
+  background-color: white;
+  padding: 20px 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  margin-bottom: 40px;
+}
+
+.news h5{
+  color: #AAA;
+}
+
+.news hr{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.news .isi{
+  margin-top: 20px;
+}
+
+.news .isi img{
+  max-width: 100%;
 }

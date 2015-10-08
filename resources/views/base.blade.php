@@ -46,6 +46,9 @@
 			opacity: 0.5;
 			position: absolute;
 		}
+		.navbar-inverse {
+    background-color: #E54D4D;
+}
 	</style>  
 
 	@yield('extraStyle')

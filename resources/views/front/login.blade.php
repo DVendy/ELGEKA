@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>Elgeka - Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -24,15 +25,21 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      @if (Auth::check())
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Halaman utama</a></li>
+          <li class="active"><a href="{{ URL('/') }}">Halaman utama</a></li>
         <li><a href="#">Transaksi</a></li>
         <li><a href="#">Artikel</a></li>
       </ul>
+      @endif
       
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Register</a></li>
+        @if (!Auth::check())
+        <li><a href="{{ URL('login') }}">Login</a></li>
+        <li><a href="{{ URL('register') }}">Register</a></li>
+        @else
+        <li><a href="{{ URL('logout') }}">Logout</a></li>
+        @endif
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -54,22 +61,37 @@
   
   <div class="content">
     <div class="container">
+    @if (session()->has('register'))
+      <div class="alert alert-success fade in block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <i class="icon-info"></i> Akun berhasil dibuat, silahkan login untuk masuk ke sistem.
+      </div>
+    @endif
+    @if (session()->has('fail'))
+      <div class="alert alert-danger fade in block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <i class="icon-info"></i> Username atau password salah, mohon coba kembali.
+      </div>
+    @endif
       <div class="col-md-6 col-md-offset-3">
         <div class="login-panel">
-          <form class="form-horizontal" method="post" action="{{ URL('doLogin') }}">
-            <div class="form-group">
-              <label for="inputEmail3" class="col-sm-4 control-label">Akun Pengguna</label>
+          <form class="form-horizontal" action="{{URL('doLogin')}}" method="post">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="form-group @if ($errors->has('username')) has-error @endif">
+              <label class="col-sm-4 control-label">Username: </label>
               <div class="col-sm-8">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Akun Pengguna">
+                <input type="text" class="form-control" name="username" value="{{ Input::old('username') }}">
+                @if ($errors->has('username')) <p class="help-block">{{ $errors->first('username') }}</p> @endif
               </div>
             </div>
-            <div class="form-group">
-              <label for="inputPassword3" class="col-sm-4 control-label">Kata Kunci</label>
+            <div class="form-group @if ($errors->has('password')) has-error @endif">
+              <label class="col-sm-4 control-label">Password:</label>
               <div class="col-sm-8">
-                <input type="password" class="form-control" id="inputPassword3" placeholder="Kata Kunci">
+                <input type="password" class="form-control" name="password">
+                @if ($errors->has('password')) <p class="help-block">{{ $errors->first('password') }}</p> @endif
               </div>
             </div>
-            &nbsp
+            <hr>
             <div class="form-group">
               <label for="inputPassword3" class="col-sm-4 control-label"><a href="#">lupa kata kunci</a></label>
               <div class="col-sm-8">
