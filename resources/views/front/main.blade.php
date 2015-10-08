@@ -76,7 +76,7 @@
               <hr>
               <h5><i class="icon-clock"></i> {{ $key->created_at }}</h5>
               <hr>
-              <div class="container isi"> {!! $key->isi !!} </div>
+              <div class="container-fluid isi"> {!! $key->isi !!} </div>
             </div>
             @endforeach
         </div>
