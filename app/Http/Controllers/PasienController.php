@@ -47,6 +47,12 @@ class PasienController extends Controller {
 		return view('admin.pasien')->with('users', $users);
 	}
 
+	public function detail($id)
+	{
+		$pasien = User::find($id);
+		return view('admin.pasien-detail')->with('pasien', $pasien);
+	}
+
 	public function create()
 	{
 		$validate = Validator::make(Input::all(), array(
@@ -87,16 +93,6 @@ class PasienController extends Controller {
 			$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('ttl_tl'));
 			$user->ttl_t = Input::get('ttl_t');
 			$user->alamat = Input::get('alamat');
-
-			if (Input::has('rt'))
-				$user->rt = Input::get('rt');
-			else				
-				$user->rt = '';
-
-			if (Input::has('rw'))
-				$user->rw = Input::get('rw');
-			else				
-				$user->rw = '';
 
 			if (Input::has('hp1'))
 				$user->hp1 = Input::get('hp1');

@@ -44,7 +44,6 @@ Manage pasien
 					<th>L/P</th>
 					<th>TTL</th>
 					<th>Alamat</th>
-					<th>Rt / Rw</th>
 					<th>HP 1</th>
 					<th>HP 2</th>
 					<th>Telp Rumah</th>
@@ -65,7 +64,6 @@ Manage pasien
 					<td style="text-transform: uppercase;">{{ $key->jk }}</td>
 					<td>{{ $key->ttl_t }}, {{ date_format(DateTime::createFromFormat('Y-m-d H:i:s', $key->ttl_tl),"d/m/Y") }}</td>
 					<td>{{ $key->alamat }}</td>
-					<td>{{ $key->rt }} / {{ $key->rw }}</td>
 					<td>{{ $key->hp1 }}</td>
 					<td>{{ $key->hp2 }}</td>
 					<td>{{ $key->telp_rumah }}</td>
@@ -73,7 +71,9 @@ Manage pasien
 					
 					<td> 
 						<div class="pull-right">
-							<a href="#" data-toggle="modal" data-target="#edit_modal" title="Delete"><i class="icon-pencil text-success edit_user" id="{{ $key->id }}"></i></a>
+							<a href="{{ URL('pasien/detail/'.$key->id) }}" title="Detail"><i class="icon-zoom-in text-success"></i></a>
+							&nbsp;
+							<a href="#" data-toggle="modal" data-target="#edit_modal" title="Edit"><i class="icon-pencil text-warning edit_user" id="{{ $key->id }}"></i></a>
 							&nbsp;
 							<a href="#" data-toggle="modal" data-target="#delete_modal" title="Delete"><i class="icon-close text-danger delete_user" id="{{ $key->id }}"></i></a>		
 						</div>
@@ -166,22 +166,6 @@ Manage pasien
 						<div class="col-sm-10">
 							<textarea class="form-control" name="alamat"></textarea>
 							@if ($errors->has('alamat')) <p class="help-block">{{ $errors->first('alamat') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
-					<div class="form-group @if ($errors->has('rt')) has-error @endif">
-						<label class="col-sm-2 control-label">Rt: </label>
-						<div class="col-sm-10">
-							<input type="number" class="form-control" name="rt" value="{{ Input::old('rt') }}">
-							@if ($errors->has('rt')) <p class="help-block">{{ $errors->first('rt') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
-					<div class="form-group @if ($errors->has('rw')) has-error @endif">
-						<label class="col-sm-2 control-label">Rw: </label>
-						<div class="col-sm-10">
-							<input type="number" class="form-control" name="rw" value="{{ Input::old('rw') }}">
-							@if ($errors->has('rw')) <p class="help-block">{{ $errors->first('rw') }}</p> @endif
 						</div>
 					</div>
 					&nbsp;
@@ -307,22 +291,6 @@ Manage pasien
 						</div>
 					</div>
 					&nbsp;
-					<div class="form-group @if ($errors->has('edit_rt')) has-error @endif">
-						<label class="col-sm-2 control-label">Rt: </label>
-						<div class="col-sm-10">
-							<input type="number" class="form-control" name="edit_rt" id="edit_rt" value="{{ Input::old('edit_rt') }}">
-							@if ($errors->has('edit_rt')) <p class="help-block">{{ $errors->first('edit_rt') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
-					<div class="form-group @if ($errors->has('edit_rw')) has-error @endif">
-						<label class="col-sm-2 control-label">Rw: </label>
-						<div class="col-sm-10">
-							<input type="number" class="form-control" name="edit_rw" id="edit_rw" value="{{ Input::old('edit_rw') }}">
-							@if ($errors->has('edit_rw')) <p class="help-block">{{ $errors->first('edit_rw') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
 					<div class="form-group @if ($errors->has('edit_hp1')) has-error @endif">
 						<label class="col-sm-2 control-label">Nomor telepon 1: </label>
 						<div class="col-sm-10">
@@ -430,10 +398,6 @@ Manage pasien
 				elem.value = data['ttl_tl'];
 				elem = document.getElementById("edit_alamat");
 				elem.value = data['alamat'];
-				elem = document.getElementById("edit_rt");
-				elem.value = data['rt'];
-				elem = document.getElementById("edit_rw");
-				elem.value = data['rw'];
 				elem = document.getElementById("edit_hp1");
 				elem.value = data['hp1'];
 				elem = document.getElementById("edit_hp2");

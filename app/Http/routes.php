@@ -47,6 +47,7 @@ Route::post('pasien/create', 'PasienController@create');
 Route::post('pasien/update', 'PasienController@update');
 Route::get('pasien/delete-{id}', 'PasienController@delete');
 Route::get('pasien/getAjax/{id}', 'PasienController@getAjax');
+Route::get('pasien/detail/{id}', 'PasienController@detail');
 
 //OBAT
 Route::get('obat', 'ObatController@main');
@@ -114,3 +115,11 @@ Route::post('kelurahan/update', 'KelurahanController@update');
 Route::get('kelurahan/delete-{id}', 'KelurahanController@delete');
 Route::get('kelurahan/getAjax/{id}', 'KelurahanController@getAjax');
 Route::get('kelurahan/getChild/{id}', 'KelurahanController@getChild');
+
+//PENYAKIT
+Route::get('penyakit', 'PenyakitController@main');
+Route::post('penyakit/create', 'PenyakitController@create');
+Route::post('penyakit/update', 'PenyakitController@update');
+Route::get('penyakit/delete-{id}', 'PenyakitController@delete');
+Route::get('penyakit/getAjax/{id}', 'PenyakitController@getAjax');
+Route::get('penyakit/getChild/{id}', 'PenyakitController@getChild');
