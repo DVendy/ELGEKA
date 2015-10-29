@@ -48,6 +48,11 @@ Route::post('pasien/update', 'PasienController@update');
 Route::get('pasien/delete-{id}', 'PasienController@delete');
 Route::get('pasien/getAjax/{id}', 'PasienController@getAjax');
 Route::get('pasien/detail/{id}', 'PasienController@detail');
+Route::post('pasien/setPenyakit', 'PasienController@setPenyakit');
+Route::post('pasien/setDokter', 'PasienController@setDokter');
+Route::post('pasien/setAsuransi', 'PasienController@setAsuransi');
+Route::post('pasien/setObat', 'PasienController@setObat');
+Route::post('pasien/setRs', 'PasienController@setRs');
 
 //OBAT
 Route::get('obat', 'ObatController@main');

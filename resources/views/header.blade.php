@@ -41,7 +41,7 @@
 				<li @if(Request::is('admin*')) class="active" @endif ><a href="{{ URL('admin') }}"><span>Admin</span> <i class="icon-user4"></i></a></li>  
 				<?php
 				$master = false;
-				if(Request::is('pasien*') || Request::is('obat*') || Request::is('asuransi*') || Request::is('dokter*') || Request::is('indikasi*') || Request::is('rs*') || Request::is('provinsi*') || Request::is('kotakab*') || Request::is('kecamatan*') || Request::is('kelurahan*') || Request::is('penyakit*'))
+				if(Request::is('pasien*') || Request::is('obat*') || Request::is('asuransi*') || Request::is('dokter*') || Request::is('indikasi*') || Request::is('rs*') || Request::is('penyakit*'))
 				$master = true;
 				?>
 				<li><a href="#" class="expand" @if($master) id="second-level" @endif ><span>Olah Master</span> <i class="icon-grid3"></i></a>
@@ -52,6 +52,15 @@
 					<li @if(Request::is('asuransi*')) class="active" @endif ><a href="{{ URL('asuransi') }}"><span>Asuransi</span> <i class="icon-file4"></i></a></li>
 					<li @if(Request::is('dokter*')) class="active" @endif ><a href="{{ URL('dokter') }}"><span>Dokter</span> <i class="icon-glasses3"></i></a></li>
 					<li @if(Request::is('rs*')) class="active" @endif ><a href="{{ URL('rs') }}"><span>Rumah Sakit</span> <i class="icon-home5"></i></a></li>
+				</ul>
+				</li>
+				<?php
+				$wilayah = false;
+				if(Request::is('kotakab*') || Request::is('kecamatan*') || Request::is('kelurahan*') || Request::is('provinsi*'))
+				$wilayah = true;
+				?>
+				<li><a href="#" class="expand" @if($wilayah) id="second-level" @endif ><span>Olah Wilayah</span> <i class="icon-grid3"></i></a>
+				<ul style="display: none;">
 					<li @if(Request::is('kelurahan*')) class="active" @endif ><a href="{{ URL('kelurahan') }}"><span>Kelurahan</span> <i class="icon-home"></i></a></li>
 					<li @if(Request::is('kecamatan*')) class="active" @endif ><a href="{{ URL('kecamatan') }}"><span>Kecamatan</span> <i class="icon-home2"></i></a></li>
 					<li @if(Request::is('kotakab*')) class="active" @endif ><a href="{{ URL('kotakab') }}"><span>Kota / kabupaten</span> <i class="icon-home6"></i></a></li>

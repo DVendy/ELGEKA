@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rs extends Model {
 
-	protected $table = 'rumah_sakit';
+	protected $table = 'rs';
 
 	/**
 	 * The attributes that are mass assignable.

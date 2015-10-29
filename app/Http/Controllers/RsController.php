@@ -53,13 +53,13 @@ class RsController extends Controller {
 	public function create()
 	{
 		$validate = Validator::make(Input::all(), array(
-			'nama_rs' 	=> 'required||unique:rumah_sakit',
+			'nama_rs' 	=> 'required||unique:rs',
 			's_kelurahan' 	=> 'required',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
-				'nama_rs' 	=> 'required||unique:rumah_sakit',
+				'nama_rs' 	=> 'required||unique:rs',
 				's_kelurahan' 	=> 'required',
 				'create' => 'required',
 				));

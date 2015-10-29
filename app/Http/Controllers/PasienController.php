@@ -1,6 +1,11 @@
 <?php namespace App\Http\Controllers;
 
 use App\User;
+use App\Penyakit;
+use App\Rs;
+use App\Asuransi;
+use App\Obat;
+use App\Dokter;
 
 use Hash;
 use Validator;
@@ -50,7 +55,15 @@ class PasienController extends Controller {
 	public function detail($id)
 	{
 		$pasien = User::find($id);
-		return view('admin.pasien-detail')->with('pasien', $pasien);
+		$penyakits = Penyakit::all();
+		$rss = Rs::all();
+		$dokters = Dokter::all();
+		$obats = Obat::all();
+		$asuransis = Asuransi::all();
+
+		//dd($pasien->rs);
+
+		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis);
 	}
 
 	public function create()
@@ -195,6 +208,106 @@ class PasienController extends Controller {
 		$user = User::find($id);
 		$user->delete();
 		return redirect('pasien');
+	}
+
+	public function setPenyakit(){
+		$validate = Validator::make(Input::all(), array(
+			'penyakit' 	=> 'required',
+			));
+
+		if ($validate -> fails()){
+			$validate = Validator::make(Input::all(), array(
+				'penyakit' 	=> 'required',
+				'update_penyakit' => 'required',
+				));
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+		else{
+			$pasien = User::find(Input::get('edit_id'));
+			$pasien->penyakit_id = Input::get('penyakit');
+			$pasien->save();
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+	}
+
+	public function setRs(){
+		$validate = Validator::make(Input::all(), array(
+			'rs' 	=> 'required',
+			));
+
+		if ($validate -> fails()){
+			$validate = Validator::make(Input::all(), array(
+				'rs' 	=> 'required',
+				'update_rs' => 'required',
+				));
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+		else{
+			$pasien = User::find(Input::get('edit_id'));
+			$pasien->rumah_sakit_id = Input::get('rs');
+			$pasien->save();
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+	}
+
+	public function setDokter(){
+		$validate = Validator::make(Input::all(), array(
+			'dokter' 	=> 'required',
+			));
+
+		if ($validate -> fails()){
+			$validate = Validator::make(Input::all(), array(
+				'dokter' 	=> 'required',
+				'update_dokter' => 'required',
+				));
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+		else{
+			$pasien = User::find(Input::get('edit_id'));
+			$pasien->penyakit_id = Input::get('dokter');
+			$pasien->save();
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+	}
+
+	public function setObat(){
+		$validate = Validator::make(Input::all(), array(
+			'obat' 	=> 'required',
+			));
+
+		if ($validate -> fails()){
+			$validate = Validator::make(Input::all(), array(
+				'obat' 	=> 'required',
+				'update_obat' => 'required',
+				));
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+		else{
+			$pasien = User::find(Input::get('edit_id'));
+			$pasien->penyakit_id = Input::get('obat');
+			$pasien->save();
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+	}
+
+	public function setAsuransi(){
+		$validate = Validator::make(Input::all(), array(
+			'asuransi' 	=> 'required',
+			));
+
+		if ($validate -> fails()){
+			$validate = Validator::make(Input::all(), array(
+				'asuransi' 	=> 'required',
+				'update_penyakit' => 'required',
+				));
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+		else{
+			$pasien = User::find(Input::get('edit_id'));
+			$pasien->penyakit_id = Input::get('asuransi');
+			$pasien->save();
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
 	}
 
 }

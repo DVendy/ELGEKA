@@ -70,15 +70,7 @@
       @endif
       <div class="row">
         <div class="col-sm-8">
-            @foreach ($artikel as $key)
-            <div class="news">
-              <h2 class="judul">{{ $key->judul }}</h2>
-              <hr>
-              <h5>Oleh {{ $key->user->nama_pasien }} | <i class="icon-clock"></i> {{ $key->created_at }}</h5>
-              <hr>
-              <div class="container-fluid isi"> {!! $key->isi !!} </div>
-            </div>
-            @endforeach
+            
         </div>
         <div class="col-sm-4">
           <div class="side-content">
