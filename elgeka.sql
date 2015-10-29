@@ -1,0 +1,420 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Oct 29, 2015 at 11:11 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `elgeka`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artikel`
+--
+
+CREATE TABLE IF NOT EXISTS `artikel` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `judul` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `isi` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artikel_tag`
+--
+
+CREATE TABLE IF NOT EXISTS `artikel_tag` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `artikel_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asuransi`
+--
+
+CREATE TABLE IF NOT EXISTS `asuransi` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_asuransi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `asuransi`
+--
+
+INSERT INTO `asuransi` (`id`, `nama_asuransi`, `created_at`, `updated_at`) VALUES
+(4, 'Asuransi 1', '2015-10-29 01:00:01', '2015-10-29 01:00:01'),
+(5, 'Asuransi 2', '2015-10-29 01:00:10', '2015-10-29 01:00:10'),
+(6, 'Asuransi 3', '2015-10-29 01:00:34', '2015-10-29 01:00:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dokter`
+--
+
+CREATE TABLE IF NOT EXISTS `dokter` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_dokter` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `dokter`
+--
+
+INSERT INTO `dokter` (`id`, `nama_dokter`, `created_at`, `updated_at`) VALUES
+(1, 'Tony Tony Chopper', '2015-09-17 00:15:29', '2015-09-17 00:15:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dokter_user`
+--
+
+CREATE TABLE IF NOT EXISTS `dokter_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `dokter_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `indikasi`
+--
+
+CREATE TABLE IF NOT EXISTS `indikasi` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_indikasi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `indikasi`
+--
+
+INSERT INTO `indikasi` (`id`, `nama_indikasi`, `created_at`, `updated_at`) VALUES
+(1, 'Pusing 7 keliling', '2015-09-17 00:35:04', '2015-09-17 00:35:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kecamatan`
+--
+
+CREATE TABLE IF NOT EXISTS `kecamatan` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_kecamatan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `kotakab_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `kecamatan`
+--
+
+INSERT INTO `kecamatan` (`id`, `nama_kecamatan`, `created_at`, `updated_at`, `kotakab_id`) VALUES
+(1, 'Kecamatan 1', '2015-10-29 01:05:11', '2015-10-29 01:05:11', 1),
+(2, 'Kecamatan 2', '2015-10-29 01:05:20', '2015-10-29 01:05:20', 3),
+(3, 'Kecamatan 3', '2015-10-29 01:05:31', '2015-10-29 01:05:31', 2),
+(4, 'Kecamatan 4', '2015-10-29 01:05:47', '2015-10-29 01:05:47', 4),
+(5, 'Kecamatan 5', '2015-10-29 01:06:01', '2015-10-29 01:06:01', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kelurahan`
+--
+
+CREATE TABLE IF NOT EXISTS `kelurahan` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_kelurahan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `kecamatan_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `kelurahan`
+--
+
+INSERT INTO `kelurahan` (`id`, `nama_kelurahan`, `created_at`, `updated_at`, `kecamatan_id`) VALUES
+(1, 'Kelurahan 1', '2015-10-29 01:06:18', '2015-10-29 01:06:18', 1),
+(2, 'Kelurahan 2', '2015-10-29 01:06:27', '2015-10-29 01:06:27', 3),
+(3, 'Kelurahan 3', '2015-10-29 01:06:39', '2015-10-29 01:06:39', 5),
+(4, 'Kelurahan 4', '2015-10-29 01:07:03', '2015-10-29 01:07:03', 4),
+(5, 'Kelurahan 5', '2015-10-29 01:07:22', '2015-10-29 01:07:22', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kotakab`
+--
+
+CREATE TABLE IF NOT EXISTS `kotakab` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_kotakab` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `provinsi_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `kotakab`
+--
+
+INSERT INTO `kotakab` (`id`, `nama_kotakab`, `created_at`, `updated_at`, `provinsi_id`) VALUES
+(1, 'Kota 1', '2015-10-29 01:04:16', '2015-10-29 01:04:16', 1),
+(2, 'Kota 2', '2015-10-29 01:04:24', '2015-10-29 01:04:24', 1),
+(3, 'Kota 3', '2015-10-29 01:04:42', '2015-10-29 01:04:42', 2),
+(4, 'Kota 4', '2015-10-29 01:04:51', '2015-10-29 01:04:51', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('2014_10_12_000000_create_users_table', 1),
+('2014_10_12_100000_create_password_resets_table', 1),
+('2015_08_02_151429_genesis', 1),
+('2015_09_03_142118_edit_kolom_jk', 1),
+('2015_09_11_095634_edit_ttl', 2),
+('2015_09_29_172522_damn_relasi', 3),
+('2015_10_08_041504_relasi_artikel_creator', 4),
+('2015_10_19_060522_revisi', 5),
+('2015_10_20_064618_edit_penyakit', 6),
+('2015_10_29_100124_edit_rs', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `obat`
+--
+
+CREATE TABLE IF NOT EXISTS `obat` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_obat` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `obat`
+--
+
+INSERT INTO `obat` (`id`, `nama_obat`, `jumlah`, `created_at`, `updated_at`) VALUES
+(1, 'Panadol', 1, '2015-09-16 01:18:52', '2015-09-16 01:18:52'),
+(2, 'Amoxcilinasd', 412, '2015-09-16 01:19:02', '2015-09-16 02:01:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `obat_user`
+--
+
+CREATE TABLE IF NOT EXISTS `obat_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `obat_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  KEY `password_resets_email_index` (`email`),
+  KEY `password_resets_token_index` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penyakit`
+--
+
+CREATE TABLE IF NOT EXISTS `penyakit` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_penyakit` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `penyakit`
+--
+
+INSERT INTO `penyakit` (`id`, `nama_penyakit`, `created_at`, `updated_at`) VALUES
+(2, 'Penyakit 1', '2015-10-19 23:49:49', '2015-10-19 23:49:49'),
+(3, 'Penyakit 2', '2015-10-19 23:49:59', '2015-10-19 23:50:06'),
+(4, 'Penyakit 3', '2015-10-19 23:50:15', '2015-10-19 23:50:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `provinsi`
+--
+
+CREATE TABLE IF NOT EXISTS `provinsi` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_provinsi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `provinsi`
+--
+
+INSERT INTO `provinsi` (`id`, `nama_provinsi`, `created_at`, `updated_at`) VALUES
+(1, 'Provinsi 1', '2015-10-29 01:03:34', '2015-10-29 01:03:34'),
+(2, 'Provinsi 2', '2015-10-29 01:03:43', '2015-10-29 01:03:43'),
+(3, 'Provinsi 3', '2015-10-29 01:03:48', '2015-10-29 01:03:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rs`
+--
+
+CREATE TABLE IF NOT EXISTS `rs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_rs` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `kelurahan_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `rs`
+--
+
+INSERT INTO `rs` (`id`, `nama_rs`, `created_at`, `updated_at`, `kelurahan_id`) VALUES
+(1, 'Rumah Sakit 1', '2015-10-29 01:07:43', '2015-10-29 01:07:43', 1),
+(2, 'Rumah Sakit 2', '2015-10-29 01:07:54', '2015-10-29 01:07:54', 2),
+(3, 'Rumah Sakit 3', '2015-10-29 01:08:12', '2015-10-29 01:08:12', 3),
+(4, 'Rumah Sakit 4', '2015-10-29 01:08:22', '2015-10-29 01:08:22', 4),
+(5, 'Rumah Sakit 5', '2015-10-29 01:08:37', '2015-10-29 01:08:37', 5),
+(6, 'Rumah Sakit 6', '2015-10-29 03:05:11', '2015-10-29 03:05:11', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag`
+--
+
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `jk` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `nama_pasien` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ttl_tl` datetime NOT NULL,
+  `tgl_masuk` datetime NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `alamat` text COLLATE utf8_unicode_ci NOT NULL,
+  `telp_rumah` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `hp1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `hp2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ttl_t` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `rs_id` int(11) NOT NULL,
+  `asuransi_id` int(11) NOT NULL,
+  `penyakit_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_username_unique` (`username`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `jk`, `nama_pasien`, `ttl_tl`, `tgl_masuk`, `status`, `alamat`, `telp_rumah`, `hp1`, `hp2`, `role`, `remember_token`, `created_at`, `updated_at`, `ttl_t`, `rs_id`, `asuransi_id`, `penyakit_id`) VALUES
+(6, 'pasien1', '$2y$10$nZFI2BkCYZC98wNWl3cC9.JEyRO0iz0yBBGe/Ox3JGAr3M6GQ6lA.', 'pasien1', 'l', 'Pasien 1', '1996-06-12 08:27:24', '0000-00-00 00:00:00', 1, 'Alamat Pasien 1', '234', '124', '56234', 'pasien', NULL, '2015-10-20 01:27:24', '2015-10-29 02:55:01', 'Tempat lahir Pasien 1', 3, 0, 2);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
