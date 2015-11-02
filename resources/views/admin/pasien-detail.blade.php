@@ -44,23 +44,23 @@ Detail pasien
 					<h3>Rumah Sakit</h3>
 					<p>{{ isset($pasien->rs->nama_rs) ? $pasien->rs->nama_rs : '-' }}</p>
 					<h3>Dokter</h3>
-					@if(isset($pasien->dokter))
-					@foreach($pasien->dokter as $dokter)
+					@if($pasien->dokters->count() != 0)
+					@foreach($pasien->dokters as $dokter)
 					<p>- {{ $dokter->nama_dokter }}</p>
 					@endforeach
 					@else
 					<p>-</p>
 					@endif
 					<h3>Obat</h3>
-					@if(isset($pasien->obat))
-					@foreach($pasien->obat as $obat)
+					@if($pasien->obats->count() != 0)
+					@foreach($pasien->obats as $obat)
 					<p>- {{ $obat->nama_obat }}</p>
 					@endforeach
 					@else
 					<p>-</p>
 					@endif
 					<h3>Asuransi</h3>
-					<p>{{ isset($pasien->asuransi) ? $pasien->asuransi->nama_asuransi : '-' }}</p>
+					<p>{{ isset($pasien->asuransi->nama_asuransi) ? $pasien->asuransi->nama_asuransi : '-' }}</p>
 				</div>
 				<div class="col-sm-6">
 					<ul class="info-blocks">
@@ -190,7 +190,7 @@ Detail pasien
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-warning" data-dismiss="modal"><i class="icon-cancel-circle"></i> Batal</button>
-				<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-disk"></i> Simpan</button>
+				<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-disk"></i> Tambah</button>
 			</div>
 			</form>
 		</div>
@@ -214,7 +214,7 @@ Detail pasien
 			              <select name="obat" class="form-control">
 			                	<option value="">- Pilih obat -</option>
 			                @foreach($obats as $value)
-			                	<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
+			                	<option value="{{ $value->id }}">{{ $value->nama_obat }}</option>
 			               	@endforeach
 			              </select>
 			              @if ($errors->has('obat')) <p class="help-block">{{ $errors->first('obat') }}</p> @endif
@@ -224,7 +224,7 @@ Detail pasien
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-warning" data-dismiss="modal"><i class="icon-cancel-circle"></i> Batal</button>
-				<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-disk"></i> Simpan</button>
+				<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-disk"></i> Tambah</button>
 			</div>
 			</form>
 		</div>

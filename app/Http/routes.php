@@ -34,6 +34,10 @@ Route::controllers([
 
 Route::get('dashboard', 'AdminController@dashboard');
 
+//LAPORAN
+Route::get('laporan', 'LaporanController@index');
+Route::get('laporan/{id}', 'LaporanController@laporan');
+
 //ADMIN
 Route::get('admin', 'AdminController@main');
 Route::post('admin/create', 'AdminController@create');

@@ -14,7 +14,7 @@
 			<!-- User dropdown -->
 				<div class="user-menu dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="images/demo/users/face3.png" alt="">
+						<img src="{{ URL::asset('images/demo/users/face3.png') }}" alt="">
 						<div class="user-info">Nama<span>Role</span></div>
 					</a>
 					<div class="popup dropdown-menu dropdown-menu-right">
@@ -39,6 +39,7 @@
 				<ul class="navigation">
 				<li @if(Request::is('dashboard*')) class="active" @endif ><a href="{{ URL('dashboard') }}"><span>Dashboard</span> <i class="icon-screen2"></i></a></li>  
 				<li @if(Request::is('admin*')) class="active" @endif ><a href="{{ URL('admin') }}"><span>Admin</span> <i class="icon-user4"></i></a></li>  
+				<li @if(Request::is('laporan*')) class="active" @endif ><a href="{{ URL('laporan') }}"><span>Laporan</span> <i class="icon-clipboard"></i></a></li>
 				<?php
 				$master = false;
 				if(Request::is('pasien*') || Request::is('obat*') || Request::is('asuransi*') || Request::is('dokter*') || Request::is('indikasi*') || Request::is('rs*') || Request::is('penyakit*'))
@@ -69,7 +70,6 @@
 				</li>
 
 				<li @if(Request::is('artikel*')) class="active" @endif ><a href="#"><span>Artikel</span> <i class="icon-newspaper"></i></a></li>
-				<li @if(Request::is('laporan*')) class="active" @endif ><a href="#"><span>Laporan</span> <i class="icon-clipboard"></i></a></li>
 				</ul>
 			<!-- /main navigation -->
 			</div>

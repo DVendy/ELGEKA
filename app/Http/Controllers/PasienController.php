@@ -61,7 +61,7 @@ class PasienController extends Controller {
 		$obats = Obat::all();
 		$asuransis = Asuransi::all();
 
-		//dd($pasien->rs);
+		//dd($pasien->dokters);
 
 		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis);
 	}
@@ -244,7 +244,7 @@ class PasienController extends Controller {
 		}
 		else{
 			$pasien = User::find(Input::get('edit_id'));
-			$pasien->rumah_sakit_id = Input::get('rs');
+			$pasien->rs_id = Input::get('rs');
 			$pasien->save();
 			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
 		}
@@ -264,8 +264,8 @@ class PasienController extends Controller {
 		}
 		else{
 			$pasien = User::find(Input::get('edit_id'));
-			$pasien->penyakit_id = Input::get('dokter');
-			$pasien->save();
+			$pasien->dokters()->attach(Input::get('dokter'));
+			
 			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
 		}
 	}
@@ -284,8 +284,8 @@ class PasienController extends Controller {
 		}
 		else{
 			$pasien = User::find(Input::get('edit_id'));
-			$pasien->penyakit_id = Input::get('obat');
-			$pasien->save();
+			$pasien->obats()->attach(Input::get('obat'));
+
 			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
 		}
 	}
@@ -304,7 +304,7 @@ class PasienController extends Controller {
 		}
 		else{
 			$pasien = User::find(Input::get('edit_id'));
-			$pasien->penyakit_id = Input::get('asuransi');
+			$pasien->asuransi_id = Input::get('asuransi');
 			$pasien->save();
 			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
 		}

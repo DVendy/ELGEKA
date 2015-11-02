@@ -38,6 +38,7 @@
 	<script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('js/application.js')}}"></script>     
 
+	<script type="text/javascript" src="{{ URL::asset('js/dataTables.columnFilter.js')}}"></script>
 	<style>
 		.navigation > li ul > li> a > i {
 			font-size: 16px;

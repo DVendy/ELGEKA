@@ -30,13 +30,13 @@ Manage kelurahan
 	</li>
 </ul>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h6 class="panel-title"><i class="icon-paragraph-justify"></i> Kelurahan</h6>
 			</div>
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered">
+				<table class="table table-striped table-bordered" id="example">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -47,6 +47,16 @@ Manage kelurahan
 							<th>Action</th>
 						</tr>
 					</thead>
+					<tfoot>
+						<tr>
+							<th></th>
+							<th>Kelurahan</th>
+							<th>Kecamatan</th>
+							<th>Kota / kabupaten</th>
+							<th>Provinsi</th>
+							<th></th>
+						</tr>
+					</tfoot>
 					<tbody>
 						<?php
 						$i = 1;
@@ -253,6 +263,34 @@ Manage kelurahan
 				elem.value = data['nama_kelurahan'];
 			});
 		});
+		$('#example').dataTable().columnFilter(
+		{
+			aoColumns: [
+			null,
+			{
+				type: "text",
+				bRegex: true,
+				bSmart: true
+			},
+			{
+				type: "text",
+				bRegex: true,
+				bSmart: true
+			},
+			{
+				type: "text",
+				bRegex: true,
+				bSmart: true
+			},
+			{
+				type: "text",
+				bRegex: true,
+				bSmart: true
+			},
+			null
+			]
+		}
+		);
 	});
 	function onProvinsiChange(id) {
 	    var s_kotakab = document.getElementById("s_kotakab");
