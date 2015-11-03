@@ -34,6 +34,56 @@ Manage laporan
         <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/1') }}">1. Jumlah pasien berdasarkan penyakit per propinsi-perkota</a></h6>
       </div>
     </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/2') }}">2. Jumlah pasien berdasarkan obat per propinsi-perkota</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/3') }}">3. Jumlah obat berdasarkan pasien</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/4') }}">4. Jumlah pasien berdasarkan Rumah Sakit per propinsi-perkota</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/5') }}">5. Daftar rumah sakit berdasarkan pasien</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/6') }}">6. Jumlah obat berdasarkan Rumah sakit</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/7') }}">7. Jumlah pasien berdasarkan dokter</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/8') }}">8. Jumlah dokter berdasarkan pasien</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/9') }}">9. Jumlah pasien berdasarkan program</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="#">10. Alamat pasien berdasarkan kecamatan</a></h6>
+      </div>
+    </div>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h6 class="panel-title"><a class="collapsed" href="#">11. Jumlah pasien berdasarkan perkota</a></h6>
+      </div>
+    </div>
   </div>
 </div>
 </div>

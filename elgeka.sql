@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2015 at 11:11 AM
+-- Generation Time: Nov 03, 2015 at 12:06 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -86,14 +86,17 @@ CREATE TABLE IF NOT EXISTS `dokter` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `dokter`
 --
 
 INSERT INTO `dokter` (`id`, `nama_dokter`, `created_at`, `updated_at`) VALUES
-(1, 'Tony Tony Chopper', '2015-09-17 00:15:29', '2015-09-17 00:15:47');
+(1, 'Dokter 1', '2015-09-17 00:15:29', '2015-11-01 22:24:20'),
+(2, 'Dokter 2', '2015-11-01 22:24:28', '2015-11-01 22:24:28'),
+(3, 'Dokter 3', '2015-11-01 22:24:35', '2015-11-01 22:24:35'),
+(4, 'Dokter 4', '2015-11-01 22:24:40', '2015-11-01 22:24:40');
 
 -- --------------------------------------------------------
 
@@ -108,7 +111,22 @@ CREATE TABLE IF NOT EXISTS `dokter_user` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `dokter_user`
+--
+
+INSERT INTO `dokter_user` (`id`, `dokter_id`, `users_id`, `created_at`, `updated_at`) VALUES
+(2, 1, 6, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 3, 6, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 2, 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 1, 7, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 4, 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 3, 9, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 3, 7, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 3, 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 1, 9, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -248,15 +266,18 @@ CREATE TABLE IF NOT EXISTS `obat` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `obat`
 --
 
 INSERT INTO `obat` (`id`, `nama_obat`, `jumlah`, `created_at`, `updated_at`) VALUES
-(1, 'Panadol', 1, '2015-09-16 01:18:52', '2015-09-16 01:18:52'),
-(2, 'Amoxcilinasd', 412, '2015-09-16 01:19:02', '2015-09-16 02:01:52');
+(1, 'Obat 1', 1, '2015-09-16 01:18:52', '2015-11-02 01:53:15'),
+(2, 'Obat 2', 412, '2015-09-16 01:19:02', '2015-11-02 01:53:21'),
+(3, 'Obat 3', 1, '2015-11-02 01:53:38', '2015-11-02 01:53:38'),
+(4, 'Obat 4', 2, '2015-11-02 01:53:43', '2015-11-02 01:53:43'),
+(5, 'Obat 5', 6, '2015-11-02 01:53:52', '2015-11-02 01:53:52');
 
 -- --------------------------------------------------------
 
@@ -272,7 +293,26 @@ CREATE TABLE IF NOT EXISTS `obat_user` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `obat_user`
+--
+
+INSERT INTO `obat_user` (`id`, `obat_id`, `users_id`, `jumlah`, `created_at`, `updated_at`) VALUES
+(1, 1, 6, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 2, 6, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 1, 10, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 2, 10, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 3, 10, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 4, 7, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 5, 7, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 3, 8, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 4, 8, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 5, 8, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 1, 9, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, 3, 9, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 4, 9, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -406,14 +446,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_username_unique` (`username`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `jk`, `nama_pasien`, `ttl_tl`, `tgl_masuk`, `status`, `alamat`, `telp_rumah`, `hp1`, `hp2`, `role`, `remember_token`, `created_at`, `updated_at`, `ttl_t`, `rs_id`, `asuransi_id`, `penyakit_id`) VALUES
-(6, 'pasien1', '$2y$10$nZFI2BkCYZC98wNWl3cC9.JEyRO0iz0yBBGe/Ox3JGAr3M6GQ6lA.', 'pasien1', 'l', 'Pasien 1', '1996-06-12 08:27:24', '0000-00-00 00:00:00', 1, 'Alamat Pasien 1', '234', '124', '56234', 'pasien', NULL, '2015-10-20 01:27:24', '2015-10-29 02:55:01', 'Tempat lahir Pasien 1', 3, 0, 2);
+(6, 'pasien1', '$2y$10$nZFI2BkCYZC98wNWl3cC9.JEyRO0iz0yBBGe/Ox3JGAr3M6GQ6lA.', 'pasien1', 'l', 'Pasien 1', '1996-06-12 08:27:24', '0000-00-00 00:00:00', 1, 'Alamat Pasien 1', '234', '124', '56234', 'pasien', NULL, '2015-10-20 01:27:24', '2015-11-01 23:22:33', 'Tempat lahir Pasien 1', 3, 6, 3),
+(7, 'pasien2', '$2y$10$W/.APeHqZ23KyDNeirwhuOyAJPi8qWDKDqrlg729/51EMZCb8Ipjy', 'Pasien 2', 'p', 'Pasien 2', '1995-05-11 07:52:03', '0000-00-00 00:00:00', 0, 'Pasien 2', '', '123', '123', 'pasien', NULL, '2015-11-02 00:52:03', '2015-11-02 00:59:27', 'Pasien 2', 1, 0, 3),
+(8, 'pasien3', '$2y$10$4ObXNL1y6lHubvPcz8JixewNpyBPjznLCGJObMG02YyPCGn0FtFpi', 'Pasien 3', 'l', 'Pasien 3', '1999-05-12 07:53:28', '0000-00-00 00:00:00', 0, 'Pasien 2', '', '123', '', 'pasien', NULL, '2015-11-02 00:53:28', '2015-11-03 03:39:26', 'Pasien 2', 1, 6, 2),
+(9, 'pasien4', '$2y$10$DG4d6jvIu5313TmJzXDcye.2ihZQDqU3JJoJy96iuhHKdXc8DiOeK', 'Pasien 4', 'l', 'Pasien 4', '1992-08-23 08:09:30', '0000-00-00 00:00:00', 0, 'Pasien 4', '', '123', '', 'pasien', NULL, '2015-11-02 01:09:30', '2015-11-03 03:39:04', 'Pasien 4', 5, 5, 4),
+(10, 'pasien5', '$2y$10$QG.zm9Akq2xf83hmKW5HtuEVljt6JMGytbBoDyO5z.Ek/dWMuM.LO', 'Pasien 5', 'l', 'Pasien 5', '1998-11-12 08:20:01', '0000-00-00 00:00:00', 0, 'Pasien 5', '', '213', '', 'pasien', NULL, '2015-11-02 01:20:01', '2015-11-02 01:20:43', 'Pasien 5', 5, 0, 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

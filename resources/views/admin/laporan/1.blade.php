@@ -38,7 +38,7 @@ Manage laporan
               <th>Provinsi</th>
               <th>Kota</th>
               <th>Penyakit</th>
-              <th>Jumlah</th>
+              <th>Jumlah Pasien</th>
             </tr>
           </thead>
           <tfoot>
