@@ -1,10 +1,15 @@
 @extends('base')
 
 @section('extraStyle')
-	<title>ELGEKA - Dashboard</title>
-	<script language="javascript" type="text/javascript" src="js/chart/jquery.js"></script>
-	<script language="javascript" type="text/javascript" src="js/chart/jquery.flot.js"></script>
-	<script language="javascript" type="text/javascript" src="js/chart/jquery.flot.pie.js"></script>
+<title>ELGEKA - Dashboard</title>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<style type="text/css">
+	svg > text{
+		display: none;
+	}
+</style>
 @stop
 
 @section('headerExtraScript')
@@ -25,69 +30,67 @@ Halaman utama
 		<li class="active">Dashboard</li>
 	</ul>
 </div>
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h6 class="panel-title"><i class="icon-calendar2"></i> Empty updating graph</h6>
-	</div>
-	<div class="panel-body">
-		<div id="placeholder" style="width:100%;height:300px"></div>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h6 class="panel-title"><i class="icon-calendar2"></i> Jumlah pasien per program</h6>
+			</div>
+			<div class="panel-body">
+				<div id="c_asuransi" style="width:100%; height: 400px; margin: 0 auto"></div>
+			</div>
+		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	$(function() {
+	function shuffle(a){for(var b=a.length,d,c;0!==b;)c=Math.floor(Math.random()*b),--b,d=a[b],a[b]=a[c],a[c]=d;return a};
+	var colorsT="#1abc9c #2ecc71 #3498db #9b59b6 #34495e #16a085 #27ae60 #2980b9 #8e44ad #2c3e50 #f1c40f #e67e22 #e74c3c #ecf0f1 #95a5a6 #f39c12 #d35400 #c0392b #bdc3c7 #7f8c8d".split(" ");
 
-		// Example Data
-
-		//var data = [
-		//	{ label: "Series1",  data: 10},
-		//	{ label: "Series2",  data: 30},
-		//	{ label: "Series3",  data: 90},
-		//	{ label: "Series4",  data: 70},
-		//	{ label: "Series5",  data: 80},
-		//	{ label: "Series6",  data: 110}
-		//];
-
-		//var data = [
-		//	{ label: "Series1",  data: [[1,10]]},
-		//	{ label: "Series2",  data: [[1,30]]},
-		//	{ label: "Series3",  data: [[1,90]]},
-		//	{ label: "Series4",  data: [[1,70]]},
-		//	{ label: "Series5",  data: [[1,80]]},
-		//	{ label: "Series6",  data: [[1,0]]}
-		//];
-
-		//var data = [
-		//	{ label: "Series A",  data: 0.2063},
-		//	{ label: "Series B",  data: 38888}
-		//];
-
-		// Randomly Generated Data
-
-		var data = [],
-			series = Math.floor(Math.random() * 6) + 3;
-
-		for (var i = 0; i < series; i++) {
-			data[i] = {
-				label: "Series" + (i + 1),
-				data: Math.floor(Math.random() * 100) + 1
-			}
-		}
-
-		var placeholder = $("#placeholder");
-
-		$.plot(placeholder, data, {
-			series: {
-				pie: { 
-					show: true
-				}
-			},
-		    grid: {
-		        hoverable: true,
-		    }
-		});
+	$(document).ready(function () {
 		
-	});
+		//CHART ASURANSI
+		Highcharts.theme={colors:shuffle(colorsT)};Highcharts.setOptions(Highcharts.theme);
+
+        $('#c_asuransi').highcharts({
+        	chart: {
+        		plotBackgroundColor: null,
+        		plotBorderWidth: null,
+        		plotShadow: false,
+        		type: 'pie'
+        	},
+        	title: {
+        		text: ''
+        	},
+        	tooltip: {
+        		pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f} %)'
+        	},
+        	plotOptions: {
+        		pie: {
+        			allowPointSelect: true,
+        			cursor: 'pointer',
+        			dataLabels: {
+        				enabled: true,
+        				distance: -30,
+        				format: '<b>{point.name}</b><br><i>{point.y} pasien</i>'
+        			},
+        			showInLegend: true
+        		}
+        	},
+        	series: [{
+        		name: 'Jumlah pasien',
+        		colorByPoint: true,
+        		data: [
+        		@foreach($rows as $key => $value)
+        		{
+        			name: "{{ $value->name }}",
+        			y: {{ $value->value }}
+        		},
+        		@endforeach
+        		]
+        	}]
+        });
+    });
 </script>
 @stop
 

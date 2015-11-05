@@ -67,7 +67,7 @@ class LaporanController extends Controller {
 				break;
 			
 			case 9:
-				$sql = "SELECT a.nama_asuransi, COUNT(*) as jumlah FROM users AS u, asuransi AS a WHERE u.asuransi_id = a.id GROUP BY a.nama_asuransi";
+				$sql = "SELECT a.nama_asuransi, IFNULL(COUNT(u.id), 0) AS jumlah FROM asuransi AS a LEFT JOIN users AS u ON u.asuransi_id = a.id GROUP BY a.nama_asuransi";
 				$rows = DB::select(DB::raw($sql));
 				//dd($rows);
 				return view('admin.laporan.'.$id)->with('rows', $rows);

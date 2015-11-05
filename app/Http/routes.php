@@ -32,7 +32,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('dashboard', 'AdminController@dashboard');
+Route::get('dashboard', 'ChartController@dashboard');
 
 //LAPORAN
 Route::get('laporan', 'LaporanController@index');
