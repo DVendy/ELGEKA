@@ -285,6 +285,10 @@ Manage rumah sakit
 	    var s_kecamatan = document.getElementById("s_kecamatan");
 	    s_kecamatan.options.length = 0;
 	    s_kecamatan.options.add(new Option("- Pilih kota / kabupaten terlebih dahulu -", ""));
+	    
+		var s_kelurahan = document.getElementById("s_kelurahan");
+		s_kelurahan.options.length = 0;
+		s_kelurahan.options.add(new Option("- Pilih kecamatan terlebih dahulu -", ""));
 
 		if (id != ""){
 			$.get('provinsi/getChild/' + id, function( data ) {
@@ -310,6 +314,10 @@ Manage rumah sakit
 	    var s_kecamatan = document.getElementById("edit_s_kecamatan");
 	    s_kecamatan.options.length = 0;
 	    s_kecamatan.options.add(new Option("- Pilih kota / kabupaten terlebih dahulu -", ""));
+	    
+		var s_kelurahan = document.getElementById("edit_s_kelurahan");
+		s_kelurahan.options.length = 0;
+		s_kelurahan.options.add(new Option("- Pilih kecamatan terlebih dahulu -", ""));
 	    
 		if (id != ""){
 			$.get('provinsi/getChild/' + id, function( data ) {

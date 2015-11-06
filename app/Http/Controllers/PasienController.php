@@ -6,6 +6,7 @@ use App\Rs;
 use App\Asuransi;
 use App\Obat;
 use App\Dokter;
+use App\Provinsi;
 
 use Hash;
 use Validator;
@@ -49,7 +50,10 @@ class PasienController extends Controller {
 	{
 		$users = User::where('role', '=', 'pasien')->paginate(25);
 		$users->setPath('');
-		return view('admin.pasien')->with('users', $users);
+
+		$provinsis = Provinsi::all();
+
+		return view('admin.pasien')->with('users', $users)->with('provinsis', $provinsis);
 	}
 
 	public function detail($id)
@@ -78,6 +82,7 @@ class PasienController extends Controller {
 			'alamat'	=> 'required',
 			'ttl_tl'	=> 'required',
 			'ttl_t'	=> 'required',
+			's_kelurahan'	=> 'required',
 			));
 
 		if ($validate -> fails()){
@@ -91,6 +96,7 @@ class PasienController extends Controller {
 				'alamat'	=> 'required',
 				'ttl_tl'	=> 'required',
 				'ttl_t'	=> 'required',
+				's_kelurahan'	=> 'required',
 				'create' => 'required',
 				));
 			return redirect('pasien')->withErrors($validate)->withInput();
@@ -106,6 +112,7 @@ class PasienController extends Controller {
 			$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('ttl_tl'));
 			$user->ttl_t = Input::get('ttl_t');
 			$user->alamat = Input::get('alamat');
+			$user->kelurahan_id = Input::get('s_kelurahan');
 
 			if (Input::has('hp1'))
 				$user->hp1 = Input::get('hp1');
@@ -150,6 +157,7 @@ class PasienController extends Controller {
 			'edit_ttl_t'	=> 'required',
 			'edit_alamat'	=> 'required',
 			'edit_ttl_tl'	=> 'required',
+			'edit_s_kelurahan'	=> 'required',
 			));
 
 		if ($validate -> fails()){
@@ -160,6 +168,7 @@ class PasienController extends Controller {
 				'edit_ttl_t'	=> 'required',
 				'edit_alamat'	=> 'required',
 				'edit_ttl_tl'	=> 'required',
+				'edit_s_kelurahan'	=> 'required',
 				'update' => 'required',
 				));
 			return redirect('pasien')->withErrors($validate)->withInput();
@@ -177,6 +186,7 @@ class PasienController extends Controller {
 			$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('edit_ttl_tl'));
 
 			$user->alamat = Input::get('edit_alamat');
+			$user->kelurahan_id = Input::get('edit_s_kelurahan');
 
 			if (Input::has('edit_hp1'))
 				$user->hp1 = Input::get('edit_hp1');

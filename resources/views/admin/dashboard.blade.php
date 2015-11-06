@@ -31,16 +31,26 @@ Halaman utama
 	</ul>
 </div>
 <div class="row">
-	<div class="col-sm-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h6 class="panel-title"><i class="icon-calendar2"></i> Jumlah pasien per program</h6>
-			</div>
-			<div class="panel-body">
-				<div id="c_asuransi" style="width:100%; height: 400px; margin: 0 auto"></div>
-			</div>
-		</div>
-	</div>
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-calendar2"></i> Jumlah pasien per program</h6>
+            </div>
+            <div class="panel-body">
+                <div id="c_asuransi" style="width:100%; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-calendar2"></i> Jumlah pasien per obat</h6>
+            </div>
+            <div class="panel-body">
+                <div id="c_obat" style="width:100%; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -50,45 +60,87 @@ Halaman utama
 	$(document).ready(function () {
 		
 		//CHART ASURANSI
-		Highcharts.theme={colors:shuffle(colorsT)};Highcharts.setOptions(Highcharts.theme);
+        Highcharts.theme={colors:shuffle(colorsT)};Highcharts.setOptions(Highcharts.theme);
 
         $('#c_asuransi').highcharts({
-        	chart: {
-        		plotBackgroundColor: null,
-        		plotBorderWidth: null,
-        		plotShadow: false,
-        		type: 'pie'
-        	},
-        	title: {
-        		text: ''
-        	},
-        	tooltip: {
-        		pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f} %)'
-        	},
-        	plotOptions: {
-        		pie: {
-        			allowPointSelect: true,
-        			cursor: 'pointer',
-        			dataLabels: {
-        				enabled: true,
-        				distance: -30,
-        				format: '<b>{point.name}</b><br><i>{point.y} pasien</i>'
-        			},
-        			showInLegend: true
-        		}
-        	},
-        	series: [{
-        		name: 'Jumlah pasien',
-        		colorByPoint: true,
-        		data: [
-        		@foreach($rows as $key => $value)
-        		{
-        			name: "{{ $value->name }}",
-        			y: {{ $value->value }}
-        		},
-        		@endforeach
-        		]
-        	}]
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f} %)'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '<b>{point.name}</b><br><i>{point.y} pasien</i>'
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Jumlah pasien',
+                colorByPoint: true,
+                data: [
+                @foreach($asuransi as $key => $value)
+                {
+                    name: "{{ $value->name }}",
+                    y: {{ $value->value }}
+                },
+                @endforeach
+                ]
+            }]
+        });
+
+        //CHART OBAT
+        Highcharts.theme={colors:shuffle(colorsT)};Highcharts.setOptions(Highcharts.theme);
+
+        $('#c_obat').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f} %)'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '<b>{point.name}</b><br><i>{point.y} pasien</i>'
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Jumlah pasien',
+                colorByPoint: true,
+                data: [
+                @foreach($obat as $key => $value)
+                {
+                    name: "{{ $value->name }}",
+                    y: {{ $value->jumlah }}
+                },
+                @endforeach
+                ]
+            }]
         });
     });
 </script>

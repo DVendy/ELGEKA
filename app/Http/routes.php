@@ -132,3 +132,13 @@ Route::post('penyakit/update', 'PenyakitController@update');
 Route::get('penyakit/delete-{id}', 'PenyakitController@delete');
 Route::get('penyakit/getAjax/{id}', 'PenyakitController@getAjax');
 Route::get('penyakit/getChild/{id}', 'PenyakitController@getChild');
+
+Route:: get('tes', function(){
+	return view('admin.laporan.server');
+});
+
+Route:: get('serverDt', function(){
+	$sql = "SELECT pr.nama_provinsi, kt.nama_kotakab ,p.nama_penyakit, COUNT(*) AS jumlah FROM penyakit AS p, users AS u, rs, kelurahan AS kl, kecamatan AS kc, kotakab AS kt, provinsi AS pr WHERE u.penyakit_id = p.id AND u.rs_id = rs.id AND rs.kelurahan_id = kl.id AND kl.kecamatan_id = kc.id AND kc.kotakab_id = kt.id AND kt.provinsi_id = pr.id GROUP BY pr.nama_provinsi, kt.nama_kotakab ,p.nama_penyakit";
+	$rows = DB::select(DB::raw($sql));
+	return json_encode($rows);
+});

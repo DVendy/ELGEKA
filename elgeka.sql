@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2015 at 12:06 PM
+-- Generation Time: Nov 06, 2015 at 11:55 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -77,6 +77,24 @@ INSERT INTO `asuransi` (`id`, `nama_asuransi`, `created_at`, `updated_at`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `asuransi_history`
+--
+
+CREATE TABLE IF NOT EXISTS `asuransi_history` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `asuransi_id` int(11) NOT NULL,
+  `tgl` datetime NOT NULL,
+  `login` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dokter`
 --
 
@@ -97,6 +115,24 @@ INSERT INTO `dokter` (`id`, `nama_dokter`, `created_at`, `updated_at`) VALUES
 (2, 'Dokter 2', '2015-11-01 22:24:28', '2015-11-01 22:24:28'),
 (3, 'Dokter 3', '2015-11-01 22:24:35', '2015-11-01 22:24:35'),
 (4, 'Dokter 4', '2015-11-01 22:24:40', '2015-11-01 22:24:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dokter_history`
+--
+
+CREATE TABLE IF NOT EXISTS `dokter_history` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `dokter_id` int(11) NOT NULL,
+  `tgl` datetime NOT NULL,
+  `login` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -251,7 +287,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2015_10_08_041504_relasi_artikel_creator', 4),
 ('2015_10_19_060522_revisi', 5),
 ('2015_10_20_064618_edit_penyakit', 6),
-('2015_10_29_100124_edit_rs', 7);
+('2015_10_29_100124_edit_rs', 7),
+('2015_11_06_054748_revisi2', 8);
 
 -- --------------------------------------------------------
 
@@ -266,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `obat` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `obat`
@@ -277,7 +314,26 @@ INSERT INTO `obat` (`id`, `nama_obat`, `jumlah`, `created_at`, `updated_at`) VAL
 (2, 'Obat 2', 412, '2015-09-16 01:19:02', '2015-11-02 01:53:21'),
 (3, 'Obat 3', 1, '2015-11-02 01:53:38', '2015-11-02 01:53:38'),
 (4, 'Obat 4', 2, '2015-11-02 01:53:43', '2015-11-02 01:53:43'),
-(5, 'Obat 5', 6, '2015-11-02 01:53:52', '2015-11-02 01:53:52');
+(5, 'Obat 5', 6, '2015-11-02 01:53:52', '2015-11-02 01:53:52'),
+(6, 'Obat 6', 2, '2015-11-05 20:57:10', '2015-11-05 20:57:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `obat_history`
+--
+
+CREATE TABLE IF NOT EXISTS `obat_history` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `obat_id` int(11) NOT NULL,
+  `tgl` datetime NOT NULL,
+  `login` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -354,6 +410,24 @@ INSERT INTO `penyakit` (`id`, `nama_penyakit`, `created_at`, `updated_at`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `penyakit_history`
+--
+
+CREATE TABLE IF NOT EXISTS `penyakit_history` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `penyakit_id` int(11) NOT NULL,
+  `tgl` datetime NOT NULL,
+  `login` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `provinsi`
 --
 
@@ -404,6 +478,24 @@ INSERT INTO `rs` (`id`, `nama_rs`, `created_at`, `updated_at`, `kelurahan_id`) V
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rs_history`
+--
+
+CREATE TABLE IF NOT EXISTS `rs_history` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `rs_id` int(11) NOT NULL,
+  `tgl` datetime NOT NULL,
+  `login` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tag`
 --
 
@@ -443,21 +535,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `rs_id` int(11) NOT NULL,
   `asuransi_id` int(11) NOT NULL,
   `penyakit_id` int(11) NOT NULL,
+  `kelurahan_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_username_unique` (`username`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `jk`, `nama_pasien`, `ttl_tl`, `tgl_masuk`, `status`, `alamat`, `telp_rumah`, `hp1`, `hp2`, `role`, `remember_token`, `created_at`, `updated_at`, `ttl_t`, `rs_id`, `asuransi_id`, `penyakit_id`) VALUES
-(6, 'pasien1', '$2y$10$nZFI2BkCYZC98wNWl3cC9.JEyRO0iz0yBBGe/Ox3JGAr3M6GQ6lA.', 'pasien1', 'l', 'Pasien 1', '1996-06-12 08:27:24', '0000-00-00 00:00:00', 1, 'Alamat Pasien 1', '234', '124', '56234', 'pasien', NULL, '2015-10-20 01:27:24', '2015-11-01 23:22:33', 'Tempat lahir Pasien 1', 3, 6, 3),
-(7, 'pasien2', '$2y$10$W/.APeHqZ23KyDNeirwhuOyAJPi8qWDKDqrlg729/51EMZCb8Ipjy', 'Pasien 2', 'p', 'Pasien 2', '1995-05-11 07:52:03', '0000-00-00 00:00:00', 0, 'Pasien 2', '', '123', '123', 'pasien', NULL, '2015-11-02 00:52:03', '2015-11-02 00:59:27', 'Pasien 2', 1, 0, 3),
-(8, 'pasien3', '$2y$10$4ObXNL1y6lHubvPcz8JixewNpyBPjznLCGJObMG02YyPCGn0FtFpi', 'Pasien 3', 'l', 'Pasien 3', '1999-05-12 07:53:28', '0000-00-00 00:00:00', 0, 'Pasien 2', '', '123', '', 'pasien', NULL, '2015-11-02 00:53:28', '2015-11-03 03:39:26', 'Pasien 2', 1, 6, 2),
-(9, 'pasien4', '$2y$10$DG4d6jvIu5313TmJzXDcye.2ihZQDqU3JJoJy96iuhHKdXc8DiOeK', 'Pasien 4', 'l', 'Pasien 4', '1992-08-23 08:09:30', '0000-00-00 00:00:00', 0, 'Pasien 4', '', '123', '', 'pasien', NULL, '2015-11-02 01:09:30', '2015-11-03 03:39:04', 'Pasien 4', 5, 5, 4),
-(10, 'pasien5', '$2y$10$QG.zm9Akq2xf83hmKW5HtuEVljt6JMGytbBoDyO5z.Ek/dWMuM.LO', 'Pasien 5', 'l', 'Pasien 5', '1998-11-12 08:20:01', '0000-00-00 00:00:00', 0, 'Pasien 5', '', '213', '', 'pasien', NULL, '2015-11-02 01:20:01', '2015-11-02 01:20:43', 'Pasien 5', 5, 0, 4);
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `jk`, `nama_pasien`, `ttl_tl`, `tgl_masuk`, `status`, `alamat`, `telp_rumah`, `hp1`, `hp2`, `role`, `remember_token`, `created_at`, `updated_at`, `ttl_t`, `rs_id`, `asuransi_id`, `penyakit_id`, `kelurahan_id`) VALUES
+(6, 'pasien1', '$2y$10$nZFI2BkCYZC98wNWl3cC9.JEyRO0iz0yBBGe/Ox3JGAr3M6GQ6lA.', 'pasien1', 'l', 'Pasien 1', '1996-06-12 07:08:00', '0000-00-00 00:00:00', 1, 'Alamat Pasien 1', '234', '124', '56234', 'pasien', NULL, '2015-10-20 01:27:24', '2015-11-06 00:08:00', 'Tempat lahir Pasien 1', 3, 6, 3, 1),
+(7, 'pasien2', '$2y$10$W/.APeHqZ23KyDNeirwhuOyAJPi8qWDKDqrlg729/51EMZCb8Ipjy', 'Pasien 2', 'p', 'Pasien 2', '1995-05-11 07:52:03', '0000-00-00 00:00:00', 0, 'Pasien 2', '', '123', '123', 'pasien', NULL, '2015-11-02 00:52:03', '2015-11-02 00:59:27', 'Pasien 2', 1, 0, 3, 0),
+(8, 'pasien3', '$2y$10$4ObXNL1y6lHubvPcz8JixewNpyBPjznLCGJObMG02YyPCGn0FtFpi', 'Pasien 3', 'l', 'Pasien 3', '1999-05-12 07:53:28', '0000-00-00 00:00:00', 0, 'Pasien 2', '', '123', '', 'pasien', NULL, '2015-11-02 00:53:28', '2015-11-03 03:39:26', 'Pasien 2', 1, 6, 2, 0),
+(9, 'pasien4', '$2y$10$DG4d6jvIu5313TmJzXDcye.2ihZQDqU3JJoJy96iuhHKdXc8DiOeK', 'Pasien 4', 'l', 'Pasien 4', '1992-08-23 08:09:30', '0000-00-00 00:00:00', 0, 'Pasien 4', '', '123', '', 'pasien', NULL, '2015-11-02 01:09:30', '2015-11-03 03:39:04', 'Pasien 4', 5, 5, 4, 0),
+(10, 'pasien5', '$2y$10$QG.zm9Akq2xf83hmKW5HtuEVljt6JMGytbBoDyO5z.Ek/dWMuM.LO', 'Pasien 5', 'l', 'Pasien 5', '1998-11-12 08:20:01', '0000-00-00 00:00:00', 0, 'Pasien 5', '', '213', '', 'pasien', NULL, '2015-11-02 01:20:01', '2015-11-02 01:20:43', 'Pasien 5', 5, 0, 4, 0),
+(11, 'pasien6', '$2y$10$c9VTFuA/wGc/2zYbYUt.N.jZGhZccd3WiXkmYCSzRkh/O589vi5Rq', 'Pasien 6', 'p', 'Pasien 6', '1995-07-12 06:34:28', '0000-00-00 00:00:00', 0, 'Pasien 6', '', '', '', 'pasien', NULL, '2015-11-05 23:34:28', '2015-11-05 23:34:28', 'Pasien 6', 0, 0, 0, 5);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
