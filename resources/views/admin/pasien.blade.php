@@ -113,7 +113,7 @@ Manage pasien
 								<div class="form-group @if ($errors->has('username')) has-error @endif">
 									<label class="col-sm-2 control-label">Username: </label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="username" value="{{ Input::old('username') }}">
+										<input type="text" class="form-control" name="username" value="{{ Input::old('username') }}" autocomplete="off">
 										@if ($errors->has('username')) <p class="help-block">{{ $errors->first('username') }}</p> @endif
 									</div>
 								</div>
@@ -121,7 +121,7 @@ Manage pasien
 								<div class="form-group @if ($errors->has('password')) has-error @endif">
 									<label class="col-sm-2 control-label">Password:</label>
 									<div class="col-sm-10">
-										<input type="password" class="form-control" name="password">
+										<input type="password" class="form-control" name="password" autocomplete="off">
 										@if ($errors->has('password')) <p class="help-block">{{ $errors->first('password') }}</p> @endif
 									</div>
 								</div>

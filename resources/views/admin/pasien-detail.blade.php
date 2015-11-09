@@ -36,60 +36,88 @@ Detail pasien
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active fade in" id="activity">
-			<div class="row">
-				<div class="col-sm-6">
-					<h2>{{ $pasien->nama_pasien }}</h2>
-					<h3>Penyakit</h3>
-					<p>{{ isset($pasien->penyakit->nama_penyakit) ? $pasien->penyakit->nama_penyakit : '-' }}</p>
-					<h3>Rumah Sakit</h3>
-					<p>{{ isset($pasien->rs->nama_rs) ? $pasien->rs->nama_rs : '-' }}</p>
-					<h3>Dokter</h3>
-					@if($pasien->dokters->count() != 0)
-					@foreach($pasien->dokters as $dokter)
-					<p>- {{ $dokter->nama_dokter }}</p>
-					@endforeach
-					@else
-					<p>-</p>
-					@endif
-					<h3>Obat</h3>
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Nama </label>
+					<div class="col-sm-8">
+						<input class="form-control" readonly="readonly" value="{{ $pasien->nama_pasien }}" type="text" autocomplete="off">
+					</div>
+				</div> 
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Penyakit </label>
+					<div class="col-sm-8">
+						<input class="form-control" readonly="readonly" value="{{ isset($pasien->penyakit->nama_penyakit) ? $pasien->penyakit->nama_penyakit : '-' }}" type="text" autocomplete="off">
+					</div>
+					<div class="col-sm-2 text-center">
+						<a href="#" class="btn btn-info"><i class="icon-heart6"></i> Mutasi</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Rumah Sakit </label>
+					<div class="col-sm-8">
+						<input class="form-control" readonly="readonly" value="{{ isset($pasien->rs->nama_rs) ? $pasien->rs->nama_rs : '-' }}" type="text" autocomplete="off">
+					</div>
+					<div class="col-sm-2 text-center">
+						<a href="#" class="btn btn-info"><i class="icon-home5"></i> Mutasi</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Dokter </label>
+					<div class="col-sm-8">
+						<input class="form-control" readonly="readonly" value="{{ isset($pasien->dokter->nama_dokter) ? $pasien->dokter->nama_dokter : '-' }}" type="text" autocomplete="off">
+					</div>
+					<div class="col-sm-2 text-center">
+						<a href="#" class="btn btn-info"><i class="icon-glasses3"></i> Mutasi</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Asuransi </label>
+					<div class="col-sm-8">
+						<input class="form-control" readonly="readonly" value="{{ isset($pasien->asuransi->nama_asuransi) ? $pasien->asuransi->nama_asuransi : '-' }}" type="text" autocomplete="off">
+					</div>
+					<div class="col-sm-2 text-center">
+						<a href="#" class="btn btn-info"><i class="icon-file4"></i> Mutasi</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Obat </label>
+					<div class="col-sm-8">
 					@if($pasien->obats->count() != 0)
 					@foreach($pasien->obats as $obat)
-					<p>- {{ $obat->nama_obat }}</p>
+					<div class="row" style="padding:0px 0px 20px 0px;">
+						<div class="col-sm-10">
+							<input class="form-control" readonly="readonly" value="{{ $obat->nama_obat }}" type="text" autocomplete="off">
+						</div>
+						<div class="col-sm-2 text-right">
+							<a href="#" class="btn btn-icon btn-danger"><i class="icon-close"></i></a>
+						</div>
+					</div>
 					@endforeach
 					@else
 					<p>-</p>
 					@endif
-					<h3>Asuransi</h3>
-					<p>{{ isset($pasien->asuransi->nama_asuransi) ? $pasien->asuransi->nama_asuransi : '-' }}</p>
-				</div>
-				<div class="col-sm-6">
-					<ul class="info-blocks">
-						<li class="bg-primary">
-							<div class="top-info"><a data-toggle="modal" role="button" href="#modal_penyakit">Penyakit</a><small>manage penyakit</small></div>
-							<a data-toggle="modal" role="button" href="#modal_penyakit"><i class="icon-heart6"></i></a><span class="bottom-info bg-info"></span>
-						</li>
-						<li class="bg-primary">
-							<div class="top-info"><a data-toggle="modal" role="button" href="#modal_rs">Rumah Sakit</a><small>manage rumah sakit</small></div>
-							<a data-toggle="modal" role="button" href="#modal_rs"><i class="icon-home5"></i></a><span class="bottom-info bg-info"></span>
-						</li>
-						<li class="bg-primary">
-							<div class="top-info"><a data-toggle="modal" role="button" href="#modal_dokter">Dokter</a><small>manage dokter</small></div>
-							<a data-toggle="modal" role="button" href="#modal_dokter"><i class="icon-glasses3"></i></a><span class="bottom-info bg-info"></span>
-						</li>
-						<li class="bg-primary">
-							<div class="top-info"><a data-toggle="modal" role="button" href="#modal_obat">Obat</a><small>manage obat</small></div>
-							<a data-toggle="modal" role="button" href="#modal_obat"><i class="icon-inject"></i></a><span class="bottom-info bg-info"></span>
-						</li>
-						<li class="bg-primary">
-							<div class="top-info"><a data-toggle="modal" role="button" href="#modal_asuransi">Asuransi</a><small>manage asuransi</small></div>
-							<a data-toggle="modal" role="button" href="#modal_asuransi"><i class="icon-file4"></i></a><span class="bottom-info bg-info"></span>
-						</li>
-					</ul>
+					</div>
+					<div class="col-sm-2 text-center">
+						<a class="btn btn-info" data-toggle="modal" href="#modal_obat"><i class="icon-inject"></i> Tambah</a>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="tab-pane fade" id="tasks">
-			
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Default text input: </label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Password: </label>
+					<div class="col-sm-10">
+						<input class="form-control" type="password">
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

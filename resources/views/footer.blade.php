@@ -1,7 +1,7 @@
 
     	<!-- Footer -->
     	<div class="footer clearfix">
-      		<div class="pull-left">&copy;<a href="http://kreasys.com">ELGEKA</a>  2015. </div>
+      		<div class="pull-left">&copy;<a href="#">ELGEKA</a>  2015. </div>
     	</div>
     	<!-- /footer -->
   	</div>
