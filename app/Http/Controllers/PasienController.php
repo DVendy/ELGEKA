@@ -64,10 +64,16 @@ class PasienController extends Controller {
 		$dokters = Dokter::all();
 		$obats = Obat::all();
 		$asuransis = Asuransi::all();
+		
+		$obatsId = [];
+		foreach ($pasien->obats as $value) {
+			$obatsId[] = $value->id;
+		}
+//		dd($obatsId);
+		
+		//dd($obats->toArray());
 
-		//dd($pasien->dokters);
-
-		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis);
+		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis)->with('obatsId', $obatsId);
 	}
 
 	public function create()
@@ -221,6 +227,7 @@ class PasienController extends Controller {
 	}
 
 	public function setPenyakit(){
+		dd(Input::all());
 		$validate = Validator::make(Input::all(), array(
 			'penyakit' 	=> 'required',
 			));

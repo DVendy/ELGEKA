@@ -49,7 +49,7 @@ Detail pasien
 						<input class="form-control" readonly="readonly" value="{{ isset($pasien->penyakit->nama_penyakit) ? $pasien->penyakit->nama_penyakit : '-' }}" type="text" autocomplete="off">
 					</div>
 					<div class="col-sm-2 text-center">
-						<a href="#" class="btn btn-info"><i class="icon-heart6"></i> Mutasi</a>
+						<a data-toggle="modal" href="#modal_penyakit" class="btn btn-info"><i class="icon-heart6"></i> Mutasi</a>
 					</div>
 				</div>
 				<div class="form-group">
@@ -129,25 +129,40 @@ Detail pasien
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title"><i class="icon-heart6"></i> Manage penyakit</h4>
 			</div>
-			<form action="{{URL('pasien/setPenyakit')}}" method="post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
-			<div class="modal-body">
-				<div class="panel-body">
-					<div class="form-group @if ($errors->has('penyakit')) has-error @endif">
-			            <label class="col-md-3 control-label">Penyakit </label>
-			            <div class="col-md-9">
-			              <select name="penyakit" class="form-control">
-			                	<option value="">- Pilih penyakit -</option>
-			                @foreach($penyakits as $value)
-			                	<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
-			               	@endforeach
-			              </select>
-			              @if ($errors->has('penyakit')) <p class="help-block">{{ $errors->first('penyakit') }}</p> @endif
-			            </div>
-			        </div>
+			<form action="{{URL('pasien/setPenyakit')}}" method="post" class="form-horizontal">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
+				<div class="modal-body">
+					<div class="panel-body">
+						<div class="form-group @if ($errors->has('penyakit')) has-error @endif">
+							<label class="col-md-3 control-label">Penyakit </label>
+							<div class="col-md-9">
+								<select name="penyakit" class="form-control">
+									<option value="">- Pilih penyakit -</option>
+									@foreach($penyakits as $value)
+									<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
+									@endforeach
+								</select>
+								@if ($errors->has('penyakit')) <p class="help-block">{{ $errors->first('penyakit') }}</p> @endif
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Catat ke riwayat? </label>
+							<div class="col-sm-9">
+								<div class="block-inner">
+									<label class="checkbox-inline checkbox-success">
+										<div class="checker">
+											<span class="checked">
+												<input class="styled" checked="checked" type="checkbox" name="history_penyakit">
+											</span>
+										</div>
+										Catat
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
 			<div class="modal-footer">
 				<button class="btn btn-warning" data-dismiss="modal"><i class="icon-cancel-circle"></i> Batal</button>
 				<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-disk"></i> Simpan</button>
@@ -242,7 +257,9 @@ Detail pasien
 			              <select name="obat" class="form-control">
 			                	<option value="">- Pilih obat -</option>
 			                @foreach($obats as $value)
-			                	<option value="{{ $value->id }}">{{ $value->nama_obat }}</option>
+			                	@if(!in_array($value->id, $obatsId) )
+		                		<option value="{{ $value->id }}">{{ $value->nama_obat }}</option>
+		                		@endif
 			               	@endforeach
 			              </select>
 			              @if ($errors->has('obat')) <p class="help-block">{{ $errors->first('obat') }}</p> @endif
