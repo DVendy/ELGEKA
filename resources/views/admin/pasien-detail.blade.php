@@ -29,6 +29,15 @@ Detail pasien
 		<li class="active">Detail</li>
 	</ul>
 </div>
+
+@if (Session::has('success'))
+<div class="callout callout-success fade in">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<h5>Mutasi berhasil</h5>
+	<p>Mutasi telah berhasil dilakukan, harap tunggu konfirmasi admin.</p>
+</div>
+@endif
+
 <div class="tabbable page-tabs">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#activity" data-toggle="tab"><i class="icon-info"></i> Detail Pasien</a></li>
@@ -149,7 +158,7 @@ Detail pasien
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Catat ke riwayat? </label>
 							<div class="col-sm-9">
-								<div class="block-inner">
+								<div class="block-inner" style="margin-bottom:0px;">
 									<label class="checkbox-inline checkbox-success">
 										<div class="checker">
 											<span class="checked">
