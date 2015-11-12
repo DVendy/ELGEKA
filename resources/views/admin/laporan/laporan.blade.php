@@ -59,14 +59,14 @@ Manage laporan
         <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/6') }}">6. Jumlah obat berdasarkan Rumah sakit</a></h6>
       </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-danger">
       <div class="panel-heading">
-        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/7') }}">7. Jumlah pasien berdasarkan dokter</a></h6>
+        <h6 class="panel-title"><a class="collapsed" href="#">7. Jumlah pasien berdasarkan dokter</a></h6>
       </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-danger">
       <div class="panel-heading">
-        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/8') }}">8. Jumlah dokter berdasarkan pasien</a></h6>
+        <h6 class="panel-title"><a class="collapsed" href="#">8. Jumlah dokter berdasarkan pasien</a></h6>
       </div>
     </div>
     <div class="panel panel-default">

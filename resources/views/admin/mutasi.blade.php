@@ -34,11 +34,13 @@ Halaman konfirmasi mutasi
 
 <div class="tabbable page-tabs">
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#activity" data-toggle="tab"><i class="icon-heart6"></i> Penyakit<span class="label label-danger">{{ count($penyakit_history) }}</span></a></li>
-		<li><a href="#tasks" data-toggle="tab"><i class="icon-user"></i> Biodata</a></li>
+		<li class="active"><a href="#penyakit" data-toggle="tab"><i class="icon-heart6"></i> Penyakit<span class="label label-danger">{{ count($penyakit_history) }}</span></a></li>
+		<li><a href="#rs" data-toggle="tab"><i class="icon-home5"></i> Rumah Sakit<span class="label label-danger">{{ count($rs_history) }}</span></a></li>
+		<li><a href="#dokter" data-toggle="tab"><i class="icon-glasses3"></i> Dokter<span class="label label-danger">{{ count($dokter_history) }}</span></a></li>
+		<li><a href="#asuransi" data-toggle="tab"><i class="icon-glasses3"></i> Asuransi<span class="label label-danger">{{ count($asuransi_history) }}</span></a></li>
 	</ul>
 	<div class="tab-content">
-		<div class="tab-pane active fade in" id="activity">
+		<div class="tab-pane active fade in" id="penyakit">
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h6 class="panel-title"><i class="icon-heart6"></i> Penyakit</h6>
@@ -80,19 +82,129 @@ Halaman konfirmasi mutasi
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane fade" id="tasks">
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Default text input: </label>
-					<div class="col-sm-10">
-						<input class="form-control" type="text">
-					</div>
+		<div class="tab-pane fade in" id="rs">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h6 class="panel-title"><i class="icon-home5"></i> Rumah Sakit</h6>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Password: </label>
-					<div class="col-sm-10">
-						<input class="form-control" type="password">
-					</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="col-sm-1">#</th>
+								<th>Nama</th>
+								<th>Rumah sakit</th>
+								<th>Mutasi ke</th>
+								<th>Tanggal</th>
+								<th class="col-sm-3">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$i = 1;
+							?>
+							@foreach($rs_history as $key)
+							<tr>
+								<td>{{ $i}}</td>
+								<td>{{ $key->nama_pasien }} <a href="{{ URL('pasien/detail/'.$key->id_pasien) }}" title="Detail"><i class="icon-zoom-in text-success pull-right"></i></a></td>
+								<td>{{ $key->asal }}</td>
+								<td>{{ $key->tujuan }}</td>
+								<td>{{ $key->tgl }}</td>
+								<td class="text-center"> 
+									<a href="{{ URL('mutasi/rs/'.$key->id) }}" class="btn btn-success">Approve</a>
+									<a href="#" class="btn btn-danger">Reject</a>
+								</td>
+							</tr>
+							<?php
+							$i++;
+							?>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade in" id="dokter">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h6 class="panel-title"><i class="icon-home5"></i> Dokter</h6>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="col-sm-1">#</th>
+								<th>Nama</th>
+								<th>Dokter</th>
+								<th>Mutasi ke</th>
+								<th>Tanggal</th>
+								<th class="col-sm-3">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$i = 1;
+							?>
+							@foreach($dokter_history as $key)
+							<tr>
+								<td>{{ $i}}</td>
+								<td>{{ $key->nama_pasien }} <a href="{{ URL('pasien/detail/'.$key->id_pasien) }}" title="Detail"><i class="icon-zoom-in text-success pull-right"></i></a></td>
+								<td>{{ $key->asal }}</td>
+								<td>{{ $key->tujuan }}</td>
+								<td>{{ $key->tgl }}</td>
+								<td class="text-center"> 
+									<a href="{{ URL('mutasi/dokter/'.$key->id) }}" class="btn btn-success">Approve</a>
+									<a href="#" class="btn btn-danger">Reject</a>
+								</td>
+							</tr>
+							<?php
+							$i++;
+							?>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade in" id="asuransi">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h6 class="panel-title"><i class="icon-home5"></i> Asuransi</h6>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="col-sm-1">#</th>
+								<th>Nama</th>
+								<th>Asuransi</th>
+								<th>Mutasi ke</th>
+								<th>Tanggal</th>
+								<th class="col-sm-3">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$i = 1;
+							?>
+							@foreach($asuransi_history as $key)
+							<tr>
+								<td>{{ $i}}</td>
+								<td>{{ $key->nama_pasien }} <a href="{{ URL('pasien/detail/'.$key->id_pasien) }}" title="Detail"><i class="icon-zoom-in text-success pull-right"></i></a></td>
+								<td>{{ $key->asal }}</td>
+								<td>{{ $key->tujuan }}</td>
+								<td>{{ $key->tgl }}</td>
+								<td class="text-center"> 
+									<a href="{{ URL('mutasi/asuransi/'.$key->id) }}" class="btn btn-success">Approve</a>
+									<a href="#" class="btn btn-danger">Reject</a>
+								</td>
+							</tr>
+							<?php
+							$i++;
+							?>
+							@endforeach
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

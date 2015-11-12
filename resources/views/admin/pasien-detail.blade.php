@@ -37,6 +37,13 @@ Detail pasien
 	<p>Mutasi telah berhasil dilakukan, harap tunggu konfirmasi admin.</p>
 </div>
 @endif
+@if (Session::has('obat'))
+<div class="callout callout-success fade in">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<h5>Obat berhasil ditambahkan</h5>
+	<p>Obat berhasil ditambahkan.</p>
+</div>
+@endif
 
 <div class="tabbable page-tabs">
 	<ul class="nav nav-tabs">
@@ -193,7 +200,7 @@ Detail pasien
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title"><i class="icon-heart6"></i> Manage rumah sakit</h4>
+				<h4 class="modal-title"><i class="icon-home5"></i> Manage rumah sakit</h4>
 			</div>
 			<form action="{{URL('pasien/setRs')}}" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">

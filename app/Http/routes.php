@@ -41,6 +41,14 @@ Route::get('laporan/{id}', 'LaporanController@laporan');
 //KONFIRMASI
 Route::get('mutasi', 'MutasiController@index');
 Route::get('mutasi/penyakit/{id}', 'MutasiController@setPenyakit');
+Route::get('mutasi/rs/{id}', 'MutasiController@setRs');
+Route::get('mutasi/dokter/{id}', 'MutasiController@setDokter');
+Route::get('mutasi/asuransi/{id}', 'MutasiController@setAsuransi');
+Route::post('pasien/setPenyakit', 'MutasiController@mutasiPenyakit');
+Route::post('pasien/setDokter', 'MutasiController@mutasiDokter');
+Route::post('pasien/setAsuransi', 'MutasiController@mutasiAsuransi');
+Route::post('pasien/setObat', 'MutasiController@mutasiObat');
+Route::post('pasien/setRs', 'MutasiController@mutasiRs');
 
 //ADMIN
 Route::get('admin', 'AdminController@main');
@@ -56,13 +64,6 @@ Route::post('pasien/update', 'PasienController@update');
 Route::get('pasien/delete-{id}', 'PasienController@delete');
 Route::get('pasien/getAjax/{id}', 'PasienController@getAjax');
 Route::get('pasien/detail/{id}', 'PasienController@detail');
-
-//HISTORY
-Route::post('pasien/setPenyakit', 'MutasiController@mutasiPenyakit');
-Route::post('pasien/setDokter', 'MutasiController@mutasiPenyakit');
-Route::post('pasien/setAsuransi', 'MutasiController@mutasiPenyakit');
-Route::post('pasien/setObat', 'MutasiController@mutasiObat');
-Route::post('pasien/setRs', 'MutasiController@mutasiPenyakit');
 
 //OBAT
 Route::get('obat', 'ObatController@main');
