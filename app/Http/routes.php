@@ -38,6 +38,10 @@ Route::get('dashboard', 'ChartController@dashboard');
 Route::get('laporan', 'LaporanController@index');
 Route::get('laporan/{id}', 'LaporanController@laporan');
 
+//KONFIRMASI
+Route::get('mutasi', 'MutasiController@index');
+Route::get('mutasi/penyakit/{id}', 'MutasiController@setPenyakit');
+
 //ADMIN
 Route::get('admin', 'AdminController@main');
 Route::post('admin/create', 'AdminController@create');

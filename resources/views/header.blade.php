@@ -38,8 +38,8 @@
 				<!-- Main navigation -->
 				<ul class="navigation">
 				<li @if(Request::is('dashboard*')) class="active" @endif ><a href="{{ URL('dashboard') }}"><span>Dashboard</span> <i class="icon-screen2"></i></a></li>  
-				<li @if(Request::is('admin*')) class="active" @endif ><a href="{{ URL('admin') }}"><span>Admin</span> <i class="icon-user4"></i></a></li>  
 				<li @if(Request::is('laporan*')) class="active" @endif ><a href="{{ URL('laporan') }}"><span>Laporan</span> <i class="icon-clipboard"></i></a></li>
+				<li @if(Request::is('mutasi*')) class="active" @endif ><a href="{{ URL('mutasi') }}"><span>Konfirmasi</span> <i class="icon-checkbox-checked"></i></a></li>  
 				<?php
 				$master = false;
 				if(Request::is('pasien*') || Request::is('obat*') || Request::is('asuransi*') || Request::is('dokter*') || Request::is('indikasi*') || Request::is('rs*') || Request::is('penyakit*'))
@@ -70,6 +70,7 @@
 				</li>
 
 				<li @if(Request::is('artikel*')) class="active" @endif ><a href="#"><span>Artikel</span> <i class="icon-newspaper"></i></a></li>
+				<li @if(Request::is('admin*')) class="active" @endif ><a href="{{ URL('admin') }}"><span>Admin</span> <i class="icon-user4"></i></a></li>
 				</ul>
 			<!-- /main navigation -->
 			</div>

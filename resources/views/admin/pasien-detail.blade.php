@@ -67,7 +67,7 @@ Detail pasien
 						<input class="form-control" readonly="readonly" value="{{ isset($pasien->rs->nama_rs) ? $pasien->rs->nama_rs : '-' }}" type="text" autocomplete="off">
 					</div>
 					<div class="col-sm-2 text-center">
-						<a href="#" class="btn btn-info"><i class="icon-home5"></i> Mutasi</a>
+						<a data-toggle="modal" href="#modal_rs" class="btn btn-info"><i class="icon-home5"></i> Mutasi</a>
 					</div>
 				</div>
 				<div class="form-group">
@@ -76,7 +76,7 @@ Detail pasien
 						<input class="form-control" readonly="readonly" value="{{ isset($pasien->dokter->nama_dokter) ? $pasien->dokter->nama_dokter : '-' }}" type="text" autocomplete="off">
 					</div>
 					<div class="col-sm-2 text-center">
-						<a href="#" class="btn btn-info"><i class="icon-glasses3"></i> Mutasi</a>
+						<a data-toggle="modal" href="#modal_dokter" class="btn btn-info"><i class="icon-glasses3"></i> Mutasi</a>
 					</div>
 				</div>
 				<div class="form-group">
@@ -85,7 +85,7 @@ Detail pasien
 						<input class="form-control" readonly="readonly" value="{{ isset($pasien->asuransi->nama_asuransi) ? $pasien->asuransi->nama_asuransi : '-' }}" type="text" autocomplete="off">
 					</div>
 					<div class="col-sm-2 text-center">
-						<a href="#" class="btn btn-info"><i class="icon-file4"></i> Mutasi</a>
+						<a data-toggle="modal" href="#modal_asuransi" class="btn btn-info"><i class="icon-file4"></i> Mutasi</a>
 					</div>
 				</div>
 				<div class="form-group">
@@ -149,12 +149,19 @@ Detail pasien
 								<select name="penyakit" class="form-control">
 									<option value="">- Pilih penyakit -</option>
 									@foreach($penyakits as $value)
-									<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
+										@if($pasien->penyakit_id != 0)
+											@if($pasien->penyakit->id != $value->id)
+												<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
+											@endif
+										@else
+											<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
+										@endif
 									@endforeach
 								</select>
 								@if ($errors->has('penyakit')) <p class="help-block">{{ $errors->first('penyakit') }}</p> @endif
 							</div>
 						</div>
+						@if($pasien->penyakit_id != 0)
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Catat ke riwayat? </label>
 							<div class="col-sm-9">
@@ -170,6 +177,7 @@ Detail pasien
 								</div>
 							</div>
 						</div>
+						@endif
 					</div>
 				</div>
 			<div class="modal-footer">
@@ -198,12 +206,35 @@ Detail pasien
 			              <select name="rs" class="form-control">
 			                	<option value="">- Pilih rumah sakit -</option>
 			                @foreach($rss as $value)
-			                	<option value="{{ $value->id }}">{{ $value->nama_rs }}</option>
+			                	@if($pasien->rs_id != 0)
+									@if($pasien->rs_id != $value->id)
+				                	<option value="{{ $value->id }}">{{ $value->nama_rs }}</option>
+				                	@endif
+								@else
+				                	<option value="{{ $value->id }}">{{ $value->nama_rs }}</option>
+								@endif
 			               	@endforeach
 			              </select>
 			              @if ($errors->has('rs')) <p class="help-block">{{ $errors->first('rs') }}</p> @endif
 			            </div>
 			        </div>
+					@if($pasien->rs_id != 0)
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Catat ke riwayat? </label>
+						<div class="col-sm-9">
+							<div class="block-inner" style="margin-bottom:0px;">
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker">
+										<span class="checked">
+											<input class="styled" checked="checked" type="checkbox" name="history_rs">
+										</span>
+									</div>
+									Catat
+								</label>
+							</div>
+						</div>
+					</div>
+					@endif
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -232,12 +263,35 @@ Detail pasien
 			              <select name="dokter" class="form-control">
 			                	<option value="">- Pilih dokter -</option>
 			                @foreach($dokters as $value)
-			                	<option value="{{ $value->id }}">{{ $value->nama_dokter }}</option>
+			                	@if($pasien->dokter_id != 0)
+									@if($pasien->dokter_id != $value->id)
+				                	<option value="{{ $value->id }}">{{ $value->nama_dokter }}</option>
+				                	@endif
+								@else
+				                	<option value="{{ $value->id }}">{{ $value->nama_dokter }}</option>
+								@endif
 			               	@endforeach
 			              </select>
 			              @if ($errors->has('dokter')) <p class="help-block">{{ $errors->first('dokter') }}</p> @endif
 			            </div>
 			        </div>
+					@if($pasien->dokter_id != 0)
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Catat ke riwayat? </label>
+						<div class="col-sm-9">
+							<div class="block-inner" style="margin-bottom:0px;">
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker">
+										<span class="checked">
+											<input class="styled" checked="checked" type="checkbox" name="history_dokter">
+										</span>
+									</div>
+									Catat
+								</label>
+							</div>
+						</div>
+					</div>
+					@endif
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -302,12 +356,35 @@ Detail pasien
 			              <select name="asuransi" class="form-control">
 			                	<option value="">- Pilih asuransi -</option>
 			                @foreach($asuransis as $value)
-			                	<option value="{{ $value->id }}">{{ $value->nama_asuransi }}</option>
+			                	@if($pasien->asuransi_id != 0)
+									@if($pasien->asuransi_id != $value->id)
+				                	<option value="{{ $value->id }}">{{ $value->nama_asuransi }}</option>
+				                	@endif
+								@else
+				                	<option value="{{ $value->id }}">{{ $value->nama_asuransi }}</option>
+								@endif
 			               	@endforeach
 			              </select>
 			              @if ($errors->has('asuransi')) <p class="help-block">{{ $errors->first('asuransi') }}</p> @endif
 			            </div>
 			        </div>
+					@if($pasien->asuransi_id != 0)
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Catat ke riwayat? </label>
+						<div class="col-sm-9">
+							<div class="block-inner" style="margin-bottom:0px;">
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker">
+										<span class="checked">
+											<input class="styled" checked="checked" type="checkbox" name="history_asuransi">
+										</span>
+									</div>
+									Catat
+								</label>
+							</div>
+						</div>
+					</div>
+					@endif
 				</div>
 			</div>
 			<div class="modal-footer">
