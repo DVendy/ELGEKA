@@ -48,7 +48,7 @@ Detail pasien
 <div class="tabbable page-tabs">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#activity" data-toggle="tab"><i class="icon-info"></i> Detail Pasien</a></li>
-		<li><a href="#tasks" data-toggle="tab"><i class="icon-user"></i> Biodata</a></li>
+		<li><a href="#medis" data-toggle="tab"><i class="icon-user"></i> Riwayat medis</a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active fade in" id="activity">
@@ -105,7 +105,7 @@ Detail pasien
 							<input class="form-control" readonly="readonly" value="{{ $obat->nama_obat }}" type="text" autocomplete="off">
 						</div>
 						<div class="col-sm-2 text-right">
-							<a href="#" class="btn btn-icon btn-danger"><i class="icon-close"></i></a>
+							<a data-toggle="modal" href="#modal_obat_delete" class="btn btn-icon btn-danger obat_delete" id="{{ $obat->id }}"><i class="icon-close" id="{{ $obat->id }}"></i></a>
 						</div>
 					</div>
 					@endforeach
@@ -119,7 +119,7 @@ Detail pasien
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane fade" id="tasks">
+		<div class="tab-pane fade" id="medis">
 			<div class="form-horizontal">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Default text input: </label>
@@ -202,7 +202,7 @@ Detail pasien
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title"><i class="icon-home5"></i> Manage rumah sakit</h4>
 			</div>
-			<form action="{{URL('pasien/setRs')}}" method="post">
+			<form action="{{URL('pasien/setRs')}}" method="post" class="form-horizontal">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
 			<div class="modal-body">
@@ -259,7 +259,7 @@ Detail pasien
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title"><i class="icon-heart6"></i> Manage dokter</h4>
 			</div>
-			<form action="{{URL('pasien/setDokter')}}" method="post">
+			<form action="{{URL('pasien/setDokter')}}" method="post" class="form-horizontal">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
 			<div class="modal-body">
@@ -316,7 +316,7 @@ Detail pasien
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title"><i class="icon-heart6"></i> Manage obat</h4>
 			</div>
-			<form action="{{URL('pasien/setObat')}}" method="post">
+			<form action="{{URL('pasien/setObat')}}" method="post" class="form-horizontal">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
 			<div class="modal-body">
@@ -350,9 +350,9 @@ Detail pasien
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title"><i class="icon-heart6"></i> Manage asuransi</h4>
+				<h4 class="modal-title"><i class="icon-file4"></i> Manage asuransi</h4>
 			</div>
-			<form action="{{URL('pasien/setAsuransi')}}" method="post">
+			<form action="{{URL('pasien/setAsuransi')}}" method="post" class="form-horizontal">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
 			<div class="modal-body">
@@ -402,6 +402,53 @@ Detail pasien
 		</div>
 	</div>
 </div>
+<div id="modal_obat_delete" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"><i class="icon-inject"></i> Manage obat</h4>
+			</div>
+			<form action="{{URL('pasien/hapusObat')}}" method="post" class="form-horizontal">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
+			<input type="hidden" name="obat" id="value_obat_delete">
+			<div class="modal-body">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Catat ke riwayat? </label>
+						<div class="col-sm-9">
+							<div class="block-inner" style="margin-bottom:0px;">
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker">
+										<span class="checked">
+											<input class="styled" checked="checked" type="checkbox" name="history_obat">
+										</span>
+									</div>
+									Catat
+								</label>
+							</div>
+						</div>
+					</div>				
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-warning" data-dismiss="modal"><i class="icon-cancel-circle"></i> Batal</button>
+				<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-disk"></i> Hapus</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".obat_delete").click(function(event){
+			var elem = document.getElementById("value_obat_delete");
+			elem.value = event.target.id;
+		});
+	});
+</script>
 @stop
 
 @section('footerExtraScript')

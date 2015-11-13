@@ -44,11 +44,14 @@ Route::get('mutasi/penyakit/{id}', 'MutasiController@setPenyakit');
 Route::get('mutasi/rs/{id}', 'MutasiController@setRs');
 Route::get('mutasi/dokter/{id}', 'MutasiController@setDokter');
 Route::get('mutasi/asuransi/{id}', 'MutasiController@setAsuransi');
+Route::get('mutasi/obat/{id}', 'MutasiController@setObat');
+
 Route::post('pasien/setPenyakit', 'MutasiController@mutasiPenyakit');
+Route::post('pasien/setRs', 'MutasiController@mutasiRs');
 Route::post('pasien/setDokter', 'MutasiController@mutasiDokter');
 Route::post('pasien/setAsuransi', 'MutasiController@mutasiAsuransi');
 Route::post('pasien/setObat', 'MutasiController@mutasiObat');
-Route::post('pasien/setRs', 'MutasiController@mutasiRs');
+Route::post('pasien/hapusObat', 'MutasiController@hapusObat');
 
 //ADMIN
 Route::get('admin', 'AdminController@main');

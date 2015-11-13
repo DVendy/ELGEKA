@@ -6,6 +6,7 @@ use App\Penyakit_history;
 use App\Rs_history;
 use App\Dokter_history;
 use App\Asuransi_history;
+use App\Obat_history;
 
 use Hash;
 use Validator;
@@ -28,10 +29,13 @@ class MutasiController extends Controller {
 		
 		$sql = "SELECT h.id, u.id AS id_pasien, u.nama_pasien, pp.nama_dokter AS asal, p.nama_dokter AS tujuan, h.tgl FROM dokter_history as h, dokter as p, users as u,(SELECT u.id, p.nama_dokter FROM dokter AS p, users AS u WHERE u.dokter_id = p.id) AS pp WHERE h.users_id = u.id AND h.dokter_id = p.id AND h.status = 0 AND u.id = pp.id";
 		$dokter_history = DB::select(DB::raw($sql));
+		
+		$sql = "SELECT o_h.id, u.nama_pasien, o.nama_obat, o_h.tgl FROM obat_history AS o_h, obat AS o, users AS u WHERE o_h.users_id = u.id AND o_h.obat_id = o.id AND o_h.status = 0";
+		$obat_history = DB::select(DB::raw($sql));
 
 		//dd(count($rows));
 
-		return view('admin.mutasi')->with('penyakit_history', $penyakit_history)->with('rs_history', $rs_history)->with('dokter_history', $dokter_history)->with('asuransi_history', $asuransi_history);
+		return view('admin.mutasi')->with('penyakit_history', $penyakit_history)->with('rs_history', $rs_history)->with('dokter_history', $dokter_history)->with('asuransi_history', $asuransi_history)->with('obat_history', $obat_history);
 	}
 
 	public function mutasiPenyakit(){
@@ -66,7 +70,7 @@ class MutasiController extends Controller {
 				$pasien = User::find(Input::get('edit_id'));
 				$pasien->penyakit_id = Input::get('penyakit');
 				$pasien->save();
-				return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+				return redirect('pasien/detail/'.Input::get('edit_id'));
 			}
 		}
 	}
@@ -126,7 +130,7 @@ class MutasiController extends Controller {
 				$pasien = User::find(Input::get('edit_id'));
 				$pasien->rs_id = Input::get('rs');
 				$pasien->save();
-				return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+				return redirect('pasien/detail/'.Input::get('edit_id'));
 			}
 		}
 	}
@@ -186,7 +190,7 @@ class MutasiController extends Controller {
 				$pasien = User::find(Input::get('edit_id'));
 				$pasien->dokter_id = Input::get('dokter');
 				$pasien->save();
-				return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+				return redirect('pasien/detail/'.Input::get('edit_id'));
 			}
 		}
 	}
@@ -246,7 +250,7 @@ class MutasiController extends Controller {
 				$pasien = User::find(Input::get('edit_id'));
 				$pasien->asuransi_id = Input::get('asuransi');
 				$pasien->save();
-				return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+				return redirect('pasien/detail/'.Input::get('edit_id'));
 			}
 		}
 	}
@@ -292,5 +296,63 @@ class MutasiController extends Controller {
 
 			return redirect('pasien/detail/'.Input::get('edit_id'))->withInput()->with('obat', true);
 		}
+	}
+
+	public function hapusObat(){
+		$validate = Validator::make(Input::all(), array(
+			'obat' 	=> 'required',
+			));
+
+		if ($validate -> fails()){
+			$validate = Validator::make(Input::all(), array(
+				'obat' 	=> 'required',
+				'update_obat' => 'required',
+				));
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+		else{
+			if (Input::has('history_obat')){
+				//insert history
+				$history = Obat_history::where('users_id', Input::get('edit_id'))->where('status', 0)->first();
+				if ($history == null)
+					$history = new Obat_history();
+
+				$history->users_id = Input::get('edit_id');
+				$history->obat_id = Input::get('obat');
+				$now = new DateTime();
+				$history->tgl = $now->format('Y-m-d H:i:s');
+				$history->login = 0;
+				$history->status = 0;
+				$history->save();
+				return redirect('pasien/detail/'.Input::get('edit_id'))->with('success', true);
+			}else{
+				//force
+				$pasien = User::find(Input::get('edit_id'));
+				$pasien->obats()->detach(Input::get('obat'));
+
+				return redirect('pasien/detail/'.Input::get('edit_id'));
+			}
+		}
+	}
+
+	public function setObat($id){
+		$history = Obat_history::find($id);
+		//dd($history);
+
+		$pasien = User::find($history->users_id);
+		$pasien->obats()->detach($history->obat_id);
+		$pasien->save();
+
+		$now = new DateTime();
+		$history->tgl = $now->format('Y-m-d H:i:s');
+		$history->status = 1;
+
+		if(Auth::check()){
+			$history->login = Auth::user()->id;
+		}
+
+		$history->save();
+
+		return redirect('mutasi')->with('success', true);
 	}
 }

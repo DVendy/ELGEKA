@@ -37,7 +37,8 @@ Halaman konfirmasi mutasi
 		<li class="active"><a href="#penyakit" data-toggle="tab"><i class="icon-heart6"></i> Penyakit<span class="label label-danger">{{ count($penyakit_history) }}</span></a></li>
 		<li><a href="#rs" data-toggle="tab"><i class="icon-home5"></i> Rumah Sakit<span class="label label-danger">{{ count($rs_history) }}</span></a></li>
 		<li><a href="#dokter" data-toggle="tab"><i class="icon-glasses3"></i> Dokter<span class="label label-danger">{{ count($dokter_history) }}</span></a></li>
-		<li><a href="#asuransi" data-toggle="tab"><i class="icon-glasses3"></i> Asuransi<span class="label label-danger">{{ count($asuransi_history) }}</span></a></li>
+		<li><a href="#asuransi" data-toggle="tab"><i class="icon-file4"></i> Asuransi<span class="label label-danger">{{ count($asuransi_history) }}</span></a></li>
+		<li><a href="#obat" data-toggle="tab"><i class="icon-inject"></i> Obat<span class="label label-danger">{{ count($obat_history) }}</span></a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active fade in" id="penyakit">
@@ -196,6 +197,46 @@ Halaman konfirmasi mutasi
 								<td>{{ $key->tgl }}</td>
 								<td class="text-center"> 
 									<a href="{{ URL('mutasi/asuransi/'.$key->id) }}" class="btn btn-success">Approve</a>
+									<a href="#" class="btn btn-danger">Reject</a>
+								</td>
+							</tr>
+							<?php
+							$i++;
+							?>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade in" id="obat">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h6 class="panel-title"><i class="icon-inject"></i> Obat</h6>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="col-sm-1">#</th>
+								<th>Nama</th>
+								<th>Obat</th>
+								<th>Tanggal</th>
+								<th class="col-sm-3">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$i = 1;
+							?>
+							@foreach($obat_history as $key)
+							<tr>
+								<td>{{ $i}}</td>
+								<td>{{ $key->nama_pasien }} <a href="{{ URL('pasien/detail/'.$key->id) }}" title="Detail"><i class="icon-zoom-in text-success pull-right"></i></a></td>
+								<td>{{ $key->nama_obat }}</td>
+								<td>{{ $key->tgl }}</td>
+								<td class="text-center"> 
+									<a href="{{ URL('mutasi/obat/'.$key->id) }}" class="btn btn-success">Approve</a>
 									<a href="#" class="btn btn-danger">Reject</a>
 								</td>
 							</tr>
