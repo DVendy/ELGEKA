@@ -149,7 +149,23 @@ Route:: get('tes', function(){
 });
 
 Route:: get('serverDt', function(){
-	$sql = "SELECT pr.nama_provinsi, kt.nama_kotakab ,p.nama_penyakit, COUNT(*) AS jumlah FROM penyakit AS p, users AS u, rs, kelurahan AS kl, kecamatan AS kc, kotakab AS kt, provinsi AS pr WHERE u.penyakit_id = p.id AND u.rs_id = rs.id AND rs.kelurahan_id = kl.id AND kl.kecamatan_id = kc.id AND kc.kotakab_id = kt.id AND kt.provinsi_id = pr.id GROUP BY pr.nama_provinsi, kt.nama_kotakab ,p.nama_penyakit";
-	$rows = DB::select(DB::raw($sql));
-	return json_encode($rows);
+	$data = array(
+		array('Name'=>'parvez', 'Empid'=>11, 'Salary'=>101),
+		array('Name'=>'alam', 'Empid'=>1, 'Salary'=>102),
+		array('Name'=>'phpflow', 'Empid'=>21, 'Salary'=>103)                            );
+	for ($i=0; $i < 50000; $i++) { 
+		$data[] = array('Name'=>'parvez', 'Empid'=>$i, 'Salary'=>101);
+	}
+
+
+	$results = array(
+		"sEcho" => 1,
+		"iTotalRecords" => count($data),
+		"iTotalDisplayRecords" => 10,
+		"aaData"=>$data);
+/*while($row = $result->fetch_array(MYSQLI_ASSOC)){
+  $results["data"][] = $row ;
+}*/
+
+	return json_encode($results);
 });

@@ -75,6 +75,37 @@ Manage laporan
 </div>
 <script type="text/javascript">
   $(document).ready(function() {
+    // $('#noob').dataTable({
+    //   "bProcessing": true,
+    //   "sAjaxSource": "{{ URL('serverDt') }}",
+    //   "aoColumns": [
+    //   { mData: 'Empid' } ,
+    //   { mData: 'Name' },
+    //   { mData: 'Salary' }
+    //   ]
+    // });  
+
+    // $('#noob').dataTable().columnFilter(
+    // {
+    //   aoColumns: [
+    //   {
+    //     type: "text",
+    //     bRegex: true,
+    //     bSmart: true
+    //   },
+    //   {
+    //     type: "text",
+    //     bRegex: true,
+    //     bSmart: true
+    //   },
+    //   {
+    //     type: "text",
+    //     bRegex: true,
+    //     bSmart: true
+    //   }
+    //   ]
+    // }
+    // );
 
     $('#example').dataTable().columnFilter(
     {

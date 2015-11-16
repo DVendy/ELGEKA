@@ -13,4 +13,8 @@ class Dokter extends Model {
 	 */
 	protected $fillable = ['nama_dokter'];
 
+    public function pasiens() {
+        return $this->hasMany('App\User');
+    }
+
 }

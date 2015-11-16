@@ -12,6 +12,7 @@ use Hash;
 use Validator;
 use Input;
 use DateTime;
+use DB;
 
 class PasienController extends Controller {
 
@@ -69,11 +70,29 @@ class PasienController extends Controller {
 		foreach ($pasien->obats as $value) {
 			$obatsId[] = $value->id;
 		}
-//		dd($obatsId);
+
+		$riwayat = [];
+
+		$sql = "SELECT p.nama_penyakit, p_h.tgl FROM penyakit AS p, penyakit_history AS p_h, users AS u WHERE p.id = p_h.penyakit_id AND u.id = p_h.users_id AND u.id = ".$id;
+		$riwayat['penyakit'] = DB::select(DB::raw($sql));
+
+		$sql = "SELECT p.nama_rs, p_h.tgl FROM rs AS p, rs_history AS p_h, users AS u WHERE p.id = p_h.rs_id AND u.id = p_h.users_id AND u.id = ".$id;
+		$riwayat['rs'] = DB::select(DB::raw($sql));
+
+		$sql = "SELECT p.nama_dokter, p_h.tgl FROM dokter AS p, dokter_history AS p_h, users AS u WHERE p.id = p_h.dokter_id AND u.id = p_h.users_id AND u.id = ".$id;
+		$riwayat['dokter'] = DB::select(DB::raw($sql));
+
+		$sql = "SELECT p.nama_asuransi, p_h.tgl FROM asuransi AS p, asuransi_history AS p_h, users AS u WHERE p.id = p_h.asuransi_id AND u.id = p_h.users_id AND u.id = ".$id;
+		$riwayat['asuransi'] = DB::select(DB::raw($sql));
+
+		$sql = "SELECT p.nama_obat, p_h.tgl FROM obat AS p, obat_history AS p_h, users AS u WHERE p.id = p_h.obat_id AND u.id = p_h.users_id AND u.id = ".$id;
+		$riwayat['obat'] = DB::select(DB::raw($sql));
+
+		//dd($riwayat);
 		
 		//dd($obats->toArray());
 
-		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis)->with('obatsId', $obatsId);
+		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis)->with('obatsId', $obatsId)->with('riwayat', $riwayat);
 	}
 
 	public function create()

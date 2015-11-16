@@ -120,17 +120,89 @@ Detail pasien
 			</div>
 		</div>
 		<div class="tab-pane fade" id="medis">
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Default text input: </label>
-					<div class="col-sm-10">
-						<input class="form-control" type="text">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h6 class="panel-title"><i class="icon-heart6"></i> Penyakit</h6>
+							<span class="pull-right badge">{{ count($riwayat['penyakit']) }}</span>
+							</div>
+						<div class="panel-body">
+							<ul>
+							@foreach($riwayat['penyakit'] as $key)
+							<li>
+								<h6>{{ $key->nama_penyakit }} </h6>
+								<p><small>{{ $key->tgl }}</small></p>
+							</li>
+							@endforeach
+							</ul>
+						</div>
+					</div>
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h6 class="panel-title"><i class="icon-home5"></i> Rumah Sakit</h6>
+							<span class="pull-right badge">{{ count($riwayat['rs']) }}</span>
+							</div>
+						<div class="panel-body">
+							<ul>
+							@foreach($riwayat['rs'] as $key)
+							<li>
+								<h6>{{ $key->nama_rs }} </h6>
+								<p><small>{{ $key->tgl }}</small></p>
+							</li>
+							@endforeach
+							</ul>
+						</div>
+					</div>
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h6 class="panel-title"><i class="icon-glasses3"></i> Dokter</h6>
+							<span class="pull-right badge">{{ count($riwayat['dokter']) }}</span>
+							</div>
+						<div class="panel-body">
+							<ul>
+							@foreach($riwayat['dokter'] as $key)
+							<li>
+								<h6>{{ $key->nama_dokter }} </h6>
+								<p><small>{{ $key->tgl }}</small></p>
+							</li>
+							@endforeach
+							</ul>
+						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Password: </label>
-					<div class="col-sm-10">
-						<input class="form-control" type="password">
+				<div class="col-sm-6">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h6 class="panel-title"><i class="icon-file4"></i> Asuransi</h6>
+							<span class="pull-right badge">{{ count($riwayat['asuransi']) }}</span>
+							</div>
+						<div class="panel-body">
+							<ul>
+							@foreach($riwayat['asuransi'] as $key)
+							<li>
+								<h6>{{ $key->nama_asuransi }} </h6>
+								<p><small>{{ $key->tgl }}</small></p>
+							</li>
+							@endforeach
+							</ul>
+						</div>
+					</div>
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h6 class="panel-title"><i class="icon-inject"></i> Obat</h6>
+							<span class="pull-right badge">{{ count($riwayat['obat']) }}</span>
+							</div>
+						<div class="panel-body">
+							<ul>
+							@foreach($riwayat['obat'] as $key)
+							<li>
+								<h6>{{ $key->nama_obat }} </h6>
+								<p><small>{{ $key->tgl }}</small></p>
+							</li>
+							@endforeach
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>

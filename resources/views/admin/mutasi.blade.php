@@ -34,11 +34,11 @@ Halaman konfirmasi mutasi
 
 <div class="tabbable page-tabs">
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#penyakit" data-toggle="tab"><i class="icon-heart6"></i> Penyakit<span class="label label-danger">{{ count($penyakit_history) }}</span></a></li>
-		<li><a href="#rs" data-toggle="tab"><i class="icon-home5"></i> Rumah Sakit<span class="label label-danger">{{ count($rs_history) }}</span></a></li>
-		<li><a href="#dokter" data-toggle="tab"><i class="icon-glasses3"></i> Dokter<span class="label label-danger">{{ count($dokter_history) }}</span></a></li>
-		<li><a href="#asuransi" data-toggle="tab"><i class="icon-file4"></i> Asuransi<span class="label label-danger">{{ count($asuransi_history) }}</span></a></li>
-		<li><a href="#obat" data-toggle="tab"><i class="icon-inject"></i> Obat<span class="label label-danger">{{ count($obat_history) }}</span></a></li>
+		<li class="active"><a href="#penyakit" data-toggle="tab"><i class="icon-heart6"></i> Penyakit<span class="label label-{{ count($penyakit_history) == 0 ? 'success' : 'danger' }}">{{ count($penyakit_history) }}</span></a></li>
+		<li><a href="#rs" data-toggle="tab"><i class="icon-home5"></i> Rumah Sakit<span class="label label-{{ count($rs_history) == 0 ? 'success' : 'danger' }}">{{ count($rs_history) }}</span></a></li>
+		<li><a href="#dokter" data-toggle="tab"><i class="icon-glasses3"></i> Dokter<span class="label label-{{ count($dokter_history) == 0 ? 'success' : 'danger' }}">{{ count($dokter_history) }}</span></a></li>
+		<li><a href="#asuransi" data-toggle="tab"><i class="icon-file4"></i> Asuransi<span class="label label-{{ count($asuransi_history) == 0 ? 'success' : 'danger' }}">{{ count($asuransi_history) }}</span></a></li>
+		<li><a href="#obat" data-toggle="tab"><i class="icon-inject"></i> Obat<span class="label label-{{ count($obat_history) == 0 ? 'success' : 'danger' }}">{{ count($obat_history) }}</span></a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active fade in" id="penyakit">
