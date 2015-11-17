@@ -44,12 +44,24 @@ Halaman utama
     <div class="col-sm-6">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h6 class="panel-title"><i class="icon-calendar2"></i> Jumlah pasien per obat</h6>
+                <h6 class="panel-title"><i class="icon-inject"></i> Jumlah pasien per obat</h6>
             </div>
             <div class="panel-body">
                 <div id="c_obat" style="width:100%; height: 400px; margin: 0 auto"></div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-heart6"></i> Jumlah pasien per penyakit</h6>
+            </div>
+            <div class="panel-body">
+                <div id="c_penyakit" style="width:100%; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>        
     </div>
 </div>
 
@@ -142,6 +154,49 @@ Halaman utama
                 ]
             }]
         });
+
+        //CHART ASURANSI
+        Highcharts.theme={colors:shuffle(colorsT)};Highcharts.setOptions(Highcharts.theme);
+
+        $('#c_penyakit').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f} %)'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '<b>{point.name}</b><br><i>{point.y} pasien</i>'
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Jumlah pasien',
+                colorByPoint: true,
+                data: [
+                @foreach($penyakit as $key => $value)
+                {
+                    name: "{{ $value->name }}",
+                    y: {{ $value->value }}
+                },
+                @endforeach
+                ]
+            }]
+        });
+
     });
 </script>
 @stop

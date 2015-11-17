@@ -144,8 +144,14 @@ Route::get('penyakit/getAjax/{id}', 'PenyakitController@getAjax');
 Route::get('penyakit/getChild/{id}', 'PenyakitController@getChild');
 
 Route:: get('tes', function(){
-	$now = new DateTime();
-	dd($now->format('Y-m-d H:i:s'));
+	$user = App\User::find(7);
+	//dd($user);
+	Session::put('login', $user);
+	Session::forget('login');
+});
+
+Route:: get('tes2', function(){
+	dd(Session::get('login')->id);
 });
 
 Route:: get('serverDt', function(){
