@@ -9,6 +9,9 @@
 	svg > text{
 		display: none;
 	}
+    .highcharts-button{
+        visibility: hidden;
+    }
 </style>
 @stop
 
@@ -30,6 +33,20 @@ Halaman utama
 		<li class="active">Dashboard</li>
 	</ul>
 </div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-clipboard"></i> Jumlah pasien per penyakit per asuransi</h6>
+            </div>
+            <div class="panel-body">
+                <div id="c_ribet" style="mwidth:100%; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-sm-6">
         <div class="panel panel-info">
@@ -195,6 +212,57 @@ Halaman utama
                 @endforeach
                 ]
             }]
+        });
+
+        $('#c_ribet').highcharts({
+            chart: {
+                type: 'column'
+            },
+            xAxis: {
+                categories: [
+                    @foreach($data['asuransi'] as $key)
+                    '{{ $key->name }}',
+                    @endforeach
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Pasien'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y} pasien</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            @foreach($data['penyakit'] as $penyakit)
+            {
+                name: '{{ $penyakit->name }}',
+                data: [
+                    @foreach($data['asuransi'] as $asuransi)
+                        @if(isset($ribet[$asuransi->name][$penyakit->name]))
+                        {{ $ribet[$asuransi->name][$penyakit->name] }},
+                        @else
+                        0,
+                        @endif
+                    @endforeach
+                ]
+
+            },
+            @endforeach
+            ]
         });
 
     });

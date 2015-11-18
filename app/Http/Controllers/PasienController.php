@@ -49,7 +49,7 @@ class PasienController extends Controller {
 
 	public function main()
 	{
-		$users = User::where('role', '=', 'pasien')->paginate(25);
+		$users = User::paginate(25);
 		$users->setPath('');
 
 		$provinsis = Provinsi::all();
