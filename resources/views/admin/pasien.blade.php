@@ -25,8 +25,12 @@ Manage pasien
 </div>
 <ul class="info-blocks" style="text-align: left;">
 	<li class="bg-primary">
-		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">New Pasien</a><small>create new pasien</small></div>
+		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">Pasien Baru</a><small>daftarkan pasien baru</small></div>
 		<a data-toggle="modal" role="button" href="#iconified_modal"><i class="icon-user2"></i></a><span class="bottom-info bg-danger"></span>
+	</li>
+	<li class="bg-primary">
+		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">Cari Pasien</a><small>cari data pasien</small></div>
+		<a data-toggle="modal" role="button" href="#modal-search"><i class="icon-search3"></i></a><span class="bottom-info bg-danger"></span>
 	</li>
 </ul>
 <div class="panel panel-info">
@@ -87,6 +91,40 @@ Manage pasien
 </div>
 <div class="text-center block">
 	{!! $users->render() !!}
+</div>
+
+<div id="modal-search" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"><i class="icon-user-plus2"></i> Cari pasien</h4>
+			</div>
+			<form action="{{ URL('pasien/search') }}" role="form" method="POST">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="modal-body with-padding">
+              
+            	<div class="form-group">
+            		<div class="row">
+            			<div class="col-sm-6">
+            				<label>First name</label>
+            				<input placeholder="Eugene" class="form-control" type="text">
+            			</div>
+            			<div class="col-sm-6">
+            				<label class="control-label">Last name</label>
+            				<input placeholder="Kopyov" class="form-control" type="text">
+            			</div>
+            		</div>
+            	</div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit form</button>
+            </div>
+          </form>
+		</div>
+	</div>
 </div>
 
 <div id="iconified_modal" class="modal fade" tabindex="-1" role="dialog">

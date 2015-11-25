@@ -67,6 +67,7 @@ Route::post('pasien/update', 'PasienController@update');
 Route::get('pasien/delete-{id}', 'PasienController@delete');
 Route::get('pasien/getAjax/{id}', 'PasienController@getAjax');
 Route::get('pasien/detail/{id}', 'PasienController@detail');
+Route::post('pasien/search', 'PasienController@search');
 
 //OBAT
 Route::get('obat', 'ObatController@main');
