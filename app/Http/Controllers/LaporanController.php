@@ -53,7 +53,7 @@ class LaporanController extends Controller {
 				break;
 			
 			case 7:
-				$sql = "SELECT d.nama_dokter, COUNT(*) AS jumlah FROM users AS u, dokter AS d, dokter_user AS d_u WHERE u.id = d_u.users_id AND d.id = d_u.dokter_id GROUP BY d.nama_dokter";
+				$sql = "SELECT d.nama_dokter, COUNT(*) AS jumlah FROM users AS u, dokter AS d WHERE d.id = u.dokter_id GROUP BY d.nama_dokter";
 				$rows = DB::select(DB::raw($sql));
 				//dd($rows);
 				return view('admin.laporan.'.$id)->with('rows', $rows);

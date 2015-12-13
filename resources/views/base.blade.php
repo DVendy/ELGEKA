@@ -40,16 +40,19 @@
 
 	<script type="text/javascript" src="{{ URL::asset('js/dataTables.columnFilter.js')}}"></script>
 	<style>
-		.navigation > li ul > li> a > i {
-			font-size: 16px;
-			right: 14px;
-			top: 13px;
-			opacity: 0.5;
-			position: absolute;
-		}
-		.navbar-inverse {
-    background-color: #E54D4D;
-}
+	.navigation > li ul > li> a > i {
+		font-size: 16px;
+		right: 14px;
+		top: 13px;
+		opacity: 0.5;
+		position: absolute;
+	}
+	.navbar-inverse {
+		background-color: #E54D4D;
+	}
+	.dataTables_filter{
+		display: none;
+	}
 	</style>  
 
 	@yield('extraStyle')
@@ -61,12 +64,13 @@
 
 	@include('footer')
 
-    @section('footerScript')
-    
-    @show
-    
-    @section('footerExtraScript')
+	@section('footerScript')
 
-    @show
+	@show
+
+	@section('footerExtraScript')
+
+	@show
+	
 </body>
 </html>

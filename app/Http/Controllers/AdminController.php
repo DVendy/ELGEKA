@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\User;
+use App\Admin;
 
 use Hash;
 use Validator;
@@ -40,73 +40,106 @@ class AdminController extends Controller {
 		return view('admin.dashboard');
 	}
 
+	public function login()
+	{
+		return view('admin.login');
+	}
+
+	public function doLogin()
+	{
+		//dd(Input::all());
+		$validate = Validator::make(Input::all(), array(
+			'username' 	=> 'required|min:3',
+			'password' 	=> 'required|min:3',
+			));
+
+		if ($validate -> fails()){
+			return redirect('admin-login')->withErrors($validate)->withInput();
+		}
+		else{
+			$admin = Admin::where('username', Input::get('username'))->first();
+			if ($admin == null){
+				return redirect('admin-login')->with('fail', 1);
+			}
+			if ($admin->password == md5(Input::get('password'))){
+				\Session::put('mimin', $admin);
+				return redirect('dashboard');
+			}
+			return redirect('admin-login')->with('fail', 1);
+		}
+	}
+
+	public function doLogout()
+	{
+		\Session::forget('mimin');
+		return redirect('admin-login');
+	}
+
 	public function main()
 	{
-		$users = User::where('role', '=', 'admin')->paginate(25);
-		$users->setPath('');
-		return view('admin.main')->with('users', $users);
+		$admin = Admin::all();
+		return view('admin.main')->with('admin', $admin);
 	}
 
 	public function create()
 	{
 		$validate = Validator::make(Input::all(), array(
-			'username' 	=> 'required||unique:users',
+			'username' 	=> 'required||min:3||unique:admin',
 			'nama' 	=> 'required||min:3',
 			'password' 		=> 'required||min:5',
 			'password2' => 'same:password',
-			'email'	=> 'required||min:3',
-			'jk'	=> 'required',
+			'email'	=> 'required||min:3||unique:admin',
+			'alamat'	=> 'required||min:3',
+			'telepon'	=> 'required||min:3',
 			));
 
 		if ($validate -> fails()){
 			$validate = Validator::make(Input::all(), array(
-				'username' 	=> 'required||unique:users',
+				'username' 	=> 'required||min:3||unique:admin',
 				'nama' 	=> 'required||min:3',
 				'password' 		=> 'required||min:5',
 				'password2' => 'same:password',
-				'email'	=> 'required||min:3',
-				'jk'	=> 'required',
+				'email'	=> 'required||min:3||unique:admin',
+				'alamat'	=> 'required||min:3',
+				'telepon'	=> 'required||min:3',
 				'create' => 'required',
 				));
 			return redirect('admin')->withErrors($validate)->withInput();
 		}
 		else{		
 	    //
-			$user = new User();
+			$user = new Admin();
 			$user->username = Input::get('username');
-			$user->nama_pasien = Input::get('nama');
-			$user->password = Hash::make(Input::get('password'));
+			$user->nama = Input::get('nama');
+			$user->password = md5(Input::get('password'));
 			$user->email = Input::get('email');
-			$user->jk = Input::get('jk');
+			$user->alamat = Input::get('alamat');
+			$user->telepon = Input::get('telepon');
 
-			if (Input::has('ttl_t'))
-				$user->ttl_t = Input::get('ttl_t');
-			else				
-				$user->ttl_t = '';
+			if (Input::has('a_super')){
+				$user->a_super = 1;
+				$user->a_laporan = 1;
+				$user->a_data = 1;
+				$user->a_konfirmasi = 1;
+			}
+			else{
+				$user->a_super = 0;
+				$user->a_laporan = 0;
+				$user->a_data = 0;
+				$user->a_konfirmasi = 0;
+			}
 
-			if (Input::has('ttl_tl'))
-				$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('ttl_tl'));
-			else				
-				$user->ttl_tl = '';
+			if (Input::has('a_laporan'))
+				$user->a_laporan = 1;
 
-			if (Input::has('alamat'))
-				$user->alamat = Input::get('alamat');
-			else				
-				$user->alamat = '';
+			if (Input::has('a_data'))
+				$user->a_data = 1;
 
-			if (Input::has('hp1'))
-				$user->hp1 = Input::get('hp1');
-			else				
-				$user->hp1 = '';
+			if (Input::has('a_konfirmasi'))
+				$user->a_konfirmasi = 1;
 
-			if (Input::has('hp2'))
-				$user->hp2 = Input::get('hp2');
-			else				
-				$user->hp2 = '';
-
-
-			$user->role = 'admin';
 			$user->save();
+
 			return redirect('admin');
 		}
 	}

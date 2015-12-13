@@ -25,7 +25,7 @@ Halaman admin
 </div>
 <ul class="info-blocks" style="text-align: left;">
 	<li class="bg-primary">
-		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">New Admin</a><small>create new admin</small></div>
+		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">Admin Baru</a><small>tambah admin baru</small></div>
 		<a data-toggle="modal" role="button" href="#iconified_modal"><i class="icon-user-plus2"></i></a><span class="bottom-info bg-danger"></span>
 	</li>
 </ul>
@@ -41,11 +41,12 @@ Halaman admin
 					<th>Nama</th>
 					<th>Username</th>
 					<th>Email</th>
-					<th>L/P</th>
-					<th>TTL</th>
 					<th>Alamat</th>
-					<th>HP 1</th>
-					<th>HP 2</th>
+					<th>Telepon</th>
+					<th>Super</th>
+					<th>Laporan</th>
+					<th>Data</th>
+					<th>Konfirmasi</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -53,18 +54,18 @@ Halaman admin
 			<?php
 				$i = 1;
 			?>
-				@foreach($users as $key)
+				@foreach($admin as $key)
 				<tr>
 					<td>{{ $i}}</td>
-					<td>{{ $key->nama_pasien }}</td>
+					<td>{{ $key->nama }}</td>
 					<td>{{ $key->username }}</td>
 					<td>{{ $key->email }}</td>
-					<td style="text-transform: uppercase;">{{ $key->jk }}</td>
-					<td>{{ $key->ttl_t }}, {{ date_format(DateTime::createFromFormat('Y-m-d H:i:s', $key->ttl_tl),"d/m/Y") }}</td>
 					<td>{{ $key->alamat }}</td>
-					<td>{{ $key->hp1 }}</td>
-					<td>{{ $key->hp2 }}</td>
-					
+					<td>{{ $key->telepon }}</td>
+					<td class="text-center">{!! $key->a_super == 0 ? '' : '<i class="icon-checkmark text-success edit_user"></i>' !!}</td>
+					<td class="text-center">{!! $key->a_laporan == 0 ? '' : '<i class="icon-checkmark text-success edit_user"></i>' !!}</td>
+					<td class="text-center">{!! $key->a_data == 0 ? '' : '<i class="icon-checkmark text-success edit_user"></i>' !!}</td>
+					<td class="text-center">{!! $key->a_konfirmasi == 0 ? '' : '<i class="icon-checkmark text-success edit_user"></i>' !!}</td>
 					<td> 
 						<div class="pull-right">
 							<a href="#" data-toggle="modal" data-target="#edit_modal" title="Delete"><i class="icon-pencil text-success edit_user" id="{{ $key->id }}"></i></a>
@@ -83,9 +84,6 @@ Halaman admin
 			</tbody>
 		</table>
 	</div>
-</div>
-<div class="text-center block">
-	{!! $users->render() !!}
 </div>
 
 <div id="iconified_modal" class="modal fade" tabindex="-1" role="dialog">
@@ -139,22 +137,6 @@ Halaman admin
 						</div>
 					</div>
 					&nbsp;
-					<div class="form-group @if ($errors->has('ttl_t')) has-error @endif">
-						<label class="col-sm-2 control-label">Tempat lahir: </label>
-						<div class="col-sm-10">
-							<textarea class="form-control" name="ttl_t"></textarea>
-							@if ($errors->has('ttl_t')) <p class="help-block">{{ $errors->first('ttl_t') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
-					<div class="form-group @if ($errors->has('ttl_tl')) has-error @endif">
-						<label class="col-sm-2 control-label">Tanggal lahir: </label>
-						<div class="col-sm-10">
-							<input class="form-control" name="ttl_tl" data-mask="99/99/9999" type="text" placeholder="ex: 31/12/1995">
-							@if ($errors->has('ttl_tl')) <p class="help-block">{{ $errors->first('ttl_tl') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
 					<div class="form-group @if ($errors->has('alamat')) has-error @endif">
 						<label class="col-sm-2 control-label">Alamat: </label>
 						<div class="col-sm-10">
@@ -163,31 +145,39 @@ Halaman admin
 						</div>
 					</div>
 					&nbsp;
-					<div class="form-group @if ($errors->has('hp1')) has-error @endif">
-						<label class="col-sm-2 control-label">Nomor telepon 1: </label>
+					<div class="form-group @if ($errors->has('telepon')) has-error @endif">
+						<label class="col-sm-2 control-label">Nomor telepon: </label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="hp1"value="{{ Input::old('hp1') }}">
-							@if ($errors->has('hp1')) <p class="help-block">{{ $errors->first('hp1') }}</p> @endif
-						</div>
-					</div>
-					&nbsp;
-					<div class="form-group @if ($errors->has('hp2')) has-error @endif">
-						<label class="col-sm-2 control-label">Nomor telepon 2: </label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="hp2" value="{{ Input::old('hp2') }}">
-							@if ($errors->has('hp2')) <p class="help-block">{{ $errors->first('hp2') }}</p> @endif
+							<input type="text" class="form-control" name="telepon"value="{{ Input::old('telepon') }}">
+							@if ($errors->has('telepon')) <p class="help-block">{{ $errors->first('telepon') }}</p> @endif
 						</div>
 					</div>
 					&nbsp;
 					<div class="form-group">
-						<label class="col-sm-2 control-label">Jenis kelamin: </label>
+						<label class="col-sm-2 control-label">Role: </label>
 						<div class="col-sm-10">
-							<label class="radio-inline radio-success">
-							<input type="radio" name="jk" class="styled" checked="checked" value="l">
-							Laki - laki</label>
-							<label class="radio-inline radio-success">
-							<input type="radio" name="jk" class="styled" value="p">
-							Perempuan</label>
+							<div class="block-inner">
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker"><span class=""><input class="styled" type="checkbox" name="a_super" value="1"></span>
+									</div>
+									Super
+								</label>
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker"><span class=""><input class="styled" type="checkbox" name="a_laporan" value="1"></span>
+									</div>
+									Laporan
+								</label>
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker"><span class=""><input class="styled" type="checkbox" name="a_data" value="1"></span>
+									</div>
+									Data
+								</label>
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker"><span class=""><input class="styled" type="checkbox" name="a_konfirmasi" value="1"></span>
+									</div>
+									Konfirmasi
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>

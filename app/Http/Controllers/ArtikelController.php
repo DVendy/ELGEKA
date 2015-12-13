@@ -38,73 +38,29 @@ class ArtikelController extends Controller {
 
 	public function main()
 	{
-		$users = Artikel::all()->paginate(25);
-		$users->setPath('');
-		return view('admin.news')->with('users', $users);
+		$users = Artikel::all();
+		return view('admin.artikel')->with('artikels', $users);
 	}
 
 	public function create()
 	{
 		$validate = Validator::make(Input::all(), array(
-			'username' 	=> 'required||unique:users',
-			'nama' 	=> 'required||min:3',
-			'password' 		=> 'required||min:5',
-			'password2' => 'same:password',
-			'email'	=> 'required||min:3',
-			'jk'	=> 'required',
+			'judul' 	=> 'required||min:5',
+			'isi' 		=> 'required||min:5',
 			));
 
 		if ($validate -> fails()){
-			$validate = Validator::make(Input::all(), array(
-				'username' 	=> 'required||unique:users',
-				'nama' 	=> 'required||min:3',
-				'password' 		=> 'required||min:5',
-				'password2' => 'same:password',
-				'email'	=> 'required||min:3',
-				'jk'	=> 'required',
-				'create' => 'required',
-				));
-			return redirect('admin')->withErrors($validate)->withInput();
-		}
-		else{		
-	    //
-			$user = new User();
-			$user->username = Input::get('username');
-			$user->nama_pasien = Input::get('nama');
-			$user->password = Hash::make(Input::get('password'));
-			$user->email = Input::get('email');
-			$user->jk = Input::get('jk');
+			return redirect('artikel-admin-create')->withErrors($validate);
+		}else{
+			$artikel = new Artikel();
+			$artikel->judul = Input::get('judul');
+			$artikel->isi = Input::get('isi');
+			$artikel->user_id = \Session::get('mimin')->id;
+			$artikel->from = 1;
+			$artikel->save();
 
-			if (Input::has('ttl_t'))
-				$user->ttl_t = Input::get('ttl_t');
-			else				
-				$user->ttl_t = '';
-
-			if (Input::has('ttl_tl'))
-				$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('ttl_tl'));
-			else				
-				$user->ttl_tl = '';
-
-			if (Input::has('alamat'))
-				$user->alamat = Input::get('alamat');
-			else				
-				$user->alamat = '';
-
-			if (Input::has('hp1'))
-				$user->hp1 = Input::get('hp1');
-			else				
-				$user->hp1 = '';
-
-			if (Input::has('hp2'))
-				$user->hp2 = Input::get('hp2');
-			else				
-				$user->hp2 = '';
-
-
-			$user->role = 'admin';
-			$user->save();
-			return redirect('admin');
-		}
+			return redirect('artikel-admin');
+    	}
 	}
 
 	public function getAjax($id){

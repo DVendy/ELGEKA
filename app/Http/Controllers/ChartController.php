@@ -4,6 +4,7 @@ use DB;
 
 class ChartController extends Controller {
 	public function dashboard(){
+		//DB::connection()->enableQueryLog();
 		$sql = "SELECT a.nama_asuransi AS name, IFNULL(COUNT(u.id), 0) AS value FROM asuransi AS a LEFT JOIN users AS u ON u.asuransi_id = a.id GROUP BY a.nama_asuransi";
 		$asuransi = DB::select(DB::raw($sql));
 
@@ -27,7 +28,9 @@ class ChartController extends Controller {
 		foreach ($lol as $key => $value) {
 			$ribet[$value->nama_asuransi][$value->nama_penyakit] = $value->value;
 		}
-		//dd($ribet);
+		//var_dump(DB::getQueryLog());
+
+		//die();
 		return view('admin.dashboard')->with('asuransi', $asuransi)->with('obat', $obat)->with('penyakit', $penyakit)->with('data', $data)->with('ribet', $ribet);
 	}
 }

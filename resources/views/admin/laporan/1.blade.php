@@ -106,7 +106,9 @@ Manage laporan
     //   ]
     // }
     // );
-
+$('#example').dataTable( {
+        "sPaginationType": "full_numbers"
+      } );
     $('#example').dataTable().columnFilter(
     {
       aoColumns: [

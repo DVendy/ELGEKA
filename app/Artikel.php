@@ -11,10 +11,6 @@ class Artikel extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['judul', 'isi'];
-
-	public function user() {
-        return $this->belongsTo('App\User');
-    }
+	protected $fillable = [];
 
 }

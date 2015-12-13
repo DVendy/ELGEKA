@@ -2,12 +2,14 @@
 
 use App\User;
 use App\Artikel;
+use App\Admin;
 
 use Hash;
 use Validator;
 use Input;
 use DateTime;
 use Auth;
+use DB;
 
 class WelcomeController extends Controller {
 
@@ -39,8 +41,45 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		$artikel = Artikel::all();
-		return view('front.main')->with('artikel', $artikel);
+		$sql = "SELECT id, judul, isi FROM `artikel` ORDER BY `artikel`.`id` DESC LIMIT 5";
+		$rows = DB::select(DB::raw($sql));
+
+		$sql = "SELECT a.nama_asuransi, p.nama_penyakit, COUNT(u.id) AS value FROM asuransi AS a, penyakit AS p, users AS u WHERE a.id = u.asuransi_id AND p.id = u.penyakit_id GROUP BY a.nama_asuransi, p.nama_penyakit";
+		$lol = DB::select(DB::raw($sql));
+
+		$data = [];
+		$sql = "SELECT a.nama_asuransi AS name FROM asuransi AS a";
+		$data['asuransi'] = DB::select(DB::raw($sql));
+		$sql = "SELECT a.nama_penyakit AS name FROM penyakit AS a";
+		$data['penyakit'] = DB::select(DB::raw($sql));
+
+		$ribet = [];
+		foreach ($lol as $key => $value) {
+			$ribet[$value->nama_asuransi][$value->nama_penyakit] = $value->value;
+		}
+
+		return view('front.main')->with('artikel', $rows)->with('data', $data)->with('ribet', $ribet);
+	}
+
+	public function news()
+	{
+		$sql = "SELECT id, judul, isi FROM `artikel` ORDER BY `artikel`.`id` DESC";
+		$rows = DB::select(DB::raw($sql));
+		return view('front.news')->with('artikel', $rows);
+	}
+
+	public function berita($id)
+	{
+		$artikel = Artikel::find($id);
+		$author = null;
+		if($artikel->from == 1){
+			$author = Admin::find($artikel->user_id);
+			$name = $author->nama;
+		}else{
+			$author = User::find($artikel->user_id);
+			$name = $author->nama_pasien;
+		}
+		return view('front.news-detail')->with('artikel', $artikel)->with('author', $name);
 	}
 
 	public function login()

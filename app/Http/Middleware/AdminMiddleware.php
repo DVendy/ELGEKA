@@ -2,6 +2,7 @@
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Session;
 
 class AdminMiddleware {
 
@@ -21,6 +22,9 @@ class AdminMiddleware {
 
 	public function handle($request, Closure $next)
 	{
+		if (!Session::has('mimin')){
+			return redirect('admin-login');
+		}
 		return $next($request);
 	}
 

@@ -76,7 +76,9 @@ Manage laporan
 </div>
 <script type="text/javascript">
   $(document).ready(function() {
-
+$('#example').dataTable( {
+        "sPaginationType": "full_numbers"
+      } );
     $('#example').dataTable().columnFilter(
     {
       aoColumns: [
