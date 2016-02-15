@@ -1,5 +1,6 @@
 <?php
 
+use Akeneo\Component\SpreadsheetParser\SpreadsheetParser;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,6 +12,13 @@
 |
 */
 //GUEST
+Route::get('/asdf', function(){
+    Mail::send('emails.password',['key' => 'value'], function($message)
+    {
+        $message->to('d.vendy@yahoo.co.id', 'DVendy')->subject('Noob!');
+    });
+    return ('sent maybe...');
+});
 Route::get('/', 'WelcomeController@index');
 Route::get('berita', 'WelcomeController@news');
 Route::get('berita/{id}-{judul}', 'WelcomeController@berita');
@@ -63,10 +71,21 @@ Route::group(['middleware' => ['admin']], function()
 	Route::post('pasien/setAsuransi', 'MutasiController@mutasiAsuransi');
 	Route::post('pasien/setObat', 'MutasiController@mutasiObat');
 	Route::post('pasien/hapusObat', 'MutasiController@hapusObat');
+	Route::post('pasien/hapusPenyakit', 'MutasiController@hapusPenyakit');
+
+	Route::get('mutasi/rejectPenyakit/{id}', 'MutasiController@rejectPenyakit');
+	Route::get('mutasi/rejectRs/{id}', 'MutasiController@rejectRs');
+	Route::get('mutasi/rejectDokter/{id}', 'MutasiController@rejectDokter');
+	Route::get('mutasi/rejectAsuransi/{id}', 'MutasiController@rejectAsuransi');
+	Route::get('mutasi/rejectObat/{id}', 'MutasiController@rejectObat');
 
 //ARTIKEL
 	Route::get('artikel-admin', 'ArtikelController@main');
-	Route::post('artikel-admin-create', 'ArtikelController@create');
+	Route::get('artikel-admin-create', 'ArtikelController@create');
+	Route::get('artikel-admin-edit/{id}', 'ArtikelController@edit');
+	Route::get('artikel-admin-delete/{id}', 'ArtikelController@delete');
+	Route::post('artikel-admin-doCreate', 'ArtikelController@doCreate');
+	Route::post('artikel-admin-doEdit', 'ArtikelController@doEdit');
 
 //ADMIN
 	Route::get('admin', 'AdminController@main');
@@ -91,7 +110,7 @@ Route::group(['middleware' => ['admin']], function()
 	Route::get('obat/delete-{id}', 'ObatController@delete');
 	Route::get('obat/getAjax/{id}', 'ObatController@getAjax');
 
-//OBAT
+//asuransi
 	Route::get('asuransi', 'AsuransiController@main');
 	Route::post('asuransi/create', 'AsuransiController@create');
 	Route::post('asuransi/update', 'AsuransiController@update');
@@ -192,4 +211,85 @@ Route:: get('serverDt', function(){
 }*/
 
 return json_encode($results);
+});
+
+Route::post('excel', function(){
+	Input::file('file')->move(storage_path('/'), "noob.".Input::file('file')->getClientOriginalExtension());
+	$workbook = SpreadsheetParser::open(storage_path('/')."noob.".Input::file('file')->getClientOriginalExtension());
+	$myWorksheetIndex = $workbook->getWorksheetIndex('Sheet1');
+
+	$col = 5;
+	foreach ($workbook->createRowIterator($myWorksheetIndex) as $rowIndex => $values) {
+		if($rowIndex > 1 && isset($values[$col])){
+			if(strlen($values[$col]) > 1){
+				$data = App\User::where('nama_pasien', $values[$col])->first();
+				if ($data == null){
+					$data = new App\User();
+					$data->nama_pasien = $values[$col];
+					$data->username = "elgeka_".substr(str_replace(' ', '', strtolower($values[$col])), 0, 8).$rowIndex;
+					$data->password = Hash::make("elgeka");
+					
+					if (isset($values[3]) && (strlen($values[3]) > 1)){
+						$asdf = App\Provinsi::where('nama_provinsi', $values[3])->first();
+						$data->provinsi_id = $asdf->id;
+					}
+
+					if (isset($values[4]) && (strlen($values[4]) > 1)){
+						$asdf = App\Kotakab::where('nama_kotakab', $values[4])->first();
+						$data->kotakab_id = $asdf->id;
+					}
+
+					if (isset($values[6]))
+						$data->alamat = $values[6];
+					if (isset($values[7]))
+						$data->telp_rumah = $values[7];
+					if (isset($values[8]))
+						$data->hp1 = $values[8];
+					if (isset($values[9]))
+						$data->hp2 = $values[9];
+					if (isset($values[10]))
+						$data->tgl_masuk = $values[10];
+					if (isset($values[13]))
+						$data->code = $values[13];
+
+					$data->save();
+
+					if (isset($values[14])){
+						$asdf = App\Penyakit::where('nama_penyakit', $values[14])->first();
+						if($asdf != null)
+						$data->penyakits()->attach($asdf->id);
+					}
+
+					if (isset($values[15]) && isset($values[16])){
+						$asdf = App\Obat::where('nama_obat', $values[15])->first();
+						if($asdf != null)
+						$data->obats()->attach($asdf->id, ['dosis' => $values[16]]);
+					}
+
+					if (isset($values[17])){
+						$asdf = App\Rs::where('nama_rs', $values[17])->first();
+						if($asdf != null)
+						$data->rs_id = $asdf->id;
+					}
+
+					if (isset($values[18])){
+						$asdf = App\Dokter::where('nama_dokter', $values[18])->first();
+						if($asdf != null)
+						$data->dokter_id = $asdf->id;
+					}
+
+					if (isset($values[19])){
+						$asdf = App\Asuransi::where('nama_asuransi', $values[19])->first();
+						if($asdf != null)
+						$data->asuransi_id = $asdf->id;
+					}
+
+					if (isset($values[22]))
+						$data->status = $values[22];
+
+					$data->save();
+				}
+			}
+		}
+	}
 });

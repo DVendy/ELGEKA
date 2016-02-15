@@ -57,6 +57,38 @@ class PasienController extends Controller {
 		return view('admin.pasien')->with('users', $users)->with('provinsis', $provinsis);
 	}
 
+	public function search()
+	{
+		$query = new User();
+
+		if (Input::has('nama')){
+			$term = Input::get('nama');
+			$term = trim($term);
+			$term = str_replace(" ", "|", $term);
+			$query = $query->orWhereRaw("nama_pasien regexp '".$term."'");
+		}
+		if (Input::has('username')){
+			$term = Input::get('username');
+			$term = trim($term);
+			$term = str_replace(" ", "|", $term);
+			$query = $query->orWhereRaw("username regexp '".$term."'");
+		}
+		if (Input::has('email')){
+			$term = Input::get('email');
+			$term = trim($term);
+			$term = str_replace(" ", "|", $term);
+			$query = $query->orWhereRaw("email regexp '".$term."'");
+		}
+
+		$query->paginate(100);
+		$users = $query->paginate(50);
+		$users->setPath('');
+
+		$provinsis = Provinsi::all();
+		//dd($query);
+		return view('admin.pasien')->with('users', $users)->with('provinsis', $provinsis);
+	}
+
 	public function detail($id)
 	{
 		$pasien = User::find($id);
@@ -69,6 +101,11 @@ class PasienController extends Controller {
 		$obatsId = [];
 		foreach ($pasien->obats as $value) {
 			$obatsId[] = $value->id;
+		}
+
+		$penyakitsId = [];
+		foreach ($pasien->penyakits as $value) {
+			$penyakitsId[] = $value->id;
 		}
 
 		$riwayat = [];
@@ -92,7 +129,7 @@ class PasienController extends Controller {
 		
 		//dd($obats->toArray());
 
-		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis)->with('obatsId', $obatsId)->with('riwayat', $riwayat);
+		return view('admin.pasien-detail')->with('pasien', $pasien)->with('penyakits', $penyakits)->with('rss', $rss)->with('obats', $obats)->with('dokters', $dokters)->with('asuransis', $asuransis)->with('obatsId', $obatsId)->with('penyakitsId', $penyakitsId)->with('riwayat', $riwayat);
 	}
 
 	public function create()
@@ -105,9 +142,6 @@ class PasienController extends Controller {
 			'email'	=> 'required||min:3',
 			'jk'	=> 'required',
 			'alamat'	=> 'required',
-			'ttl_tl'	=> 'required',
-			'ttl_t'	=> 'required',
-			's_kelurahan'	=> 'required',
 			));
 
 		if ($validate -> fails()){
@@ -119,9 +153,6 @@ class PasienController extends Controller {
 				'email'	=> 'required||min:3',
 				'jk'	=> 'required',
 				'alamat'	=> 'required',
-				'ttl_tl'	=> 'required',
-				'ttl_t'	=> 'required',
-				's_kelurahan'	=> 'required',
 				'create' => 'required',
 				));
 			return redirect('pasien')->withErrors($validate)->withInput();
@@ -246,7 +277,7 @@ class PasienController extends Controller {
 	}
 
 	public function setPenyakit(){
-		dd(Input::all());
+		//dd(Input::all());
 		$validate = Validator::make(Input::all(), array(
 			'penyakit' 	=> 'required',
 			));
@@ -260,8 +291,8 @@ class PasienController extends Controller {
 		}
 		else{
 			$pasien = User::find(Input::get('edit_id'));
-			$pasien->penyakit_id = Input::get('penyakit');
-			$pasien->save();
+			$pasien->penyakits()->attach(Input::get('penyakit'));
+
 			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
 		}
 	}

@@ -11,14 +11,14 @@ class LaporanController extends Controller {
 	public function laporan($id){
 		switch ($id) {
 			case 1:
-				$sql = "SELECT pr.nama_provinsi, kt.nama_kotakab ,p.nama_penyakit, COUNT(*) AS jumlah FROM penyakit AS p, users AS u, rs, kelurahan AS kl, kecamatan AS kc, kotakab AS kt, provinsi AS pr WHERE u.penyakit_id = p.id AND u.rs_id = rs.id AND rs.kelurahan_id = kl.id AND kl.kecamatan_id = kc.id AND kc.kotakab_id = kt.id AND kt.provinsi_id = pr.id GROUP BY pr.nama_provinsi, kt.nama_kotakab ,p.nama_penyakit";
+				$sql = "SELECT pr.nama_provinsi, IFNULL(kt.nama_kotakab, '-') AS nama_kotakab, p.nama_penyakit, COUNT(*) AS jumlah FROM users AS u LEFT JOIN kotakab AS kt ON u.kotakab_id = kt.id LEFT JOIN provinsi as pr ON u.provinsi_id = pr.id LEFT JOIN penyakit_user as p_u ON u.id = p_u.users_id LEFT JOIN penyakit as p ON p.id = p_u.penyakit_id GROUP BY pr.nama_provinsi, nama_kotakab";
 				$rows = DB::select(DB::raw($sql));
 				//dd($rows);
 				return view('admin.laporan.'.$id)->with('rows', $rows);
 				break;
 			
 			case 2:
-				$sql = "SELECT pr.nama_provinsi, kt.nama_kotakab ,o.nama_obat, COUNT(*) AS jumlah FROM obat AS o, users AS u, rs, kelurahan AS kl, kecamatan AS kc, kotakab AS kt, provinsi AS pr, obat_user AS o_u WHERE o.id = o_u.obat_id AND u.id = o_u.users_id AND u.rs_id = rs.id AND rs.kelurahan_id = kl.id AND kl.kecamatan_id = kc.id AND kc.kotakab_id = kt.id AND kt.provinsi_id = pr.id GROUP BY pr.nama_provinsi, kt.nama_kotakab ,o.nama_obat";
+				$sql = "SELECT pr.nama_provinsi, IFNULL(kt.nama_kotakab, '-') AS nama_kotakab, p.nama_obat, COUNT(*) AS jumlah FROM users AS u LEFT JOIN kotakab AS kt ON u.kotakab_id = kt.id LEFT JOIN provinsi as pr ON u.provinsi_id = pr.id LEFT JOIN obat_user as p_u ON u.id = p_u.users_id LEFT JOIN obat as p ON p.id = p_u.obat_id GROUP BY pr.nama_provinsi, nama_kotakab";
 				$rows = DB::select(DB::raw($sql));
 				//dd($rows);
 				return view('admin.laporan.'.$id)->with('rows', $rows);
@@ -32,7 +32,7 @@ class LaporanController extends Controller {
 				break;
 			
 			case 4:
-				$sql = "SELECT pr.nama_provinsi, kt.nama_kotakab ,rs.nama_rs, COUNT(*) AS jumlah FROM users AS u, rs, kelurahan AS kl, kecamatan AS kc, kotakab AS kt, provinsi AS pr WHERE u.rs_id = rs.id AND rs.kelurahan_id = kl.id AND kl.kecamatan_id = kc.id AND kc.kotakab_id = kt.id AND kt.provinsi_id = pr.id GROUP BY pr.nama_provinsi, kt.nama_kotakab ,rs.nama_rs";
+				$sql = "SELECT pr.nama_provinsi, IFNULL(kt.nama_kotakab, '-') AS nama_kotakab, rs.nama_rs, COUNT(*) AS jumlah FROM users AS u LEFT JOIN kotakab AS kt ON u.kotakab_id = kt.id LEFT JOIN provinsi as pr ON u.provinsi_id = pr.id LEFT JOIN rs ON u.rs_id = rs.id GROUP BY pr.nama_provinsi, nama_kotakab, rs.nama_rs";
 				$rows = DB::select(DB::raw($sql));
 				//dd($rows);
 				return view('admin.laporan.'.$id)->with('rows', $rows);
@@ -68,6 +68,14 @@ class LaporanController extends Controller {
 			
 			case 9:
 				$sql = "SELECT a.nama_asuransi, IFNULL(COUNT(u.id), 0) AS jumlah FROM asuransi AS a LEFT JOIN users AS u ON u.asuransi_id = a.id GROUP BY a.nama_asuransi";
+				$rows = DB::select(DB::raw($sql));
+				//dd($rows);
+				return view('admin.laporan.'.$id)->with('rows', $rows);
+				break;
+
+			
+			case 10:
+				$sql = "SELECT pr.nama_provinsi, IFNULL(kt.nama_kotakab, '-') AS nama_kotakab, COUNT(*) AS jumlah FROM users AS u LEFT JOIN kotakab AS kt ON u.kotakab_id = kt.id LEFT JOIN provinsi as pr ON u.provinsi_id = pr.id GROUP BY pr.nama_provinsi, nama_kotakab";
 				$rows = DB::select(DB::raw($sql));
 				//dd($rows);
 				return view('admin.laporan.'.$id)->with('rows', $rows);

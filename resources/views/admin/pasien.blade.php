@@ -98,29 +98,29 @@ Manage pasien
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title"><i class="icon-user-plus2"></i> Cari pasien</h4>
+				<h4 class="modal-title"><i class="icon-user-plus2"></i> Cari data pasien</h4>
 			</div>
 			<form action="{{ URL('pasien/search') }}" role="form" method="POST">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="modal-body with-padding">
               
-            	<div class="form-group">
-            		<div class="row">
-            			<div class="col-sm-6">
-            				<label>First name</label>
-            				<input placeholder="Eugene" class="form-control" type="text">
-            			</div>
-            			<div class="col-sm-6">
-            				<label class="control-label">Last name</label>
-            				<input placeholder="Kopyov" class="form-control" type="text">
-            			</div>
-            		</div>
-            	</div>
+	        	<div class="form-group">
+					<label>Nama Pasien</label>
+					<input placeholder="Nama pasien" class="form-control" type="text" name="nama">
+	        	</div>
+	        	<div class="form-group">
+					<label>Username</label>
+					<input placeholder="Nama pasien" class="form-control" type="text" name="username">
+	        	</div>
+	        	<div class="form-group">
+					<label>Email</label>
+					<input placeholder="Nama pasien" class="form-control" type="text" name="email">
+	        	</div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Submit form</button>
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Cari</button>
             </div>
           </form>
 		</div>

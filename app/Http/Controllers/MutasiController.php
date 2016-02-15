@@ -18,7 +18,7 @@ use Auth;
 class MutasiController extends Controller {
 
 	public function index(){
-		$sql = "SELECT h.id, u.id AS id_pasien, u.nama_pasien, pp.nama_penyakit AS asal, p.nama_penyakit AS tujuan, h.tgl FROM penyakit_history as h, penyakit as p, users as u,(SELECT u.id, p.nama_penyakit FROM penyakit AS p, users AS u WHERE u.penyakit_id = p.id) AS pp WHERE h.users_id = u.id AND h.penyakit_id = p.id AND h.status = 0 AND u.id = pp.id";
+		$sql = "SELECT o_h.id, u.nama_pasien, u.id AS id_pasien, o.nama_penyakit, o_h.tgl FROM penyakit_history AS o_h, penyakit AS o, users AS u WHERE o_h.users_id = u.id AND o_h.penyakit_id = o.id AND o_h.status = 0";
 		$penyakit_history = DB::select(DB::raw($sql));
 
 		$sql = "SELECT h.id, u.id AS id_pasien, u.nama_pasien, pp.nama_rs AS asal, p.nama_rs AS tujuan, h.tgl FROM rs_history as h, rs as p, users as u,(SELECT u.id, p.nama_rs FROM rs AS p, users AS u WHERE u.rs_id = p.id) AS pp WHERE h.users_id = u.id AND h.rs_id = p.id AND h.status = 0 AND u.id = pp.id";
@@ -51,6 +51,26 @@ class MutasiController extends Controller {
 			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
 		}
 		else{
+			$pasien = User::find(Input::get('edit_id'));
+			$pasien->penyakits()->attach(Input::get('penyakit'));
+
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withInput()->with('penyakit', true);
+		}
+	}
+
+	public function hapusPenyakit(){
+		$validate = Validator::make(Input::all(), array(
+			'penyakit' 	=> 'required',
+			));
+
+		if ($validate -> fails()){
+			$validate = Validator::make(Input::all(), array(
+				'penyakit' 	=> 'required',
+				'update_penyakit' => 'required',
+				));
+			return redirect('pasien/detail/'.Input::get('edit_id'))->withErrors($validate)->withInput();
+		}
+		else{
 			if (Input::has('history_penyakit')){
 				//insert history
 				$history = Penyakit_history::where('users_id', Input::get('edit_id'))->where('status', 0)->first();
@@ -68,8 +88,8 @@ class MutasiController extends Controller {
 			}else{
 				//force
 				$pasien = User::find(Input::get('edit_id'));
-				$pasien->penyakit_id = Input::get('penyakit');
-				$pasien->save();
+				$pasien->penyakits()->detach(Input::get('penyakit'));
+
 				return redirect('pasien/detail/'.Input::get('edit_id'));
 			}
 		}
@@ -78,11 +98,10 @@ class MutasiController extends Controller {
 	public function setPenyakit($id){
 		$history = Penyakit_history::find($id);
 		//dd($history);
-		$pasien = User::find($history->users_id);
-		$temp = $pasien->penyakit_id;
 
-		$pasien->penyakit_id = $history->penyakit_id;
-		$history->penyakit_id = $temp;
+		$pasien = User::find($history->users_id);
+		$pasien->penyakits()->detach($history->penyakit_id);
+		$pasien->save();
 
 		$now = new DateTime();
 		$history->tgl = $now->format('Y-m-d H:i:s');
@@ -92,10 +111,16 @@ class MutasiController extends Controller {
 			$history->login = Auth::user()->id;
 		}
 
-		$pasien->save();
 		$history->save();
 
 		return redirect('mutasi')->with('success', true);
+	}
+
+	public function rejectPenyakit($id){
+		$history = Penyakit_history::find($id);
+		$history->delete();
+
+		return redirect('mutasi')->with('reject', true);
 	}
 
 	public function mutasiRs(){
@@ -158,6 +183,13 @@ class MutasiController extends Controller {
 		return redirect('mutasi')->with('success', true);
 	}
 
+	public function rejectRs($id){
+		$history = Rs_history::find($id);
+		$history->delete();
+		
+		return redirect('mutasi')->with('reject', true);
+	}
+
 	public function mutasiDokter(){
 		$validate = Validator::make(Input::all(), array(
 			'dokter' 	=> 'required',
@@ -218,6 +250,13 @@ class MutasiController extends Controller {
 		return redirect('mutasi')->with('success', true);
 	}
 
+	public function rejectDokter($id){
+		$history = Dokter_history::find($id);
+		$history->delete();
+		
+		return redirect('mutasi')->with('reject', true);
+	}
+
 	public function mutasiAsuransi(){
 		$validate = Validator::make(Input::all(), array(
 			'asuransi' 	=> 'required',
@@ -276,6 +315,13 @@ class MutasiController extends Controller {
 		$history->save();
 
 		return redirect('mutasi')->with('success', true);
+	}
+
+	public function rejectAsuransi($id){
+		$history = Asuransi_history::find($id);
+		$history->delete();
+		
+		return redirect('mutasi')->with('reject', true);
 	}
 
 	public function mutasiObat(){
@@ -354,5 +400,12 @@ class MutasiController extends Controller {
 		$history->save();
 
 		return redirect('mutasi')->with('success', true);
+	}
+
+	public function rejectObat($id){
+		$history = Obat_history::find($id);
+		$history->delete();
+		
+		return redirect('mutasi')->with('reject', true);
 	}
 }

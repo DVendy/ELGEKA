@@ -23,6 +23,18 @@ Halaman admin
 		<li class="active">Admin</li>
 	</ul>
 </div>
+<!--
+<div class="breadcrumb-line">
+<form action="{{ URL('excel') }}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+	<div class="form-group @if ($errors->has('error')) has-error @endif">
+		<label>File</label>
+		<input name="file" id="file" type="file" class="file btn-success" accept=".xlsx; .xls"></input>
+	</div>
+	<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-download2"></i> Import</button>
+</form>
+</div>
+-->
 <ul class="info-blocks" style="text-align: left;">
 	<li class="bg-primary">
 		<div class="top-info"><a data-toggle="modal" role="button" href="#iconified_modal">Admin Baru</a><small>tambah admin baru</small></div>

@@ -48,15 +48,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsTo('App\Asuransi');
     }
 
-	public function penyakit() {
-        return $this->belongsTo('App\Penyakit');
-    }
-
     public function dokter() {
         return $this->belongsTo('App\Dokter');
     }
 
     public function obats() {
-        return $this->belongsToMany('App\Obat', 'obat_user', 'users_id', 'obat_id');
+        return $this->belongsToMany('App\Obat', 'obat_user', 'users_id', 'obat_id')
+		    	->withPivot('dosis')
+		    	->withTimestamps();
+    }
+
+    public function penyakits() {
+        return $this->belongsToMany('App\Penyakit', 'penyakit_user', 'users_id', 'penyakit_id')->withTimestamps();
     }
 }

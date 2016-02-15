@@ -207,7 +207,7 @@ Halaman utama
                 @foreach($penyakit as $key => $value)
                 {
                     name: "{{ $value->name }}",
-                    y: {{ $value->value }}
+                    y: {{ $value->jumlah }}
                 },
                 @endforeach
                 ]

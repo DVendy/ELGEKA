@@ -44,6 +44,13 @@ Detail pasien
 	<p>Obat berhasil ditambahkan.</p>
 </div>
 @endif
+@if (Session::has('penyakit'))
+<div class="callout callout-success fade in">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<h5>Penyakit berhasil ditambahkan</h5>
+	<p>Penyakit berhasil ditambahkan.</p>
+</div>
+@endif
 
 <div class="tabbable page-tabs">
 	<ul class="nav nav-tabs">
@@ -58,14 +65,27 @@ Detail pasien
 					<div class="col-sm-8">
 						<input class="form-control" readonly="readonly" value="{{ $pasien->nama_pasien }}" type="text" autocomplete="off">
 					</div>
-				</div> 
+				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Penyakit </label>
 					<div class="col-sm-8">
-						<input class="form-control" readonly="readonly" value="{{ isset($pasien->penyakit->nama_penyakit) ? $pasien->penyakit->nama_penyakit : '-' }}" type="text" autocomplete="off">
+					@if($pasien->penyakits->count() != 0)
+					@foreach($pasien->penyakits as $penyakit)
+					<div class="row" style="padding:0px 0px 20px 0px;">
+						<div class="col-sm-10">
+							<input class="form-control" readonly="readonly" value="{{ $penyakit->nama_penyakit }}" type="text" autocomplete="off">
+						</div>
+						<div class="col-sm-2 text-right">
+							<a data-toggle="modal" href="#modal_penyakit_delete" class="btn btn-icon btn-danger penyakit_delete" id="{{ $penyakit->id }}"><i class="icon-close" id="{{ $penyakit->id }}"></i></a>
+						</div>
+					</div>
+					@endforeach
+					@else
+					<p>-</p>
+					@endif
 					</div>
 					<div class="col-sm-2 text-center">
-						<a data-toggle="modal" href="#modal_penyakit" class="btn btn-info"><i class="icon-heart6"></i> Mutasi</a>
+						<a class="btn btn-info" data-toggle="modal" href="#modal_penyakit"><i class="icon-inject"></i> Tambah</a>
 					</div>
 				</div>
 				<div class="form-group">
@@ -227,15 +247,11 @@ Detail pasien
 							<div class="col-md-9">
 								<select name="penyakit" class="form-control">
 									<option value="">- Pilih penyakit -</option>
-									@foreach($penyakits as $value)
-										@if($pasien->penyakit_id != 0)
-											@if($pasien->penyakit->id != $value->id)
-												<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
-											@endif
-										@else
-											<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
-										@endif
-									@endforeach
+					                @foreach($penyakits as $value)
+					                	@if(!in_array($value->id, $penyakitsId) )
+				                		<option value="{{ $value->id }}">{{ $value->nama_penyakit }}</option>
+				                		@endif
+					               	@endforeach
 								</select>
 								@if ($errors->has('penyakit')) <p class="help-block">{{ $errors->first('penyakit') }}</p> @endif
 							</div>
@@ -267,6 +283,46 @@ Detail pasien
 		</div>
 	</div>
 </div>
+
+<div id="modal_penyakit_delete" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"><i class="icon-inject"></i> Manage penyakit</h4>
+			</div>
+			<form action="{{URL('pasien/hapusPenyakit')}}" method="post" class="form-horizontal">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<input type="hidden" name="edit_id" value="{{ $pasien->id }}" id="edit_id">
+			<input type="hidden" name="penyakit" id="value_penyakit_delete">
+			<div class="modal-body">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Catat ke riwayat? </label>
+						<div class="col-sm-9">
+							<div class="block-inner" style="margin-bottom:0px;">
+								<label class="checkbox-inline checkbox-success">
+									<div class="checker">
+										<span class="checked">
+											<input class="styled" checked="checked" type="checkbox" name="history_penyakit">
+										</span>
+									</div>
+									Catat
+								</label>
+							</div>
+						</div>
+					</div>				
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-warning" data-dismiss="modal"><i class="icon-cancel-circle"></i> Batal</button>
+				<button class="btn btn-primary" type="submit" value="Import" id="form-overview"><i class="icon-disk"></i> Hapus</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <div id="modal_rs" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -517,6 +573,10 @@ Detail pasien
 	$(document).ready(function() {
 		$(".obat_delete").click(function(event){
 			var elem = document.getElementById("value_obat_delete");
+			elem.value = event.target.id;
+		});
+		$(".penyakit_delete").click(function(event){
+			var elem = document.getElementById("value_penyakit_delete");
 			elem.value = event.target.id;
 		});
 	});

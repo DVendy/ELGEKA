@@ -38,11 +38,28 @@ class ArtikelController extends Controller {
 
 	public function main()
 	{
-		$users = Artikel::all();
-		return view('admin.artikel')->with('artikels', $users);
+		$users = Artikel::orderBy('created_at', 'desc')->paginate(10);
+		return view('admin.artikel.index')->with('artikels', $users);
 	}
 
 	public function create()
+	{
+		return view('admin.artikel.create');
+	}
+
+	public function edit($id)
+	{
+		$artikel = Artikel::find($id);
+		return view('admin.artikel.edit')->with('artikel', $artikel);
+	}
+
+	public function delete($id)
+	{
+		$artikel = Artikel::find($id)->delete();
+		return redirect('artikel-admin')->with('delete', 1);
+	}
+
+	public function doCreate()
 	{
 		$validate = Validator::make(Input::all(), array(
 			'judul' 	=> 'required||min:5',
@@ -57,6 +74,25 @@ class ArtikelController extends Controller {
 			$artikel->isi = Input::get('isi');
 			$artikel->user_id = \Session::get('mimin')->id;
 			$artikel->from = 1;
+			$artikel->save();
+
+			return redirect('artikel-admin');
+    	}
+	}
+
+	public function doEdit()
+	{
+		$validate = Validator::make(Input::all(), array(
+			'judul' 	=> 'required||min:5',
+			'isi' 		=> 'required||min:5',
+			));
+
+		if ($validate -> fails()){
+			return redirect('artikel-admin-create')->withErrors($validate);
+		}else{
+			$artikel = Artikel::find(Input::get('id'));
+			$artikel->judul = Input::get('judul');
+			$artikel->isi = Input::get('isi');
 			$artikel->save();
 
 			return redirect('artikel-admin');
@@ -123,12 +159,6 @@ class ArtikelController extends Controller {
 			$user->save();
 			return redirect('admin');
 		}
-	}
-
-	public function delete($id){
-		$user = User::find($id);
-		$user->delete();
-		return redirect('admin');
 	}
 
 }

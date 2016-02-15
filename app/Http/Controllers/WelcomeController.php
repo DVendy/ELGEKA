@@ -44,7 +44,7 @@ class WelcomeController extends Controller {
 		$sql = "SELECT id, judul, isi FROM `artikel` ORDER BY `artikel`.`id` DESC LIMIT 5";
 		$rows = DB::select(DB::raw($sql));
 
-		$sql = "SELECT a.nama_asuransi, p.nama_penyakit, COUNT(u.id) AS value FROM asuransi AS a, penyakit AS p, users AS u WHERE a.id = u.asuransi_id AND p.id = u.penyakit_id GROUP BY a.nama_asuransi, p.nama_penyakit";
+		$sql = "SELECT a.nama_asuransi, p.nama_penyakit, COUNT(u.id) AS value FROM asuransi AS a, penyakit AS p, users AS u, penyakit_user as p_u WHERE a.id = u.asuransi_id AND p.id = p_u.penyakit_id AND u.id = p_u.users_id GROUP BY a.nama_asuransi, p.nama_penyakit";
 		$lol = DB::select(DB::raw($sql));
 
 		$data = [];
@@ -89,7 +89,9 @@ class WelcomeController extends Controller {
 
 	public function register()
 	{
-		return view('front.register');
+		$provinsis = \App\Provinsi::all();
+
+		return view('front.register')->with('provinsis', $provinsis);
 	}
 
 	public function doRegister()
@@ -102,8 +104,6 @@ class WelcomeController extends Controller {
 			'email'	=> 'required||min:3',
 			'jk'	=> 'required',
 			'alamat'	=> 'required',
-			'ttl_tl'	=> 'required',
-			'ttl_t'	=> 'required',
 			));
 
 		if ($validate -> fails()){
@@ -115,8 +115,6 @@ class WelcomeController extends Controller {
 				'email'	=> 'required||min:3',
 				'jk'	=> 'required',
 				'alamat'	=> 'required',
-				'ttl_tl'	=> 'required',
-				'ttl_t'	=> 'required',
 				'create' => 'required',
 				));
 			return redirect('register')->withErrors($validate)->withInput();
@@ -132,16 +130,7 @@ class WelcomeController extends Controller {
 			$user->ttl_tl = DateTime::createFromFormat('d/m/Y', Input::get('ttl_tl'));
 			$user->ttl_t = Input::get('ttl_t');
 			$user->alamat = Input::get('alamat');
-
-			if (Input::has('rt'))
-				$user->rt = Input::get('rt');
-			else				
-				$user->rt = '';
-
-			if (Input::has('rw'))
-				$user->rw = Input::get('rw');
-			else				
-				$user->rw = '';
+			$user->kelurahan_id = Input::get('s_kelurahan');
 
 			if (Input::has('hp1'))
 				$user->hp1 = Input::get('hp1');

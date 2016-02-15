@@ -69,14 +69,9 @@ Manage laporan
         <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/9') }}">8. Jumlah pasien berdasarkan program</a></h6>
       </div>
     </div>
-    <div class="panel panel-danger">
+    <div class="panel panel-default">
       <div class="panel-heading">
-        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/10') }}">9. Alamat pasien berdasarkan kecamatan</a></h6>
-      </div>
-    </div>
-    <div class="panel panel-danger">
-      <div class="panel-heading">
-        <h6 class="panel-title"><a class="collapsed" href="#">11. Jumlah pasien berdasarkan perkota</a></h6>
+        <h6 class="panel-title"><a class="collapsed" href="{{ URL('laporan/10') }}">9. Jumlah pasien berdasarkan kota</a></h6>
       </div>
     </div>
   </div>

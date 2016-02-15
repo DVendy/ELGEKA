@@ -15,7 +15,10 @@
 			</div>
 		</div>
 		<div class="form-actions text-right">
+			<!--
 			<button type="submit" class="btn btn-warning">Masuk</button>
+		-->
+			<a href="{{ URL('register') }}" class="btn btn-info">Daftar</a>
       	</div>
 	</form>
 </div>

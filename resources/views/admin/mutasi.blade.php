@@ -32,6 +32,14 @@ Halaman konfirmasi mutasi
 </div>
 @endif
 
+@if (Session::has('reject'))
+<div class="callout callout-success fade in">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<h5>Mutasi berhasil ditolak</h5>
+	<p>Mutasi berhasil ditolak.</p>
+</div>
+@endif
+
 <div class="tabbable page-tabs">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#penyakit" data-toggle="tab"><i class="icon-heart6"></i> Penyakit<span class="label label-{{ count($penyakit_history) == 0 ? 'success' : 'danger' }}">{{ count($penyakit_history) }}</span></a></li>
@@ -53,7 +61,6 @@ Halaman konfirmasi mutasi
 								<th class="col-sm-1">#</th>
 								<th>Nama</th>
 								<th>Penyakit</th>
-								<th>Mutasi ke</th>
 								<th>Tanggal</th>
 								<th class="col-sm-3">Action</th>
 							</tr>
@@ -65,13 +72,12 @@ Halaman konfirmasi mutasi
 							@foreach($penyakit_history as $key)
 							<tr>
 								<td>{{ $i}}</td>
-								<td>{{ $key->nama_pasien }} <a href="{{ URL('pasien/detail/'.$key->id_pasien) }}" title="Detail"><i class="icon-zoom-in text-success pull-right"></i></a></td>
-								<td>{{ $key->asal }}</td>
-								<td>{{ $key->tujuan }}</td>
+								<td>{{ $key->nama_pasien }} <a href="{{ URL('pasien/detail/'.$key->id) }}" title="Detail"><i class="icon-zoom-in text-success pull-right"></i></a></td>
+								<td>{{ $key->nama_penyakit }}</td>
 								<td>{{ $key->tgl }}</td>
 								<td class="text-center"> 
-									<a href="{{ URL('mutasi/penyakit/'.$key->id) }}" class="btn btn-success">Approve</a>
-									<a href="#" class="btn btn-danger">Reject</a>
+									<a href="{{ URL('mutasi/penyakit/'.$key->id) }}" class="btn btn-success">Terima</a>
+									<a href="{{ URL('mutasi/rejectPenyakit/'.$key->id) }}" class="btn btn-danger">Tolak</a>
 								</td>
 							</tr>
 							<?php
@@ -112,8 +118,8 @@ Halaman konfirmasi mutasi
 								<td>{{ $key->tujuan }}</td>
 								<td>{{ $key->tgl }}</td>
 								<td class="text-center"> 
-									<a href="{{ URL('mutasi/rs/'.$key->id) }}" class="btn btn-success">Approve</a>
-									<a href="#" class="btn btn-danger">Reject</a>
+									<a href="{{ URL('mutasi/rs/'.$key->id) }}" class="btn btn-success">Terima</a>
+									<a href="{{ URL('mutasi/rejectRs/'.$key->id) }}" class="btn btn-danger">Tolak</a>
 								</td>
 							</tr>
 							<?php
@@ -154,8 +160,8 @@ Halaman konfirmasi mutasi
 								<td>{{ $key->tujuan }}</td>
 								<td>{{ $key->tgl }}</td>
 								<td class="text-center"> 
-									<a href="{{ URL('mutasi/dokter/'.$key->id) }}" class="btn btn-success">Approve</a>
-									<a href="#" class="btn btn-danger">Reject</a>
+									<a href="{{ URL('mutasi/dokter/'.$key->id) }}" class="btn btn-success">Terima</a>
+									<a href="{{ URL('mutasi/rejectDokter/'.$key->id) }}" class="btn btn-danger">Tolak</a>
 								</td>
 							</tr>
 							<?php
@@ -196,8 +202,8 @@ Halaman konfirmasi mutasi
 								<td>{{ $key->tujuan }}</td>
 								<td>{{ $key->tgl }}</td>
 								<td class="text-center"> 
-									<a href="{{ URL('mutasi/asuransi/'.$key->id) }}" class="btn btn-success">Approve</a>
-									<a href="#" class="btn btn-danger">Reject</a>
+									<a href="{{ URL('mutasi/asuransi/'.$key->id) }}" class="btn btn-success">Terima</a>
+									<a href="{{ URL('mutasi/rejectAsuransi/'.$key->id) }}" class="btn btn-danger">Tolak</a>
 								</td>
 							</tr>
 							<?php
@@ -236,8 +242,8 @@ Halaman konfirmasi mutasi
 								<td>{{ $key->nama_obat }}</td>
 								<td>{{ $key->tgl }}</td>
 								<td class="text-center"> 
-									<a href="{{ URL('mutasi/obat/'.$key->id) }}" class="btn btn-success">Approve</a>
-									<a href="#" class="btn btn-danger">Reject</a>
+									<a href="{{ URL('mutasi/obat/'.$key->id) }}" class="btn btn-success">Terima</a>
+									<a href="{{ URL('mutasi/rejectObat/'.$key->id) }}" class="btn btn-danger">Tolak</a>
 								</td>
 							</tr>
 							<?php
